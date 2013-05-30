@@ -1,0 +1,21 @@
+.MainContent{
+	list-style: none;
+	margin: 100px 50px 100px 50px;
+	border-radius:20px;
+	padding: 50px;
+	overflow: hidden;
+	min-height:768px;
+}
+footer{
+	color:white;
+	background-color: #044687;
+	width: 100%;
+	padding: 10px 0 10px 0;
+	font-weight: bold;
+}
+footer a{
+	color:white;
+	text-decoration: underline;
+	background-color: #044687;
+	font-weight: normal;
+}

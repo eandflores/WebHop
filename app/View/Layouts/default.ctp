@@ -1,61 +1,60 @@
-<?php
-/**
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       Cake.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
-
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-?>
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/Clinica/img/logo.jpg">
+<title>Clinica</title>
 
-		echo $this->Html->css('cake.generic');
+<?php
+  echo $this->Html->css("reset.css");
+  echo $this->Html->css("bootstrap.css");
+  echo $this->Html->css("main.css");
+?>
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+<script type="text/javascript" src="/Clinica/js/jquery-1.7.2.js"></script>
+<style type="text/css">
+</style>
 </head>
 <body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
-		</div>
-	</div>
-	<?php echo $this->element('sql_dump'); ?>
+  <div id="wrapper">
+      <div class="navbar navbar-fixed-top">
+       <div class="navbar-inner">
+         <div class="container">
+           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </a>
+           <a class="brand" href="../">Hop!</a>
+           <div class="nav-collapse collapse" id="main-menu">
+            <ul class="nav" id="main-menu-left">
+              <li><a href="#">Inicio</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión Administradores<b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="../default/">Mostrar</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Agregar</a></li>
+                  <li><a href="#">Modificar</a></li>
+                  <li><a href="#">Eliminar</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav pull-right" id="main-menu-right">
+              <li><a href="http://builtwithbootstrap.com/">Registrarse <i class="icon-share-alt"></i></a></li>
+              <li><a href="https://wrapbootstrap.com/?ref=bsw">Iniciar Sesión <i class="icon-share-alt"></i></a></li>
+            </ul>
+           </div>
+         </div>
+       </div>
+      </div>
+      <div class="MainContent well Mensaje">
+      </div>
+  </div>
 </body>
-</html>
+<?php
+  echo $this->Html->script("jquery.js");
+  echo $this->Html->script("bootstrap.js");
+?>
+
