@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="shortcut icon" href="/Clinica/img/logo.jpg">
-<title>Clinica</title>
+<link rel="shortcut icon" href="/Hop/img/logo.jpg">
+<title>Hop</title>
 
 <?php
   echo $this->Html->css("reset.css");
@@ -12,7 +12,7 @@
   echo $this->Html->css("main.css");
 ?>
 
-<script type="text/javascript" src="/Clinica/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="/Hop/js/jquery-1.7.2.js"></script>
 <style type="text/css">
 </style>
 </head>
@@ -20,7 +20,7 @@
   <div id="wrapper">
       <div class="navbar navbar-fixed-top">
        <div class="navbar-inner">
-         <div class="container">
+         <div class="container" style="padding-top: 20px;padding-bottom: 20px">
            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
@@ -50,6 +50,7 @@
        </div>
       </div>
       <div class="MainContent well Mensaje">
+        <?php echo $this->fetch('content'); ?>
       </div>
   </div>
 </body>
