@@ -6,25 +6,10 @@
 		</div>
 <?php } ?>
 <?php $this->Session->flash(); ?>
-<form class="form-horizontal"  style="padding-left:100px;" method='post'>
-	<fieldset>
-        <legend>Iniciar Sesión</legend>
-		<?php $this->Session->flash('Auth'); ?>
-		<div class="control-group">
-			<label class="control-label" for="username">Username:</label>
-		    <div class="controls">
-		      <input type="text" id="username" name='username' placeholder="Username" required	>
-		    </div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="password">Password:</label>
-		    <div class="controls">
-		      <input type="password" id="password" name='password' placeholder="Password" required>
-		    </div>
-		</div>
-		<div class='form-actions'>
-		 	<button type='submit' class='btn btn-success'><i class='icon-user'></i> Iniciar Sesión</button>
-		 	<button type='reset' class='btn btn-warning'><i class='icon-remove'></i> Cancelar</button>
-		</div>
-	</fieldset>
-</form>
+<h2>Iniciar Sesión</h2>
+<?php
+	echo $this->Form->create();
+	echo $this->Form->input('username');
+	echo $this->Form->input('password');
+	echo $this->Form->end('Login');
+?>

@@ -42,8 +42,8 @@
             </ul>
             <ul class="nav pull-right" id="main-menu-right">
               <li><a href="#">Registrarse <i class="icon-share-alt"></i></a></li>
-              <li><a href="/Hop/Users/login">Iniciar Sesión <i class="icon-share-alt"></i></a></li>
-              <li><a href="/Hop/Users/logout">Cerrar Sesión <i class="icon-share-alt"></i></a></li>
+              <li><a href="/Hop/users/login">Iniciar Sesión <i class="icon-share-alt"></i></a></li>
+              <li><a href="/Hop/users/logout">Cerrar Sesión <i class="icon-share-alt"></i></a></li>
             </ul>
            </div>
          </div>

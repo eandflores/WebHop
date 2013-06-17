@@ -2,6 +2,8 @@
 
 	class UsersController extends AppController {
 		
+		public $name = 'users';
+
 		var $uses = array('User','Region','Comuna');
 		var $sacaffold;
 
@@ -24,13 +26,6 @@
 			$this->set('comunas',$this->Comuna->find('all'));
 
 			if ($this->request->is('post')) {
-				$this->request->data['aportes_totales'] = 0;
-				$this->request->data['aportes_aprobados'] = 0;
-				$this->request->data['cant_votos_positivos'] = 0;
-				$this->request->data['cant_votos_negativos'] = 0;
-				$this->request->data['cant_comentarios'] = 0;
-				$this->request->data['fecha_actualizacion'] = date('Y-m-d');
-				$this->request->data['estado'] = true;
 				$this->request->data['rol_id'] = 1;
 
 				if ($this->User->save($this->request->data)) {
