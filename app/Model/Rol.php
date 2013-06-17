@@ -3,5 +3,7 @@
 		
 		public $name = 'Rol';
 
+		var $hasMany='User';
+
 	}
 ?>
