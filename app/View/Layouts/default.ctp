@@ -25,31 +25,45 @@
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
            </a>
-           <a class="brand" href="../">Hop!</a>
+           <a class="brand" href="Hop">Hop!</a>
            <div class="nav-collapse collapse" id="main-menu">
             <ul class="nav" id="main-menu-left">
-              <li><a href="#">Inicio</a></li>
+              <li><a href="/Hop">Inicio</a></li>
+              <li><a href="/Hop/users">Gestión Usuarios</a></li>
+              <li><a href="/Hop/locals">Gestión Locales</a></li>
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión Administradores<b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
-                  <li><a href="../default/">Mostrar</a></li>
+                  <li><a href="/Hop/productos">Productos</a></li>
+                  <li><a href="/Hop/CategoriaProductos">Categorias</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">Agregar</a></li>
-                  <li><a href="#">Modificar</a></li>
-                  <li><a href="#">Eliminar</a></li>
+                  <li><a href="/Hop/productos/add">Agregar Producto</a></li>
+                  <li><a href="/Hop/CategoriaProductos/add">Agregar Categoria</a></li>
+                  <li><a href="/Hop/productos/edit">Modificar</a></li>
+                  <li><a href="/Hop/productos/delete">Eliminar</a></li>
                 </ul>
               </li>
             </ul>
             <ul class="nav pull-right" id="main-menu-right">
-              <li><a href="#">Registrarse <i class="icon-share-alt"></i></a></li>
-              <li><a href="/Hop/users/login">Iniciar Sesión <i class="icon-share-alt"></i></a></li>
-              <li><a href="/Hop/users/logout">Cerrar Sesión <i class="icon-share-alt"></i></a></li>
+              <?php if ($logged_in): ?>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $current_user['username']; ?><b class="caret"></b></a>
+                  <ul class="dropdown-menu" id="swatch-menu">
+                    <li><a href="/Hop/Users/edit">Configurar Cuenta</a></li>
+                    <li><a href="/Hop/Users/logout">Cerrar Sesión</a></li>
+                  </ul>
+                </li>
+              <?php else: ?>
+                <li><a href="/Hop/users/add">Registrarse <i class="icon-share-alt"></i></a></li>
+                <li><a href="/Hop/users/login">Iniciar Sesión <i class="icon-share-alt"></i></a></li>
+              <?php endif; ?>
             </ul>
            </div>
          </div>
        </div>
       </div>
       <div class="MainContent well">
+        <?php echo $this->Session->flash(); ?>
         <?php echo $this->fetch('content'); ?>
       </div>
   </div>

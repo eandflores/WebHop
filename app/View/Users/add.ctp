@@ -101,7 +101,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-inverse">Agregar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Clinica/Administrador/Admin/index.php'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop'">Atras</button>
         </div>
     </fieldset>
 </form>
