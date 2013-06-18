@@ -29,6 +29,7 @@
 				$rut = $this->request->data['rut'];
 				$username = $this->request->data['username'];
 				$email = $this->request->data['email'];
+				
 				if($this->User->existe('rut',$rut)){
 					$this->Session->setFlash('El rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
@@ -45,7 +46,7 @@
 						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'add'));
 					} else {
-						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-success"));
+						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
 						$this->redirect(array('action' => 'add'));
 					}
 				} 
@@ -84,7 +85,8 @@
 					$this->redirect($this->Auth->redirect());
 				}
 				else{
-					$this->set("error",true);
+					$this->Session->setFlash('Error iniciando sesión, username o password incorrecto','default', array("class" => "alert alert-error"));
+        			$this->redirect(array('action' => 'login'));
 				}
 			}
 		}

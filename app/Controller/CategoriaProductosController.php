@@ -3,6 +3,8 @@
 		
 		public $name = 'CategoriaProductos';
 
+		var $sacaffold;
+		
 		public function index() {
 			$this->set('categoriaproductos', $this->CategoriaProducto->find('all'));
 		}

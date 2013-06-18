@@ -1,5 +1,6 @@
 <form class="form-horizontal well"  method="post">
     <fieldset>
+        <legend>Registrarse</legend>
     	<div class="control-group">
             <label class="control-label" for="inputRut">Rut:</label>
             <div class="controls">
@@ -43,13 +44,13 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputPassword">Password</label>
+            <label class="control-label" for="inputPassword">Password:</label>
             <div class="controls">
               <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="50" required>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="selectRegion">Region</label>
+            <label class="control-label" for="selectRegion">Region:</label>
             <div class="controls">
               <select id="selectRegion" name="region_id">
                 <?php if(isset($regiones)){
@@ -70,7 +71,7 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="selectComuna">Comuna</label>
+            <label class="control-label" for="selectComuna">Comuna:</label>
             <div class="controls">
               <select id="selectComuna" name="comuna_id">
                 <?php if(isset($comunas)){
@@ -100,7 +101,7 @@
             </div>
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn btn-inverse">Agregar</button>
+            <button type="submit" class="btn btn-success">Agregar</button>
             <button type="reset" class="btn btn-danger" onclick="window.location='/Hop'">Atras</button>
         </div>
     </fieldset>

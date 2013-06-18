@@ -1,10 +1,3 @@
-<?php if(isset($error)){ ?>
-		<div class="alert alert-error">
-  			<button type="button" class="close" data-dismiss="alert">&times;</button>
-  			<strong>Error iniciando sesión.</strong>
-		  	Username o Password incorrecto, inténtelo de nuevo
-		</div>
-<?php } ?>
 <form class="form-horizontal" method='post' action='/Hop/users/login' style='padding-left:100px' id='UserLoginForm'>
 	<fieldset>
         <legend>Iniciar Sesión</legend>
@@ -21,8 +14,8 @@
 		    </div>
 		</div>
 		<div class='form-actions'>
-		 	<button type='submit' class='btn btn-success' value='Login'><i class='icon-user'></i> Iniciar Sesión</button>
-		 	<button type='reset' href='/Hop' class='btn btn-warning'><i class='icon-remove'></i> Cancelar</button>
+		 	<button type='submit' class='btn btn-success' value='Login'>Iniciar Sesión</button>
+		 	<button type='reset' href='/Hop' class='btn btn-danger'>Cancelar</button>
 		</div>
 	</fieldset>
 </form>

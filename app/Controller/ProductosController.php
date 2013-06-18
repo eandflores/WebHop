@@ -1,6 +1,12 @@
 <?php
 	class ProductosController extends AppController {
 		
+		public $name = 'Productos';
+
+		var $uses = array('User','Producto','CategoriaProducto');
+		
+		var $sacaffold;
+
 		public function index() {
 			$this->set('productos', $this->Producto->find('all'));
 		}
@@ -11,10 +17,30 @@
 		}
 
 		public function add() {
+			$this->set('categorias',$this->CategoriaProducto->find('all',array(
+				'order' => array('CategoriaProducto.nombre')
+			)));
+
 			if ($this->request->is('post')) {
-				if ($this->Producto->save($this->request->data)) {
-					$this->Session->setFlash('El producto ha sido guardado exitosamente.');
-					$this->redirect(array('action' => 'index'));
+				$nombre = $this->request->data['nombre'];
+
+				if(!$this->Producto->existe($nombre)){
+					$current_user = $this->Auth->user();
+					$usuario = $this->User->find('first',array(
+						'conditions' => array('User.username' => $current_user['username'])
+					)); 
+					$this->request->data['user_id'] = $usuario['User']['id'];
+
+					if ($this->Producto->save($this->request->data)) {
+						$this->Session->setFlash('El producto ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'add'));
+					} else {
+						$this->Session->setFlash('El producto no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
+						$this->redirect(array('action' => 'add'));
+					} 
+				} else{
+					$this->Session->setFlash('El producto ya existe.','default', array("class" => "alert alert-error"));
+					$this->redirect(array('action' => 'add'));
 				}
 			}
 		}
@@ -27,6 +53,9 @@
 			elseif ($this->Producto->save($this->request->data)) {
 				$this->Session->setFlash('El producto ha sido actualizado exitosamente.');
 				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash('El producto no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
+				$this->redirect(array('action' => 'add'));
 			}
 		}
 
@@ -38,6 +67,8 @@
 				$this->Session->setFlash('El producto no pudo ser eliminado');
 				$this->redirect(array('action' => 'index'));
 			}
+			$this->Session->setFlash('El producto no fue eliminado.');
+        	$this->redirect(array('action' => 'index'));
 		}
 	}
 ?>
