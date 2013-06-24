@@ -5,6 +5,7 @@
 		public $name = 'Users';
 
 		var $uses = array('User','Region','Comuna');
+
 		var $sacaffold;
 
 		public function beforeFilter(){
@@ -58,11 +59,11 @@
 			if ($this->request->is('get')) {
 				$this->request->data = $this->User->read();
 			} elseif ($this->User->save($this->request->data)) {
-					$this->Session->setFlash('El usuario ha sido actualizado exitosamente.');
-					$this->redirect(array('action' => 'index'));
+					$this->Session->setFlash('El usuario ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'edit'));
 			} else {
-				$this->Session->setFlash('El usuario no fue actualizado, intente nuevamente.');
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('El usuario no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
+				$this->redirect(array('action' => 'edit'));
 			}
 			
 		}
@@ -72,11 +73,11 @@
 				throw new MethodNotAllowedException();
 			}
 			if ($this->User->delete($id)) {
-				$this->Session->setFlash('El usuario ha sido eliminado.');
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('El usuario ha sido eliminado.','default', array("class" => "alert alert-success"));
+				$this->redirect(array('action' => 'delete'));
 			}
-			$this->Session->setFlash('El usuario no fue eliminado.');
-        	$this->redirect(array('action' => 'index'));
+			$this->Session->setFlash('El usuario no fue eliminado.','default', array("class" => "alert alert-error"));
+        	$this->redirect(array('action' => 'delete'));
 		}
 
 		public function login(){

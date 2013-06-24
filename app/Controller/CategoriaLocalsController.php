@@ -12,9 +12,18 @@
 
 		public function add() {
 			if ($this->request->is('post')) {
-				if ($this->CategoriaLocal->save($this->request->data)) {
-					$this->Session->setFlash('La categoria ha sido guardada exitosamente.');
-					$this->redirect(array('action' => 'index'));
+				$nombre = $this->request->data['nombre'];
+				if(!$this->CategoriaLocal->existe($nombre)){
+					if ($this->CategoriaLocal->save($this->request->data)) {
+						$this->Session->setFlash('La categoria ha sido guardada exitosamente.','default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'add'));
+					} else {
+						$this->Session->setFlash('La categoria no fue guardada, intente nuevamente.','default', array("class" => "alert alert-error"));
+						$this->redirect(array('action' => 'add'));
+					} 
+				} else{
+					$this->Session->setFlash('La categoria ya existe.','default', array("class" => "alert alert-error"));
+					$this->redirect(array('action' => 'add'));
 				}
 			}
 		}
@@ -23,10 +32,12 @@
 			$this->CategoriaLocal->id = $id;
 			if ($this->request->is('get')) {
 				$this->request->data = $this->CategoriaLocal->read();
-			} 
-			elseif ($this->CategoriaLocal->save($this->request->data)) {
-				$this->Session->setFlash('La categoria ha sido actualizada exitosamente.');
-				$this->redirect(array('action' => 'index'));
+			} elseif ($this->CategoriaLocal->save($this->request->data)) {
+				$this->Session->setFlash('La categoria ha sido actualizada exitosamente.','default', array("class" => "alert alert-success"));
+				$this->redirect(array('action' => 'edit'));
+			} else {
+				$this->Session->setFlash('La categoria no fue actualizada, intente nuevamente.','default', array("class" => "alert alert-error"));
+				$this->redirect(array('action' => 'edit'));
 			}
 		}
 
@@ -35,9 +46,11 @@
 				throw new MethodNotAllowedException();
 			}
 			if ($this->CategoriaLocal->delete($id)) {
-				$this->Session->setFlash('La categoria no pudo ser eliminada');
-				$this->redirect(array('action' => 'index'));
+				$this->Session->setFlash('La categoria ha sido eliminada','default', array("class" => "alert alert-success"));
+				$this->redirect(array('action' => 'delete'));
 			}
+			$this->Session->setFlash('La categoria no fue eliminada.','default', array("class" => "alert alert-error"));
+        	$this->redirect(array('action' => 'delete'));
 		}
 	}
 ?>

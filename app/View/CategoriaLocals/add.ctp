@@ -1,6 +1,6 @@
 <form class="form-horizontal well"  method="post">
     <fieldset>
-        <legend>Agregar Categoría Producto</legend>
+        <legend>Agregar Categoría Local</legend>
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
@@ -9,7 +9,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Agregar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/CategoriaProductos'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/CategoriaLocals'">Atras</button>
         </div>
     </fieldset>
 </form>

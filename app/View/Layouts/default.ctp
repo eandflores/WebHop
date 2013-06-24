@@ -30,17 +30,26 @@
             <ul class="nav" id="main-menu-left">
               <li><a href="/Hop">Inicio</a></li>
               <li><a href="/Hop/users">Gestión Usuarios</a></li>
-              <li><a href="/Hop/locals">Gestión Locales</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Locales<b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Locals">Locales</a></li>
+                  <li><a href="/Hop/CategoriaLocals">Categoria Locales</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Locals/add">Agregar Local</a></li>
+                  <li><a href="/Hop/CategoriaLocals/add">Agregar Categoria Local</a></li>
+                </ul>
+              </li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
-                  <li><a href="/Hop/productos">Productos</a></li>
-                  <li><a href="/Hop/CategoriaProductos">Categorias</a></li>
+                  <li><a href="/Hop/Productos">Productos</a></li>
+                  <li><a href="/Hop/CategoriaProductos">Categoria Productos</a></li>
                   <li class="divider"></li>
-                  <li><a href="/Hop/productos/add">Agregar Producto</a></li>
-                  <li><a href="/Hop/CategoriaProductos/add">Agregar Categoria</a></li>
-                  <li><a href="/Hop/productos/edit">Modificar</a></li>
-                  <li><a href="/Hop/productos/delete">Eliminar</a></li>
+                  <li><a href="/Hop/Productos/add">Agregar Producto</a></li>
+                  <li><a href="/Hop/CategoriaProductos/add">Agregar Categoria Producto</a></li>
+                  <li><a href="/Hop/Productos/edit">Modificar</a></li>
+                  <li><a href="/Hop/Productos/delete">Eliminar</a></li>
                 </ul>
               </li>
             </ul>

@@ -4,7 +4,7 @@
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
-              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" maxlength="25" required>
+              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" maxlength="30" required>
             </div>
         </div>
         <div class="control-group">
