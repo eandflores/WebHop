@@ -31,13 +31,13 @@
 				$username = $this->request->data['username'];
 				$email = $this->request->data['email'];
 				
-				if($this->User->existe('rut',$rut)){
+				if($this->User->findByrut($rut)){
 					$this->Session->setFlash('El rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
-				} elseif($this->User->existe('username',$username)){
+				} elseif($this->User->findByusername($username)){
 					$this->Session->setFlash('El username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
-				} elseif($this->User->existe('email',$email)){
+				} elseif($this->User->findByemail($email)){
 					$this->Session->setFlash('El mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
 				} else{

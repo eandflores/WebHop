@@ -3,7 +3,7 @@
 		
 		public $name = 'Producto';
 
-		var $belongsTo='CategoriaProducto';
+		var $belongsTo = array('CategoriaProducto','User');
 
 		public function existe($nombre){
 			if($this->find('first',array(

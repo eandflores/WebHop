@@ -3,5 +3,7 @@
 		
 		public $name = 'Comentario';
 
+		var $belongsTo = 'User';
+
 	}
 ?>

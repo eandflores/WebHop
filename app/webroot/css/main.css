@@ -19,3 +19,29 @@ footer a{
 	background-color: #044687;
 	font-weight: normal;
 }
+.table{
+	margin-top:10px;
+	float:left;
+}
+.table th{
+	text-align: center;
+	background-color: #d44413;
+	color:white;
+}
+
+.table td{
+	text-align: center;
+}
+h3,legend{
+	color: #d44413;
+}
+.Agregar{
+	float:right;
+}
+.view{
+	font-size:18px;
+}
+.view span{
+	color: #d44413;
+	font-weight: bold;
+}

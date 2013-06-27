@@ -3,15 +3,7 @@
 		
 		public $name = 'Local';
 
-		var $belongsTo='CategoriaLocal';
+		var $belongsTo = array('CategoriaLocal','User','Region','Comuna');
 
-		public function existe($nombre){
-			if($this->find('first',array(
-				'conditions' => array('Local.nombre' => $nombre)
-			)))
-				return true;
-			else
-				return false;
-		}
 	}
 ?>

@@ -3,5 +3,7 @@
 		
 		public $name = 'Sugerencia';
 
+		var $belongsTo = 'User';
+
 	}
 ?>
