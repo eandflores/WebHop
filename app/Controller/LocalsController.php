@@ -3,9 +3,7 @@
 
 		public $name = 'Locals';
 
-		var $uses = array('User','Region','Comuna','Local','CategoriaLocal');
-		
-		var $sacaffold;
+		var $uses = array('Local','CategoriaLocal','Region','Comuna','User');
 
 		public function index() {
 			$this->set('locales', $this->Local->find('all',array(
@@ -29,9 +27,7 @@
 			)));
 
 			if ($this->request->is('post')) {
-				$nombre = $this->request->data['nombre'];
-				
-				if(!$this->Local->findBynombre($nombre)){
+				if(!$this->Local->findBynombre($this->request->data['nombre'])){
 					$current_user = $this->Auth->user();
 					$usuario = $this->User->findByusername($current_user['username']); 
 					$this->request->data['user_id'] = $usuario['User']['id'];
@@ -45,31 +41,35 @@
 						$this->Session->setFlash('El local no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
 				} 
 				else
-					$this->Session->setFlash('El local ya existe.','default', array("class" => "alert alert-error"));
+					$this->Session->setFlash('El nombre del local ya existe.','default', array("class" => "alert alert-error"));
 			}
 		}
 
 		function edit($id = null) {
-			$this->Local->id = $id;
-			if ($this->request->is('get')) {
-				$this->set('categorias',$this->CategoriaLocal->find('all',array(
+			$this->set('local', $this->Local->read(null,$id));
+
+			$this->set('categorias',$this->CategoriaLocal->find('all',array(
 				'order' => array('CategoriaLocal.nombre')
-				)));
+			)));
 				$this->set('regiones',$this->Region->find('all',array(
 				'order' => array('Region.nombre')
-				)));
+			)));
 				$this->set('comunas',$this->Comuna->find('all',array(
 				'order' => array('Comuna.nombre')
-				)));
-
-				$this->set('local', $this->Local->read());
+			)));
+				
+			if (!$this->request->is('get')) {
+				if (!$this->Local->findBynombre($this->request->data['nombre'])){
+					if($this->Local->save($this->request->data)) {
+						$this->Session->setFlash('El local ha sido actualizado exitosamente.', 'default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'index'));
+					} 
+					else 
+						$this->Session->setFlash('El local no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
+					}
+				else
+					$this->Session->setFlash('El nombrde del local ya existe.','default', array("class" => "alert alert-error"));
 			} 
-			elseif ($this->Local->save($this->request->data)) {
-				$this->Session->setFlash('El local ha sido actualizado exitosamente.', 'default', array("class" => "alert alert-success"));
-				$this->redirect(array('action' => 'index'));
-			} 
-			else 
-				$this->Session->setFlash('El local no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
 		}
 
 		function disable($id) {
