@@ -57,7 +57,7 @@
 				$this->set('comunas',$this->Comuna->find('all',array(
 				'order' => array('Comuna.nombre')
 			)));
-				
+
 			if (!$this->request->is('get')) {
 				if (!$this->Local->findBynombre($this->request->data['nombre'])){
 					if($this->Local->save($this->request->data)) {
@@ -68,7 +68,7 @@
 						$this->Session->setFlash('El local no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
 					}
 				else
-					$this->Session->setFlash('El nombrde del local ya existe.','default', array("class" => "alert alert-error"));
+					$this->Session->setFlash('El nombre del local ya existe.','default', array("class" => "alert alert-error"));
 			} 
 		}
 

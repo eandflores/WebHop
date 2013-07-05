@@ -16,8 +16,12 @@
               <td><?php echo $index+1 ?></td>
               <td><?php echo $categoria['CategoriaLocal']['nombre'] ?></td>
               <td>
-                <a href="/Hop/CategoriaLocals/edit/<?php echo $categoria['CategoriaLocal']['id'] ?>"><i class='icon icon-edit'></i></a>
-                <a href="/Hop/CategoriaLocals/delete/<?php echo $categoria['CategoriaLocal']['id'] ?>"><i class='icon icon-remove'></i></a>
+                <a href="/Hop/CategoriaLocals/edit/<?php echo $categoria['CategoriaLocal']['id'] ?>">
+                  <i class='icon icon-edit'></i>
+                </a>
+                <a href="/Hop/CategoriaLocals/delete/<?php echo $categoria['CategoriaLocal']['id'] ?>" onclick="return confirm('Está seguro que desea eliminar la categoría ?');">
+                  <i class='icon icon-remove'></i>
+                </a>
               </td>
             </tr>
     <?php } 

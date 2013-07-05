@@ -3,58 +3,64 @@
 		
 		public $name = 'CategoriaProductos';
 
-		var $sacaffold;
+		var $uses = array('CategoriaProducto','Producto');
 		
 		public function index() {
-			$this->set('categoriaproductos', $this->CategoriaProducto->find('all'));
-		}
-
-		public function view($id) {
-			$this->CategoriaProducto->id = $id;
-			$this->set('categoriaproducto', $this->CategoriaProducto->read());
+			$this->set('categoriaproductos', $this->CategoriaProducto->find('all',array(
+				'order' => array('CategoriaProducto.nombre')
+			)));
 		}
 
 		public function add() {
 			if ($this->request->is('post')) {
-				$nombre = $this->request->data['nombre'];
-				if(!$this->CategoriaProducto->existe($nombre)){
+				if(!$this->CategoriaProducto->findBynombre($this->request->data['nombre'])){
 					if ($this->CategoriaProducto->save($this->request->data)) {
 						$this->Session->setFlash('La categoria ha sido guardada exitosamente.','default', array("class" => "alert alert-success"));
-						$this->redirect(array('action' => 'add'));
-					} else {
+						$this->redirect(array('action' => 'index'));
+					} 
+					else 
 						$this->Session->setFlash('La categoria no fue guardada, intente nuevamente.','default', array("class" => "alert alert-error"));
-						$this->redirect(array('action' => 'add'));
-					}
-				} else{
+				} 
+				else
 					$this->Session->setFlash('La categoria ya existe.','default', array("class" => "alert alert-error"));
-					$this->redirect(array('action' => 'add'));
-				}
 			}
 		}
 
 		function edit($id = null) {
-			$this->CategoriaProducto->id = $id;
-			if ($this->request->is('get')) {
-				$this->request->data = $this->CategoriaProducto->read();
-			} elseif ($this->CategoriaProducto->save($this->request->data)) {
-				$this->Session->setFlash('La categoria ha sido actualizada exitosamente.','default', array("class" => "alert alert-success"));
-				$this->redirect(array('action' => 'edit'));
-			} else {
-				$this->Session->setFlash('La categoria no fue actualizada, intente nuevamente.','default', array("class" => "alert alert-error"));
-				$this->redirect(array('action' => 'edit'));
-			}
+			$this->set('categoria', $this->CategoriaProducto->read(null,$id));
+			
+			if (!$this->request->is('get')) {
+				if(!$this->CategoriaProducto->findBynombre($this->request->data['nombre'])){
+					if ($this->CategoriaProducto->save($this->request->data)) {
+						$this->Session->setFlash('La categoria ha sido actualizada exitosamente.','default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'index'));
+					} 
+					else 
+						$this->Session->setFlash('La categoria no fue actualizada, intente nuevamente.','default', array("class" => "alert alert-error"));
+				}
+				else
+					$this->Session->setFlash('La categoria ya existe.','default', array("class" => "alert alert-error"));
+			} 
 		}
 
 		function delete($id) {
-			if (!$this->request->is('post')) {
+			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
-			if ($this->CategoriaProducto->delete($id)) {
-				$this->Session->setFlash('La categoria ha sido eliminada','default', array("class" => "alert alert-success"));
-				$this->redirect(array('action' => 'delete'));
-			}
-			$this->Session->setFlash('La categoria no fue eliminada.','default', array("class" => "alert alert-error"));
-        	$this->redirect(array('action' => 'delete'));
+			if(!$this->Producto->findBycategoria_producto_id($id)){
+				if ($this->CategoriaProducto->delete($id)) {
+					$this->Session->setFlash('La categoria ha sido eliminada','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'index'));
+				} 
+				else {
+					$this->Session->setFlash('La categoria no fue eliminada.','default', array("class" => "alert alert-error"));
+		        	$this->redirect(array('action' => 'index'));
+		        }
+		    } 
+		    else{
+				$this->Session->setFlash('La categoria no fue eliminada porque esta asociada a algun producto.','default', array("class" => "alert alert-error"));
+				$this->redirect(array('action' => 'index'));
+			}	
 		}
 	}
 ?>
