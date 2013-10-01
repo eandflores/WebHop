@@ -38,6 +38,10 @@ h3,legend{
 .Agregar{
 	float:right;
 }
+.Atras{
+	margin: 30px 0 0 50px;
+	width:90px;
+}
 .view{
 	font-size:18px;
 }

@@ -29,7 +29,14 @@
            <div class="nav-collapse collapse" id="main-menu">
             <ul class="nav" id="main-menu-left">
               <li><a href="/Hop">Inicio</a></li>
-              <li><a href="/Hop/users">Gestión Usuarios</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Users">Usuarios</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Rols">Roles</a></li>
+                </ul>
+              </li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Locales<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">

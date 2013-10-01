@@ -1,12 +1,43 @@
 <form class="form-horizontal well"  method="post">
     <fieldset>
-        <legend>Registrarse</legend>
+        <?php if ($logged_in): ?>
+            <legend>Agregar Usuario</legend>
+        <?php else: ?>
+            <legend>Registrarse</legend>
+        <?php endif; ?>
     	<div class="control-group">
             <label class="control-label" for="inputRut">Rut:</label>
             <div class="controls">
               <input type="text" id="inputRut" name="rut" placeholder="Rut" maxlength="12" required>
             </div>
         </div>
+        <?php 
+        if ($logged_in): ?>
+            <div class="control-group">
+                <label class="control-label" for="selectRol">Rol:</label>
+                <div class="controls">
+                  <select id="selectRol" name="rol_id">
+                    <?php if(isset($roles)){
+                            foreach ($roles as $index => $rol) { ?>
+                              <option value="<?php echo $rol['Rol']['id'] ?>"><?php echo $rol['Rol']['nombre'] ?></option>
+                    <?php   }
+                          } ?>
+                  </select>
+                </div>
+            </div>
+        <?php 
+        else:
+            $rol_val = 0; 
+            if(isset($roles)){
+                foreach ($roles as $index => $rol) { 
+                    if($rol['Rol']['nombre'] == "Usuario")
+                        $rol_val = $rol['Rol']['id'];
+                }
+            } 
+        ?>
+            <input type="hidden" id="inputRol" name="rol_id" value="<?php echo $rol_val ?>">
+        <?php 
+        endif; ?>
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
@@ -102,7 +133,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Agregar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Users'">Atras</button>
         </div>
     </fieldset>
 </form>

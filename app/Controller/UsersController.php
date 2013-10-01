@@ -4,7 +4,7 @@
 		
 		public $name = 'Users';
 
-		var $uses = array('User','Region','Comuna');
+		var $uses = array('User','Rol','Region','Comuna');
 
 		var $sacaffold;
 
@@ -14,17 +14,25 @@
 		}
 		
 		public function index() {
-			$this->set('usuarios', $this->User->find('all'));
+			$this->set('usuarios', $this->User->find('all',array(
+				'order' => array('User.nombre')
+			)));
 		}
 
 		public function view($id) {
-			$this->User->id = $id;
-			$this->set('usuario', $this->User->read());
+			$this->set('usuario', $this->User->read(null,$id));
 		}
 
 		public function add() {
-			$this->set('regiones',$this->Region->find('all'));
-			$this->set('comunas',$this->Comuna->find('all'));
+			$this->set('regiones',$this->Region->find('all',array(
+				'order' => array('Region.nombre')
+			)));
+			$this->set('comunas',$this->Comuna->find('all',array(
+				'order' => array('Comuna.nombre')
+			)));
+			$this->set('roles',$this->Rol->find('all',array(
+				'order' => array('Rol.nombre')
+			)));
 
 			if ($this->request->is('post')) {
 				$rut = $this->request->data['rut'];
@@ -34,50 +42,96 @@
 				if($this->User->findByrut($rut)){
 					$this->Session->setFlash('El rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
-				} elseif($this->User->findByusername($username)){
+				} 
+				elseif($this->User->findByusername($username)){
 					$this->Session->setFlash('El username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
-				} elseif($this->User->findByemail($email)){
+				} 
+				elseif($this->User->findByemail($email)){
 					$this->Session->setFlash('El mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					$this->redirect(array('action' => 'add'));
-				} else{
-					$this->request->data['rol_id'] = 1;
-
+				} 
+				else{
 					if ($this->User->save($this->request->data)) {
 						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
-						$this->redirect(array('action' => 'add'));
-					} else {
+						$this->redirect(array('action' => 'index'));
+					} 
+					else 
 						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
-						$this->redirect(array('action' => 'add'));
-					}
 				} 
 			}
 		}
 
 		function edit($id = null) {
-			$this->User->id = $id;
-			if ($this->request->is('get')) {
-				$this->request->data = $this->User->read();
-			} elseif ($this->User->save($this->request->data)) {
-					$this->Session->setFlash('El usuario ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
-					$this->redirect(array('action' => 'edit'));
-			} else {
-				$this->Session->setFlash('El usuario no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
-				$this->redirect(array('action' => 'edit'));
+			$this->set('usuario', $this->User->read(null,$id));
+
+			$this->set('roles',$this->Rol->find('all',array(
+				'order' => array('Rol.nombre')
+			)));
+			$this->set('regiones',$this->Region->find('all',array(
+				'order' => array('Region.nombre')
+			)));
+			$this->set('comunas',$this->Comuna->find('all',array(
+				'order' => array('Comuna.nombre')
+			)));
+			if (!$this->request->is('get')) {
+				$rut = $this->request->data['rut'];
+				$email = $this->request->data['email'];
+
+				if($this->User->findByrut($rut)){
+					$this->Session->setFlash('El rut '.$rut.' ya esta esta registrado.','default', array("class" => "alert alert-error"));
+				} 
+				elseif($this->User->findByemail($email)){
+					$this->Session->setFlash('El mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
+				} 
+				else{
+					if ($this->User->save($this->request->data)) {
+						$this->Session->setFlash('El usuario ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'index'));
+					} 
+					else 
+						$this->Session->setFlash('El usuario no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
+				}
+			} 
+		}
+
+		function disable($id) {
+			if ($this->request->is('post')) {
+				throw new MethodNotAllowedException();
+			} 
+			else {
+				$this->User->read(null,$id);
+				$this->User->set(array('estado' => false));
+
+				if ($this->User->save()) {
+					$this->Session->setFlash('El usuario ha sido deshabilitado','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'index'));
+				} 
+				else {
+					$this->Session->setFlash('El usuario no fue deshabilitado.','default', array("class" => "alert alert-error"));
+	        		$this->redirect(array('action' => 'index'));
+				}
 			}
 			
 		}
 
-		public function delete($id) {
-			if (!$this->request->is('post')) {
+		function enable($id) {
+			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
+			} 
+			else {
+				$this->User->read(null,$id);
+				$this->User->set(array('estado' => true));
+
+				if ($this->User->save()) {
+					$this->Session->setFlash('El usuario ha sido habilitado','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'index'));
+				} 
+				else {
+					$this->Session->setFlash('El usuario no fue habilitado.','default', array("class" => "alert alert-error"));
+	        		$this->redirect(array('action' => 'index'));
+				}
 			}
-			if ($this->User->delete($id)) {
-				$this->Session->setFlash('El usuario ha sido eliminado.','default', array("class" => "alert alert-success"));
-				$this->redirect(array('action' => 'delete'));
-			}
-			$this->Session->setFlash('El usuario no fue eliminado.','default', array("class" => "alert alert-error"));
-        	$this->redirect(array('action' => 'delete'));
 		}
 
 		public function login(){

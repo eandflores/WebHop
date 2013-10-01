@@ -1,43 +1,62 @@
 <?php
 	class RolsController extends AppController {
 		
-		Var $sacaffold;
+		public $name = 'Rols';
+
+		var $uses = array('Rol','User');
 
 		public function index() {
-			$this->set('roles', $this->Rol->find('all'));
-		}
-
-		public function view($id) {
-			$this->Rol->id = $id;
-			$this->set('rol', $this->Rol->read());
+			$this->set('roles', $this->Rol->find('all',array(
+				'order' => array('Rol.nombre')
+			)));
 		}
 
 		public function add() {
 			if ($this->request->is('post')) {
-				if ($this->Rol->save($this->request->data)) {
-					$this->Session->setFlash('El rol ha sido guardado exitosamente.');
-					$this->redirect(array('action' => 'index'));
+				if(!$this->Rol->findBynombre($this->request->data['nombre'])){
+					if ($this->Rol->save($this->request->data)) {
+						$this->Session->setFlash('El rol ha sido guardado exitosamente.');
+						$this->redirect(array('action' => 'index'));
+					}
 				}
+				else
+					$this->Session->setFlash('El rol ya existe.','default', array("class" => "alert alert-error"));
 			}
 		}
 
 		function edit($id = null) {
-			$this->Rol->id = $id;
-			if ($this->request->is('get')) {
-				$this->request->data = $this->Rol->read();
+			$this->set('rol', $this->Rol->read(null,$id));
+
+			if (!$this->request->is('get')) {
+				if(!$this->Rol->findBynombre($this->request->data['nombre'])){
+					if ($this->Rol->save($this->request->data)) {
+						$this->Session->setFlash('El rol ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'index'));
+					} 
+					else 
+						$this->Session->setFlash('El rol no ha sido actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
+				} 
+				else
+					$this->Session->setFlash('El rol ya existe.','default', array("class" => "alert alert-error"));
 			} 
-			elseif ($this->Rol->save($this->request->data)) {
-				$this->Session->setFlash('El rol ha sido actualizado exitosamente.');
-				$this->redirect(array('action' => 'index'));
-			}
 		}
 
 		function delete($id) {
-			if (!$this->request->is('post')) {
+			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
-			if ($this->Rol->delete($id)) {
-				$this->Session->setFlash('El rol no pudo ser eliminado');
+			if(!$this->User->findByrol_id($id)){
+				if ($this->Rol->delete($id)) {
+					$this->Session->setFlash('El rol ha sido eliminado','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'index'));
+				}
+				else{
+					$this->Session->setFlash('El rol no pudo ser eliminado','default', array("class" => "alert alert-error"));
+					$this->redirect(array('action' => 'index'));
+				}
+			}
+			else{
+				$this->Session->setFlash('El rol no fue eliminado porque esta asociado a algun usuario.','default', array("class" => "alert alert-error"));
 				$this->redirect(array('action' => 'index'));
 			}
 		}
