@@ -1,6 +1,5 @@
-<h3>Gestión Usuarios</h3>
-<a href="/Hop/Users/add" class="Agregar btn btn-primary">Agregar</a>
-<table class="table table-bordered table-striped table-hover">
+<h3 class="Titulo">Gestión Usuarios</h3>
+<table class="table table-bordered datatable">
     <thead>
       <tr>
         <th>#</th>
@@ -51,3 +50,4 @@
       <?php } ?>
     </tbody>
 </table>
+<a href="/Hop/Users/add" class="Agregar btn btn-primary">Agregar</a>

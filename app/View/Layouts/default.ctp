@@ -8,7 +8,9 @@
 <?php
   echo $this->Html->css("reset.css");
   echo $this->Html->css("bootstrap.css");
+  echo $this->Html->css("jquery.dataTables.css");
   echo $this->Html->css("main.css");
+  
 ?>
 
 <script type="text/javascript" src="/Hop/js/jquery-1.7.2.js"></script>
@@ -25,14 +27,14 @@
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
            </a>
-           <a class="brand" href="Hop">Hop!</a>
+           <a class="brand" href="/Hop">Hop!</a>
            <div class="nav-collapse collapse" id="main-menu">
             <ul class="nav" id="main-menu-left">
               <li><a href="/Hop">Inicio</a></li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
-                  <li><a href="/Hop/Users">Usuarios</a></li>
+                  <li><a href="/Hop/Users">Usuarios </a></li>
                   <li class="divider"></li>
                   <li><a href="/Hop/Rols">Roles</a></li>
                 </ul>
@@ -40,7 +42,7 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Locales<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
-                  <li><a href="/Hop/Locals">Locales</a></li>
+                  <li><a href="/Hop/Locals">Locales </a></li>
                   <li class="divider"></li>
                   <li><a href="/Hop/CategoriaLocals">Categoria Locales</a></li>
                 </ul>
@@ -48,16 +50,25 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Productos<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
-                  <li><a href="/Hop/Productos">Productos</a></li>
+                  <li><a href="/Hop/Productos">Productos </a></li>
                   <li class="divider"></li>
                   <li><a href="/Hop/CategoriaProductos">Categoria Productos</a></li>
+                  <li><a href="/Hop/Ofertas">Asociar Productos a Locales</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Comentarios y Sugerencias <b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Comentarios">Comentarios</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Sugerencias">Sugerencias</a></li>
                 </ul>
               </li>
             </ul>
             <ul class="nav pull-right" id="main-menu-right">
               <?php if ($logged_in): ?>
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $current_user['username']; ?><b class="caret"></b></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $current_user['username']." "; ?><b class="caret"></b></a>
                   <ul class="dropdown-menu" id="swatch-menu">
                     <li><a href="/Hop/Users/edit">Configurar Cuenta</a></li>
                     <li><a href="/Hop/Users/logout">Cerrar Sesión</a></li>
@@ -79,7 +90,9 @@
   </div>
 </body>
 <?php
-  echo $this->Html->script("jquery.js");
+  echo $this->Html->script("jquery-1.7.2.js");
   echo $this->Html->script("bootstrap.js");
+  echo $this->Html->script("jquery.dataTables.js");
+  echo $this->Html->script("main.js");
 ?>
 

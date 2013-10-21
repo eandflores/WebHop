@@ -1,6 +1,5 @@
-<h3>Gestión Productos</h3>
-<a href="/Hop/Productos/add" class="Agregar btn btn-primary">Agregar</a>
-<table class="table table-bordered table-striped table-hover">
+<h3 class="Titulo">Gestión Productos</h3>
+<table class="table table-bordered datatable">
     <thead>
       <tr>
         <th>#</th>
@@ -36,3 +35,4 @@
       <?php } ?>
     </tbody>
 </table>
+<a href="/Hop/Productos/add" class="Agregar btn btn-primary">Agregar</a>

@@ -1,0 +1,3 @@
+[submodule "Plugin/DataTable"]
+	path = Plugin/DataTable
+	url = https://github.com/tigrang/cakephp-datatable.git
