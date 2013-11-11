@@ -1,6 +1,8 @@
+<br><br>
 <form class="form-horizontal" method='post' action='/Hop/users/login' style='padding-left:100px' id='UserLoginForm'>
 	<fieldset>
         <legend>Iniciar Sesión</legend>
+        <br>
 		<div class="control-group">
 			<label class="control-label" for="inputUsername">Username:</label>
 		    <div class="controls">
@@ -14,8 +16,7 @@
 		    </div>
 		</div>
 		<div class='form-actions'>
-		 	<button type='submit' class='btn btn-success' value='Login'>Iniciar Sesión</button>
-		 	<button type='reset' href='/Hop' class='btn btn-danger'>Cancelar</button>
+		 	<button type='submit' class='btn btn-primary' value='Login'>Ingresar</button>
 		</div>
 	</fieldset>
 </form>

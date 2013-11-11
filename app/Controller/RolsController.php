@@ -4,7 +4,7 @@
 		public $name = 'Rols';
 
 		var $uses = array('Rol','User');
-
+		
 		public function index() {
 			$this->set('roles', $this->Rol->find('all',array(
 				'order' => array('Rol.nombre')

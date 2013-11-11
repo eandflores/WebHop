@@ -10,10 +10,14 @@
 
 		public function beforeFilter(){
 			parent::beforeFilter();
-			$this->Auth->allow('add');
+			$this->Auth->allow('index','add');
 		}
 		
-		public function index() {
+		public function index(){
+
+		}
+
+		public function all() {
 			$this->set('usuarios', $this->User->find('all',array(
 				'order' => array('User.nombre')
 			)));
@@ -135,12 +139,19 @@
 		}
 
 		public function login(){
+			$logged_in = $this->Auth->loggedIn();
+
+			if(!empty($logged_in)){
+				$this->Session->setFlash('Usted ya ha iniciado sesión.','default', array("class" => "alert alert-warning"));
+				$this->redirect(array('action' => 'index'));
+			}
+
 			if($this->request->is('post')){
 				if($this->Auth->login()){
 					$this->redirect($this->Auth->redirect());
 				}
 				else{
-					$this->Session->setFlash('Error iniciando sesión, username o password incorrecto','default', array("class" => "alert alert-error"));
+					$this->Session->setFlash('Error iniciando sesión, compruebe que su username y/o password sean correctos.','default', array("class" => "alert alert-error"));
         			$this->redirect(array('action' => 'login'));
 				}
 			}

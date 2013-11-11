@@ -1,53 +1,42 @@
-<h3 class="Titulo">Gestión Usuarios</h3>
-<table class="table table-bordered datatable">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Rut</th>
-        <th>Username</th>
-        <th>Estado</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php 
-        if(isset($usuarios)){
-          foreach ($usuarios as $index => $usuario) { ?>
-            <tr>
-              <td><?php echo $index+1 ?></td>
-              <td><?php echo $usuario['User']['rut'] ?></td>
-              <td><?php echo $usuario['User']['username'] ?></td>
-              <?php if($usuario['User']['estado'] == true){ ?>
-                <td><?php echo "Habilitado" ?></td>
-              <?php } else{ ?>
-                <td><?php echo "Deshabilitado" ?></td>
-              <?php } ?>
-              <td><?php echo $usuario['Rol']['nombre']?></td>
-              <td>
-                <a href="/Hop/Users/view/<?php echo $usuario['User']['id'] ?>">
-                  <i class='icon icon-zoom-in'></i>
-                </a>
-                <a href="/Hop/Users/edit/<?php echo $usuario['User']['id'] ?>">
-                  <i class='icon icon-edit'></i>
-                </a>
-                <?php if($usuario['User']['estado'] != true) { ?>
-                  <a href="/Hop/Users/enable/<?php echo $usuario['User']['id'] ?>" onclick="return confirm('Esta seguro que desea habilitar el usuario ?');">
-                    <i class='icon icon-ok'></i>
-                  </a>
-                <?php } else { ?>
-                <a href="/Hop/Users/disable/<?php echo $usuario['User']['id'] ?>" onclick="return confirm('Esta seguro que desea deshabilitar el usuario ?');">
-                  <i class='icon icon-remove'></i>
-                </a>
-                <?php } ?>
-              </td>
-            </tr>
-    <?php } 
-        } else{ ?>
-          <tr>
-            <td colspan='6'>No hay Usuarios en la Base de Datos</td>
-          </tr>
-      <?php } ?>
-    </tbody>
-</table>
-<a href="/Hop/Users/add" class="Agregar btn btn-primary">Agregar</a>
+<div id="center" class="clearfix">
+    <ul style="margin: 30px 0 0 50px; float:left;" class="clearfix">
+        <li class="pull-left" style="margin-right: 10px; height: 15px"><a href="http://www.facebook.cl/buscahop"><img src="/Hop/img/Facebook-48.png"></a></li>
+        <li class="pull-left" style="height: 15px"><a href=""><img src="/Hop/img/Twitter-48.png"></a></li>        
+    </ul>
+    <div id="search-container" class="clearfix">
+      <img src="/Hop/img/mc_hop.png" />
+        <form action="form_BD.php" method="post" name="formulario" class="clearfix">
+            <input name="search" type="text" value=""/>
+            <button type='submit'><i class='icon-search'></i></button>  
+        </form>   
+        <div id="category-container">
+            <ul class="clearfix">
+                <li>
+                    <img src="/Hop/img/Hotel-64.png" />
+                    <?php $cadena="Alimentos"; ?>
+                </li>
+                <li>
+                    <img src="/Hop/img/Restaurant-64.png" />
+                    <?php $cadena="Accesorios Vehículos"; ?>
+                </li>
+                <li>
+                    <img src="/Hop/img/Bus-Station-64.png" />
+                    <?php $cadena="Hogar y Muebles"; ?>
+                </li>
+                <li>
+                    <img src="/Hop/img/Gas-Station-64.png" />
+                    <?php $cadena="otras"; ?>
+                </li>
+                <li>
+                    <img src="/Hop/img/Beer-64.png" />
+                    <?php $cadena="Licores"; ?>
+                </li>
+                <li>
+                    <img src="/Hop/img/Bank-64.png" />
+                    <?php $cadena="Relojes y Joyas"; ?>
+                </li>
+            </ul>  
+        </div>
+    </div>
+    <p>Te brindamos la oportunidad de que encuentres tus productos y des a conocer tu empresa, mediante un fácil y sencillo buscador</p>
+</div>

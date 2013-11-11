@@ -63,7 +63,7 @@
 			}
 			if(!$this->Oferta->findByproducto_id($id)){
 				if ($this->Producto->delete($id)) {
-					$this->Session->setFlash('El producto no pudo ser eliminado','default', array("class" => "alert alert-success"));
+					$this->Session->setFlash('El producto ha sido eliminado','default', array("class" => "alert alert-success"));
 					$this->redirect(array('action' => 'index'));
 				}
 				else {
@@ -72,7 +72,7 @@
 		        }
 		    }
 		    else {
-				$this->Session->setFlash('El producto no fue eliminado porque esta asociado a alguna oferta.','default', array("class" => "alert alert-error"));
+				$this->Session->setFlash('El producto no fue eliminado porque esta asociado a algun local.','default', array("class" => "alert alert-error"));
 				$this->redirect(array('action' => 'index'));
 			}
 		}
