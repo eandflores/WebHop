@@ -84,4 +84,4 @@
   } ?>
     </tbody>
 </table>
-<a href="/Hop/Users" class="Atras btn btn-danger">Atras</a>
+<a href="/Hop/Users/all" class="Atras btn btn-danger">Atras</a>

@@ -1,4 +1,4 @@
-<form class="form-horizontal well"  method="post">
+<form class="form-horizontal"  method="post">
     <fieldset>
         <?php if ($logged_in): ?>
             <legend>Agregar Usuario</legend>
@@ -133,7 +133,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Agregar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Users'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Users/all'">Atras</button>
         </div>
     </fieldset>
 </form>

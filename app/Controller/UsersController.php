@@ -58,7 +58,7 @@
 				else{
 					if ($this->User->save($this->request->data)) {
 						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
-						$this->redirect(array('action' => 'index'));
+						$this->redirect(array('action' => 'all'));
 					} 
 					else 
 						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
@@ -91,7 +91,7 @@
 				else{
 					if ($this->User->save($this->request->data)) {
 						$this->Session->setFlash('El usuario ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
-						$this->redirect(array('action' => 'index'));
+						$this->redirect(array('action' => 'all'));
 					} 
 					else 
 						$this->Session->setFlash('El usuario no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
@@ -109,11 +109,11 @@
 
 				if ($this->User->save()) {
 					$this->Session->setFlash('El usuario ha sido deshabilitado','default', array("class" => "alert alert-success"));
-					$this->redirect(array('action' => 'index'));
+					$this->redirect(array('action' => 'all'));
 				} 
 				else {
 					$this->Session->setFlash('El usuario no fue deshabilitado.','default', array("class" => "alert alert-error"));
-	        		$this->redirect(array('action' => 'index'));
+	        		$this->redirect(array('action' => 'all'));
 				}
 			}
 			
@@ -129,11 +129,11 @@
 
 				if ($this->User->save()) {
 					$this->Session->setFlash('El usuario ha sido habilitado','default', array("class" => "alert alert-success"));
-					$this->redirect(array('action' => 'index'));
+					$this->redirect(array('action' => 'all'));
 				} 
 				else {
 					$this->Session->setFlash('El usuario no fue habilitado.','default', array("class" => "alert alert-error"));
-	        		$this->redirect(array('action' => 'index'));
+	        		$this->redirect(array('action' => 'all'));
 				}
 			}
 		}

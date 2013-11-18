@@ -5,6 +5,5 @@
 
 		var $hasMany='User';
 
-		
 	}
 ?>

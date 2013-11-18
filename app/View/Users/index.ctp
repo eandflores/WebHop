@@ -38,5 +38,5 @@
             </ul>  
         </div>
     </div>
-    <p>Te brindamos la oportunidad de que encuentres tus productos y des a conocer tu empresa, mediante un fácil y sencillo buscador</p>
+    <p>Te brindamos la oportunidad de que encuentres tus productos y des a conocer tu empresa, a través de este amigable buscador.</p>
 </div>

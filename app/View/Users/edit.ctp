@@ -1,4 +1,4 @@
-<form class="form-horizontal well"  method="post">
+<form class="form-horizontal"  method="post">
     <fieldset>
         <?php if ($logged_in): ?>
           <legend>Editar Usuario - <?php echo $usuario['User']['username'] ?></legend>
@@ -126,7 +126,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Actualizar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Users'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Users/all'">Atras</button>
         </div>
     </fieldset>
 </form>

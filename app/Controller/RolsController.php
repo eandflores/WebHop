@@ -13,6 +13,9 @@
 
 		public function add() {
 			if ($this->request->is('post')) {
+
+				$this->set('nombre', $this->request->data['nombre']);
+
 				if(!$this->Rol->findBynombre($this->request->data['nombre'])){
 					if ($this->Rol->save($this->request->data)) {
 						$this->Session->setFlash('El rol ha sido guardado exitosamente.');
@@ -28,6 +31,9 @@
 			$this->set('rol', $this->Rol->read(null,$id));
 
 			if (!$this->request->is('get')) {
+
+				$this->set('nombre', $this->request->data['nombre']);
+				
 				if(!$this->Rol->findBynombre($this->request->data['nombre'])){
 					if ($this->Rol->save($this->request->data)) {
 						$this->Session->setFlash('El rol ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
