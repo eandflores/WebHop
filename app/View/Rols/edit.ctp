@@ -11,5 +11,6 @@
             <button type="submit" class="btn btn-success">Actualizar</button>
             <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Rols'">Atras</button>
         </div>
+        <input type="hidden" name="id" value="<?php if(!empty($id)){ echo $id; } else { echo $rol['Rol']['id']; } ?>" required>
     </fieldset>
 </form>

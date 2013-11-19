@@ -8,7 +8,7 @@
     	<div class="control-group">
             <label class="control-label" for="inputRut">Rut:</label>
             <div class="controls">
-              <input type="text" id="inputRut" name="rut" placeholder="Rut" maxlength="12" required>
+              <input type="text" id="inputRut" name="rut" placeholder="Rut" value="<?php if(!empty($rut)){ echo $rut; } ?>" maxlength="12" required>
             </div>
         </div>
         <?php 
@@ -18,9 +18,18 @@
                 <div class="controls">
                   <select id="selectRol" name="rol_id">
                     <?php if(isset($roles)){
-                            foreach ($roles as $index => $rol) { ?>
-                              <option value="<?php echo $rol['Rol']['id'] ?>"><?php echo $rol['Rol']['nombre'] ?></option>
-                    <?php   }
+                            foreach ($roles as $index => $rol) { 
+                              if(!empty($_rol) && $_rol == $rol['Rol']['id']){ ?>
+                                <option value="<?php echo $rol['Rol']['id']; ?>" selected>
+                                    <?php echo $rol['Rol']['nombre']; ?>
+                                </option>
+                        <?php }
+                              else{ ?>
+                                <option value="<?php echo $rol['Rol']['id'] ?>">
+                                    <?php echo $rol['Rol']['nombre']; ?>
+                                </option>
+                        <?php }
+                            }
                           } ?>
                   </select>
                 </div>
@@ -41,37 +50,37 @@
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
-              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" maxlength="50" required>
+              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" value="<?php if(!empty($nombre)){ echo $nombre; } ?>" maxlength="50" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputApellidoPat">Apellido Paterno:</label>
             <div class="controls">
-              <input type="text" id="inputApellidoPat" name="apellido_paterno" placeholder="Apellido Paterno" maxlength="25" required>
+              <input type="text" id="inputApellidoPat" name="apellido_paterno" placeholder="Apellido Paterno" value="<?php if(!empty($apellido_paterno)){ echo $apellido_paterno; } ?>"maxlength="25" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputApellidoMat">Apellido Materno:</label>
             <div class="controls">
-              <input type="text" id="inputApellidoMat" name="apellido_materno" placeholder="Apellido Materno" maxlength="25" required>
+              <input type="text" id="inputApellidoMat" name="apellido_materno" placeholder="Apellido Materno" value="<?php if(!empty($apellido_materno)){ echo $apellido_materno; } ?>" maxlength="25" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputFechaNac">Fecha de Nacimiento:</label>
             <div class="controls">
-              <input type="date" id="inputFechaNac" name="fecha_nacimiento" max="<?php echo date("Y-m-d") ?>" value="<?php echo date("Y-m-d") ?>" required>
+              <input type="date" id="inputFechaNac" name="fecha_nacimiento" max="<?php echo date("Y-m-d") ?>" value="<?php if(!empty($fecha_nacimiento)){ echo $fecha_nacimiento; } else { echo date("Y-m-d"); } ?>" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputEmail">Email:</label>
             <div class="controls">
-              <input type="email" id="inputEmail" name="email" placeholder="Email" maxlength="50" required>
+              <input type="email" id="inputEmail" name="email" placeholder="Email" value="<?php if(!empty($email)){ echo $email; } ?>" maxlength="50" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputUsername">Username:</label>
             <div class="controls">
-              <input type="text" id="inputUsername" name="username" placeholder="Username" maxlength="25" required>
+              <input type="text" id="inputUsername" name="username" placeholder="Username" value="<?php if(!empty($username)){ echo $username; } ?>" maxlength="25" required>
             </div>
         </div>
         <div class="control-group">
@@ -86,14 +95,14 @@
               <select id="selectRegion" name="region_id">
                 <?php if(isset($regiones)){
                         foreach ($regiones as $index => $region) {
-                          if($index == 0){ ?>
-                            <option value="<?php echo $region['Region']['id'] ?>" selected>
-                            	<?php echo $region['Region']['nombre'] ?>
+                          if(!empty($_region) && $_region == $region['Region']['id']){ ?>
+                            <option value="<?php echo $region['Region']['id']; ?>" selected>
+                            	<?php echo $region['Region']['nombre']; ?>
                             </option>
                     <?php }
                           else{ ?>
-                            <option value="<?php echo $region['Region']['id'] ?>">
-                            	<?php echo $region['Region']['nombre'] ?>
+                            <option value="<?php echo $region['Region']['id']; ?>">
+                            	<?php echo $region['Region']['nombre']; ?>
                             </option>
                     <?php } 
                         }
@@ -106,9 +115,18 @@
             <div class="controls">
               <select id="selectComuna" name="comuna_id">
                 <?php if(isset($comunas)){
-                        foreach ($comunas as $index => $comuna) { ?>
-                          <option value="<?php echo $comuna['Comuna']['id'] ?>"><?php echo $comuna['Comuna']['nombre'] ?></option>
-                <?php 	}
+                        foreach ($comunas as $index => $comuna) { 
+                          if(!empty($_comuna) && $_comuna == $comuna['Comuna']['id']){ ?>
+                            <option value="<?php echo $comuna['Comuna']['id']; ?>" selected>
+                                <?php echo $comuna['Comuna']['nombre']; ?>
+                            </option>
+                    <?php }
+                          else{ ?>
+                            <option value="<?php echo $comuna['Comuna']['id']; ?>">
+                                <?php echo $comuna['Comuna']['nombre']; ?>
+                            </option>
+                    <?php } 
+                     	}
                       } ?>
               </select>
             </div>
@@ -116,19 +134,19 @@
         <div class="control-group">
             <label class="control-label" for="inputPoblacion">Población:</label>
             <div class="controls">
-              <input type="text" id="inputPoblacion" name="poblacion" placeholder="Población" maxlength="25" required>
+              <input type="text" id="inputPoblacion" name="poblacion" placeholder="Población" value="<?php if(!empty($poblacion)){ echo $poblacion; } ?>" maxlength="25" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputCalle">Calle:</label>
             <div class="controls">
-              <input type="text" id="inputCalle" name="calle" placeholder="Calle" maxlength="25" required>
+              <input type="text" id="inputCalle" name="calle" placeholder="Calle" value="<?php if(!empty($calle)){ echo $calle; } ?>" maxlength="25" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputNumero">Numero:</label>
             <div class="controls">
-              <input type="number" id="inputNumero" name="numero" placeholder="Número" min="0" required>
+              <input type="number" id="inputNumero" name="numero" placeholder="Número" value="<?php if(!empty($numero)){ echo $numero; } ?>" min="0" required>
             </div>
         </div>
         <div class="form-actions">

@@ -42,18 +42,31 @@
 				$rut = $this->request->data['rut'];
 				$username = $this->request->data['username'];
 				$email = $this->request->data['email'];
+
+				$this->set('rut', $rut);
+				$this->set('username', $username);
+				$this->set('email', $email);
+
+				$this->set('nombre', $this->request->data['nombre']);
+				$this->set('apellido_paterno', $this->request->data['apellido_paterno']);
+				$this->set('apellido_materno', $this->request->data['apellido_materno']);
+				$this->set('fecha_nacimiento', $this->request->data['fecha_nacimiento']);
+				$this->set('poblacion', $this->request->data['poblacion']);
+				$this->set('calle', $this->request->data['calle']);
+				$this->set('numero', $this->request->data['numero']);
+
+				$this->set('_rol', $this->request->data['rol_id']);
+				$this->set('_region', $this->request->data['region_id']);
+				$this->set('_comuna', $this->request->data['comuna_id']);
 				
 				if($this->User->findByrut($rut)){
-					$this->Session->setFlash('El rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
-					$this->redirect(array('action' => 'add'));
+					$this->Session->setFlash('El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByusername($username)){
-					$this->Session->setFlash('El username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
-					$this->redirect(array('action' => 'add'));
+					$this->Session->setFlash('El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByemail($email)){
-					$this->Session->setFlash('El mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
-					$this->redirect(array('action' => 'add'));
+					$this->Session->setFlash('El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 				} 
 				else{
 					if ($this->User->save($this->request->data)) {
@@ -78,25 +91,51 @@
 			$this->set('comunas',$this->Comuna->find('all',array(
 				'order' => array('Comuna.nombre')
 			)));
-			if (!$this->request->is('get')) {
+
+			if ($this->request->is('post')) {
+
+				$id = $this->request->data['id'];
+
 				$rut = $this->request->data['rut'];
 				$email = $this->request->data['email'];
 
-				if($this->User->findByrut($rut)){
-					$this->Session->setFlash('El rut '.$rut.' ya esta esta registrado.','default', array("class" => "alert alert-error"));
+				$this->set('id', $id);
+				$this->set('rut', $rut);
+				$this->set('email', $email);
+
+				$this->set('nombre', $this->request->data['nombre']);
+				$this->set('apellido_paterno', $this->request->data['apellido_paterno']);
+				$this->set('apellido_materno', $this->request->data['apellido_materno']);
+				$this->set('fecha_nacimiento', $this->request->data['fecha_nacimiento']);
+				$this->set('poblacion', $this->request->data['poblacion']);
+				$this->set('calle', $this->request->data['calle']);
+				$this->set('numero', $this->request->data['numero']);
+				$this->set('telefono_fijo', $this->request->data['telefono_fijo']);
+				$this->set('telefono_movil', $this->request->data['telefono_movil']);
+
+				$this->set('_rol', $this->request->data['rol_id']);
+				$this->set('_region', $this->request->data['region_id']);
+				$this->set('_comuna', $this->request->data['comuna_id']);
+				
+				$conditions1 = array("User.rut" => $rut,"User.id !=" => $id);
+				$conditions2 = array("User.email" => $email,"User.id !=" => $id);
+
+				if($this->User->find('first', array('conditions' => $conditions1))){
+					$this->Session->setFlash('El usuario no se pudo actualizar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
 				} 
-				elseif($this->User->findByemail($email)){
-					$this->Session->setFlash('El mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
+				elseif($this->User->find('first', array('conditions' => $conditions2))){
+					$this->Session->setFlash('El usuario no se pudo actualizar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 				} 
 				else{
 					if ($this->User->save($this->request->data)) {
 						$this->Session->setFlash('El usuario ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'all'));
 					} 
-					else 
+					else{
 						$this->Session->setFlash('El usuario no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
-				}
-			} 
+					}
+				} 
+			}
 		}
 
 		function disable($id) {
