@@ -17,6 +17,10 @@
 			)));
 
 			if ($this->request->is('post')) {
+
+				$this->set('nombre', $this->request->data['nombre']);
+				$this->set('_categoria', $this->request->data['categoria_producto_id']);
+
 				if(!$this->Producto->findBynombre($this->request->data['nombre'])){
 					$current_user = $this->Auth->user();
 					$usuario = $this->User->find('first',array(

@@ -27,6 +27,18 @@
 			)));
 
 			if ($this->request->is('post')) {
+
+				$this->set('nombre', $this->request->data['nombre']);
+				$this->set('calle', $this->request->data['calle']);
+				$this->set('numero', $this->request->data['numero']);
+				$this->set('telefono_fijo', $this->request->data['telefono_fijo']);
+				$this->set('telefono_movil', $this->request->data['telefono_movil']);
+				$this->set('email', $this->request->data['email']);
+				$this->set('sitio_web', $this->request->data['sitio_web']);
+
+				$this->set('_categoria', $this->request->data['categoria_local_id']);
+				$this->set('_comuna', $this->request->data['comuna_id']);
+
 				if(!$this->Local->findBynombre($this->request->data['nombre'])){
 					$current_user = $this->Auth->user();
 					$usuario = $this->User->findByusername($current_user['username']); 

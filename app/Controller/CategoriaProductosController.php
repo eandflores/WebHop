@@ -13,6 +13,9 @@
 
 		public function add() {
 			if ($this->request->is('post')) {
+
+				$this->set('nombre', $this->request->data['nombre']);
+				
 				if(!$this->CategoriaProducto->findBynombre($this->request->data['nombre'])){
 					if ($this->CategoriaProducto->save($this->request->data)) {
 						$this->Session->setFlash('La categoria ha sido guardada exitosamente.','default', array("class" => "alert alert-success"));

@@ -156,5 +156,3 @@
         <input type="hidden" name="id" value="<?php if(!empty($id)){ echo $id; } else { echo $usuario['User']['id']; } ?>" required>
     </fieldset>
 </form>
-<!-- ae17ae39e4dc276ad941ca9a138de598524dbe31 -->
-<!-- 6591d286d4109d133557cc1add2e28694516a8e5 -->

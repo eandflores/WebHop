@@ -4,7 +4,7 @@
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
-              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" maxlength="30" required>
+              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" value="<?php if(!empty($nombre)){ echo $nombre; } ?>" maxlength="30" required>
             </div>
         </div>
         <div class="control-group">
@@ -12,11 +12,18 @@
             <div class="controls">
               <select id="selectCategoriaLocal" name="categoria_local_id">
                 <?php if(isset($categorias)){
-                        foreach ($categorias as $index => $categoria) { ?>
-                            <option value="<?php echo $categoria['CategoriaLocal']['id'] ?>">
-                            	<?php echo $categoria['CategoriaLocal']['nombre'] ?>
+                        foreach ($categorias as $index => $categoria) { 
+                          if(!empty($_categoria) && $_categoria == $categoria['CategoriaLocal']['id']){ ?>
+                            <option value="<?php echo $categoria['CategoriaLocal']['id']; ?>" selected>
+                            	<?php echo $categoria['CategoriaLocal']['nombre']; ?>
                             </option>
-                  <?php }
+                    <?php }
+                          else{ ?>
+                            <option value="<?php echo $categoria['CategoriaProducto']['id']; ?>">
+                              <?php echo $categoria['CategoriaProducto']['nombre']; ?>
+                            </option>
+                    <?php } 
+                        }
                       } ?>
               </select>
             </div>
@@ -49,9 +56,16 @@
             <div class="controls">
               <select id="selectComuna" name="comuna_id">
                 <?php if(isset($comunas)){
-                        foreach ($comunas as $index => $comuna) { ?>
-                          <option value="<?php echo $comuna['Comuna']['id'] ?>"><?php echo $comuna['Comuna']['nombre'] ?></option>
-                <?php   }
+                        foreach ($comunas as $index => $comuna) { 
+                          if(!empty($_comuna) && $_comuna == $comuna['Comuna']['id']){ ?>
+                            <option value="<?php echo $comuna['Comuna']['id']; ?>" selected><?php echo $comuna['Comuna']['nombre']; ?></option>
+                    <?php }
+                          else{ ?>
+                            <option value="<?php echo $comuna['Comuna']['id']; ?>">
+                              <?php echo $comuna['Comuna']['nombre']; ?>
+                            </option>
+                    <?php } 
+                       }
                       } ?>
               </select>
             </div>
@@ -59,37 +73,37 @@
         <div class="control-group">
             <label class="control-label" for="inputCalle">Calle:</label>
             <div class="controls">
-              <input type="text" id="inputCalle" name="calle" placeholder="Calle" maxlength="25" required>
+              <input type="text" id="inputCalle" name="calle" placeholder="Calle" value="<?php if(!empty($calle)){ echo $calle; } ?>" maxlength="25" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputNumero">Numero:</label>
             <div class="controls">
-              <input type="number" id="inputNumero" name="numero" placeholder="Número" min="0" required>
+              <input type="number" id="inputNumero" name="numero" placeholder="Número" value="<?php if(!empty($numero)){ echo $numero; } ?>" min="0" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputTelefonoFijo">Teléfono Fijo:</label>
             <div class="controls">
-              <input type="number" id="inputTelefonoFijo" name="telefono_fijo" placeholder="Teléfono Fijo" min="0">
+              <input type="number" id="inputTelefonoFijo" name="telefono_fijo" placeholder="Teléfono Fijo" value="<?php if(!empty($telefono_fijo)){ echo $telefono_fijo; } ?>" min="0">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputTelefonoMovil">Teléfono Móvil:</label>
             <div class="controls">
-              <input type="number" id="inputTelefonoMovil" name="telefono_movil" placeholder="Teléfono Móvil" min="0">
+              <input type="number" id="inputTelefonoMovil" name="telefono_movil" value="<?php if(!empty($telefono_movil)){ echo $telefono_movil; } ?>" placeholder="Teléfono Móvil" min="0">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputEmail">Email:</label>
             <div class="controls">
-              <input type="email" id="inputEmail" name="email" placeholder="Email" maxlength="50">
+              <input type="email" id="inputEmail" name="email" placeholder="Email" value="<?php if(!empty($email)){ echo $email; } ?>" maxlength="50">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputSitioWeb">Sitio Web:</label>
             <div class="controls">
-              <input type="text" id="inputSitioWeb" name="sitio_web" placeholder="Sitio Web" maxlength="50">
+              <input type="text" id="inputSitioWeb" name="sitio_web" placeholder="Sitio Web" value="<?php if(!empty($sitio_web)){ echo $sitio_web; } ?>" maxlength="50">
             </div>
         </div>
         <div class="form-actions">

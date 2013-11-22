@@ -4,7 +4,7 @@
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
-              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" maxlength="30" required>
+              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" value="<?php if(!empty($nombre)){ echo $nombre; } ?>" maxlength="30" required>
             </div>
         </div>
         <div class="control-group">
@@ -13,14 +13,14 @@
               <select id="selectCategoriaProducto" name="categoria_producto_id">
                 <?php if(isset($categorias)){
                         foreach ($categorias as $index => $categoria) {
-                          if($index == 0){ ?>
-                            <option value="<?php echo $categoria['CategoriaProducto']['id'] ?>" selected>
-                            	<?php echo $categoria['CategoriaProducto']['nombre'] ?>
+                          if(!empty($_categoria) && $_categoria == $categoria['CategoriaProducto']['id']){ ?>
+                            <option value="<?php echo $categoria['CategoriaProducto']['id']; ?>" selected>
+                            	<?php echo $categoria['CategoriaProducto']['nombre']; ?>
                             </option>
                     <?php }
                           else{ ?>
-                            <option value="<?php echo $categoria['CategoriaProducto']['id'] ?>">
-                            	<?php echo $categoria['CategoriaProducto']['nombre'] ?>
+                            <option value="<?php echo $categoria['CategoriaProducto']['id']; ?>">
+                            	<?php echo $categoria['CategoriaProducto']['nombre']; ?>
                             </option>
                     <?php } 
                         }
