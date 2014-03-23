@@ -35,7 +35,15 @@
 		}
 
 		function edit($id = null) {
-			$this->Oferta->id = $id;
+			$this->set('productos',$this->Producto->find('all',array(
+				'order' => array('Producto.nombre')
+			)));
+			$this->set('locales',$this->Local->find('all',array(
+				'order' => array('Local.nombre')
+			)));
+
+			$this->set('oferta', $this->Oferta->read(null,$id));
+
 			if ($this->request->is('get')) {
 				$this->request->data = $this->Oferta->read();
 			} 
@@ -46,13 +54,18 @@
 		}
 
 		function delete($id) {
-			if (!$this->request->is('post')) {
+			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
 			if ($this->Oferta->delete($id)) {
-				$this->Session->setFlash('La oferta no pudo ser eliminada');
+				$this->Session->setFlash('La oferta ha sido eliminada.','default', array("class" => "alert alert-success"));
 				$this->redirect(array('action' => 'index'));
 			}
+			else{
+				$this->Session->setFlash('La oferta no pudo ser elimonada, intente nuevamente.','default', array("class" => "alert alert-error"));
+				$this->redirect(array('action' => 'index'));
+			}	
 		}
+
 	}
 ?>
