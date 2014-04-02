@@ -3,7 +3,7 @@
 		
 		public $name = 'Comentario';
 
-		var $belongsTo = 'User';
+		var $belongsTo = array('User','Local');
 
 	}
 ?>
