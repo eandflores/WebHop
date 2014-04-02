@@ -26,7 +26,7 @@
                 <a href="/Hop/Ofertas/edit/<?php echo $oferta['Oferta']['id'] ?>">
                   <i class='icon icon-edit'></i>
                 </a>
-                <a href="/Hop/Ofertas/delete/<?php echo $oferta['Oferta']['id'] ?>" onclick="return confirm('Esta seguro que desea eliminar el producto de este local ?');">
+                <a id="<?php echo $oferta['Oferta']['id'] ?>" class="eliminarOferta" href="javascript:void(0)">
                   <i class='icon icon-remove'></i>
                 </a>
               </td>
@@ -39,4 +39,20 @@
     <?php } ?>
     </tbody>
 </table>
-<a href="/Hop/Ofertas/add" class="Agregar btn btn-primary">Agregar</a>
+<a href="/Hop/Ofertas/locales" class="Agregar btn btn-primary">Agregar</a>
+<script type="text/javascript">
+  jQuery(document).ready(function() { 
+
+    $('.eliminarOferta').click(function(){
+
+      var oferta = $(this).attr('id');
+      
+      alertify.confirm('Esta seguro que desea eliminar el producto de este local ?', function (e){
+        if(e){
+          window.location = '/Hop/Ofertas/delete/'+oferta;
+        }
+      });
+    });
+
+  });
+</script>

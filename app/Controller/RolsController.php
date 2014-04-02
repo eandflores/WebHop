@@ -21,8 +21,9 @@
 						$this->Session->setFlash('El rol ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'index'));
 					} 
-					else 
+					else{
 						$this->Session->setFlash('El rol no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
+					}
 				}
 				else{
 					$this->Session->setFlash('El rol ingresado ya existe.','default', array("class" => "alert alert-error"));

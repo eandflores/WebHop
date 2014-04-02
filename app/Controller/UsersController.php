@@ -73,8 +73,9 @@
 						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'all'));
 					} 
-					else 
+					else{
 						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
+					} 
 				} 
 			}
 		}
