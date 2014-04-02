@@ -2,23 +2,22 @@
 lock '3.1.0'
 
 set :application, 'Hop'
-set :repo_url, 'git@bitbucket.com:eandres/Hop.git'
+set :repo_url, 'git@bitbucket.com:eandres/hop.git'
 set :scm, :git
 set :branch, 'master'
 set :use_sudo, false
 
-role :app, 'root@192.168.1.124'
-role :web, 'root@192.168.1.124'
-role :db,  'root@192.168.1.124'
+role :app, 'root@192.168.1.126'
+role :web, 'root@192.168.1.126'
 
-server '192.168.1.124', roles: [:web, :app], user: 'root'
+server '192.168.1.126', roles: [:web, :app], user: 'root'
 
 set :stage, 'production'
 
 set :format, :pretty
 set :log_level, :debug
 set :pty, true
-set :linked_files, %w{Config/database.php}
+set :linked_files, %w{app/Config/database.php}
 
 set :deploy_to, '/var/www/Hop'
 
