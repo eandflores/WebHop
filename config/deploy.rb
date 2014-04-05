@@ -50,7 +50,7 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-      execute "cp #{deploy_to}/current/* #{deploy_to}"
+      execute "cp -r #{deploy_to}/current/* #{deploy_to}"
     end
   end
 
