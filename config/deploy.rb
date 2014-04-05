@@ -36,7 +36,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      run "service apache2 restart"
+      execute "service apache2 restart"
     end
   end
 
@@ -48,7 +48,7 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-      run "cp #{deploy_to}/current/* #{deploy_to}"
+      execute "cp #{deploy_to}/current/* #{deploy_to}"
     end
   end
 
