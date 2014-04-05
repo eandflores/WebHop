@@ -21,7 +21,7 @@ set :log_level, :debug
 set :pty, true
 set :linked_files, %w{app/Config/database.php}
 
-set :deploy_to, "/var/www/Hop"
+set :deploy_to, "/var/www/capistrano/Hop"
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -50,6 +50,8 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
+      execute "rm -rf /var/www/Hop"
+      execute "mkdir /var/www/Hop"
       execute "cp -r #{deploy_to}/current/* #{deploy_to}"
     end
   end
