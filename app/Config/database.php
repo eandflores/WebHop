@@ -1,20 +1,31 @@
 <?php
 
 class DATABASE_CONFIG {
-/*	Base de Datos Producción */
-
+/*	Base de Datos Producción Mauricio*/
+/* 
 	public $default = array(
 		'datasource' => 'Database/Postgres',
 		'persistent' => false,
-		'host' => '192.168.1.126',
+		'host' => '192.168.1.116',
 		'login' => 'postgres',
-		'password' => '12qwaszx',
-		'database' => 'hop',
+		'password' => 'zec2012',
+		'database' => 'Hop',
 		'prefix' => '',
 		'encoding' => 'utf8',
 		'port' => '5432'
 	);
-	
+/* 
+/*	Base de Datos Pruebas */
+
+	public $default = array(
+		'datasource' => 'Database/Postgres',
+		'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'edgardo',
+		'password' => '12qwaszx',
+		'database' => 'hop',
+		'prefix' => '',
+		'encoding' => 'utf8',
+	);
+
 }
-
-
