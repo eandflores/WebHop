@@ -19,7 +19,7 @@ set :log_level, :debug
 set :pty, true
 set :linked_files, %w{app/Config/database.php}
 
-set :deploy_to, '/var/htdocs/Hop'
+set :deploy_to, '/var/www/Hop'
 set :current_path, "#{deploy_to}/current"
 set :releases_path, "#{deploy_to}/releases"
 set :shared_path, "#{deploy_to}/shared"
