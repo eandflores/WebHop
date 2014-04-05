@@ -20,6 +20,9 @@ set :pty, true
 set :linked_files, %w{app/Config/database.php}
 
 set :deploy_to, '/var/htdocs/Hop'
+set :current_path, "#{deploy_to}/current"
+set :releases_path, "#{deploy_to}/releases"
+set :shared_path, "#{deploy_to}/shared"
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
