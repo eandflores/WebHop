@@ -20,9 +20,6 @@ set :pty, true
 set :linked_files, %w{app/Config/database.php}
 
 set :deploy_to, "/var/www/Hop"
-set :current_path, "#{deploy_to}"
-set :releases_path, "#{deploy_to}/releases"
-set :shared_path, "#{deploy_to}/shared"
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -30,7 +27,7 @@ set :shared_path, "#{deploy_to}/shared"
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-set :keep_releases, 5
+#set :keep_releases, 5
 
 namespace :deploy do
 
@@ -39,6 +36,8 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
+      run "cp #{deploy_to}/current #{deploy_to}"
+      run "service apache2 restart"
     end
   end
 
