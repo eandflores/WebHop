@@ -6,6 +6,8 @@ set :repo_url, 'git@bitbucket.com:eandres/hop.git'
 set :scm, :git
 set :branch, 'master'
 set :use_sudo, false
+set :user, 'root'
+set :password, '12qwaszx'
 
 role :app, 'root@192.168.1.126'
 role :web, 'root@192.168.1.126'
