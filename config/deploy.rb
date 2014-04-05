@@ -20,8 +20,9 @@ set :pty, true
 set :linked_files, %w{app/Config/database.php}
 
 set :deploy_to, "/var/www/Hop"
-set :deploy_path, "/var/www/Hop"
-set :current_path, "/var/www/Hop"
+set(:current_path){ 
+  "/var/www/Hop"
+}
 set :releases_path, "/var/www/Hop/releases"
 set :shared_path, "/var/www/Hop/shared"
 
