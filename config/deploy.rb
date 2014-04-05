@@ -5,7 +5,7 @@ set :application, 'Hop'
 set :repo_url, 'git@bitbucket.com:eandres/hop.git'
 set :scm, :git
 set :branch, 'master'
-set :use_sudo, false
+set :use_sudo, true
 set :user, 'root'
 set :password, '12qwaszx'
 
