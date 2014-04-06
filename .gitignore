@@ -7,4 +7,3 @@
 .DS_Store
 /tags
 /lib/Cake/Cache
-/app/Config/database.php
