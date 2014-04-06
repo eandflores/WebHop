@@ -2,7 +2,6 @@
 
 <form class="form-horizontal"  method="post">
     <fieldset>
-        <legend>Agregar productos asociado a local</legend>
 
         <div class="control-group">
             <label class="control-label" for="selectProducto">Producto:</label>
