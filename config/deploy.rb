@@ -40,6 +40,7 @@ namespace :deploy do
       # execute :touch, release_path.join('tmp/restart.txt')
       execute "rm -rf /var/www/Hop/*"
       execute "cp -r #{deploy_to}/current/* /var/www/Hop"
+      execute "chmod -R 777 Hop"
       execute "service apache2 restart"
     end
   end
