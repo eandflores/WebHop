@@ -167,6 +167,7 @@ Create Table Ofertas
 (
    id          Serial Unique not null,
    precio      Integer null,
+   descripcion Varchar(500) not null,
    user_id     Integer not null,
    producto_id Integer not null,
    local_id    Integer not null,
