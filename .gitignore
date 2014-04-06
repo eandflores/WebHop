@@ -1,11 +1,11 @@
-/app/tmp
-/lib/Cake/Console/Templates/skel/tmp/
-/plugins
-/vendors
+app/tmp
+lib/Cake/Console/Templates/skel/tmp/
+plugins
+vendors
 /build
 /dist
 /tags
-/lib/Cake/Cache
-/app/Config/database.php
+lib/Cake/Cache
+app/Config/database.php
 .DS_Store
 
