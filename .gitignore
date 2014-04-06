@@ -4,7 +4,8 @@
 /vendors
 /build
 /dist
-.DS_Store
 /tags
 /lib/Cake/Cache
 /app/Config/database.php
+.DS_Store
+
