@@ -1,9 +1,9 @@
-/Hop/app/tmp
-/Hop/lib/Cake/Console/Templates/skel/tmp/
+app/tmp
+lib/Cake/Console/Templates/skel/tmp/
 /build
 /dist
 /tags
-/Hop/lib/Cake/Cache
-/Hop/app/Config/database.php
+lib/Cake/Cache
+app/Config/database.php
 .DS_Store
 
