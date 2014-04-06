@@ -52,7 +52,7 @@ namespace :deploy do
       # end
       execute "rm -rf /var/www/Hop"
       execute "mkdir /var/www/Hop"
-      execute "cp -r #{deploy_to}/current/* #{deploy_to}"
+      execute "cp -r #{deploy_to}/current/* /var/www/Hop"
     end
   end
 

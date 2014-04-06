@@ -24,7 +24,7 @@ Create Table Comunas
 (
    id        Serial Unique not null,
    nombre    Varchar(50) not null,
-   region_id Numeric   not null,
+   region_id Integer   not null,
    created   Timestamp not null,
    modified  Timestamp not null,
 
@@ -45,22 +45,22 @@ Create Table Users
    email                Varchar(50) not null,
    username             Varchar(25) not null,
    password             Varchar(50) not null,
-   telefono_fijo        Numeric null,
-   telefono_movil       Numeric null,
+   telefono_fijo        Integer null,
+   telefono_movil       Integer null,
    poblacion            Varchar(25) not null,
    calle                Varchar(25) not null,
-   numero               Numeric not null,
-   aportes_totales      Numeric not null default '0',
-   aportes_aprobados    Numeric not null default '0',
-   cant_votos_positivos Numeric not null default '0',
-   cant_votos_negativos Numeric not null default '0',
-   cant_comentarios     Numeric not null default '0',
+   numero               Integer not null,
+   aportes_totales      Integer not null default '0',
+   aportes_aprobados    Integer not null default '0',
+   cant_votos_positivos Integer not null default '0',
+   cant_votos_negativos Integer not null default '0',
+   cant_comentarios     Integer not null default '0',
    estado               Boolean not null default true,
    img                  Bytea null,
-   rol_id               Numeric not null,
-   region_id            Numeric not null,
-   comuna_id            Numeric not null,
-   local_id             Numeric,
+   rol_id               Integer not null,
+   region_id            Integer not null,
+   comuna_id            Integer not null,
+   local_id             Integer,
    created              Timestamp not null,
    modified             Timestamp not null,
 
@@ -75,7 +75,7 @@ Create Table Sugerencias
 (
    id       Serial Unique not null,
    texto    Varchar(500) not null,
-   user_id  Numeric not null,
+   user_id  Integer not null,
    created  Timestamp not null,
    modified Timestamp not null,
    
@@ -98,8 +98,8 @@ Create Table Productos
 (
    id                    Serial Unique not null,
    nombre                Varchar(30) not null,
-   categoria_producto_id Numeric not null,
-   user_id               Numeric not null,
+   categoria_producto_id Integer not null,
+   user_id               Integer not null,
    created               Timestamp not null,
    modified              Timestamp not null,
 
@@ -124,19 +124,19 @@ Create Table Locals
    id                 Serial Unique not null,
    nombre             Varchar(30) not null,
    calle              Varchar(25) not null,
-   numero             Numeric not null,
-   telefono_fijo      Numeric null,
-   telefono_movil     Numeric null,
+   numero             Integer not null,
+   telefono_fijo      Integer null,
+   telefono_movil     Integer null,
    email              Varchar(50) null,
    sitio_web          Varchar(50) null,
-   votos_positivos    Numeric not null default '0',
-   votos_negativos    Numeric not null default '0',
+   votos_positivos    Integer not null default '0',
+   votos_negativos    Integer not null default '0',
    estado             Boolean not null default true,
    img                Bytea null,
-   categoria_local_id Numeric not null,
-   user_id            Numeric not null,
-   region_id          Numeric not null,
-   comuna_id          Numeric not null,
+   categoria_local_id Integer not null,
+   user_id            Integer not null,
+   region_id          Integer not null,
+   comuna_id          Integer not null,
    created            Timestamp not null,
    modified           Timestamp not null,
 
@@ -152,8 +152,8 @@ Create Table Comentarios
 (
    id       Serial Unique not null,
    texto    Varchar(250)   not null,
-   user_id  Numeric not null,
-   local_id Numeric not null,
+   user_id  Integer not null,
+   local_id Integer not null,
    created  Timestamp not null,
    modified Timestamp not null,
 
@@ -166,10 +166,10 @@ Create Table Comentarios
 Create Table Ofertas
 (
    id          Serial Unique not null,
-   precio      Numeric null,
-   user_id     Numeric not null,
-   producto_id Numeric not null,
-   local_id    Numeric not null,
+   precio      Integer null,
+   user_id     Integer not null,
+   producto_id Integer not null,
+   local_id    Integer not null,
    created     Timestamp not null,
    modified    Timestamp not null,
 
@@ -180,22 +180,21 @@ Create Table Ofertas
    Constraint FK_OFERTAS_REFERENCE_LOCALS Foreign Key (local_id) references Locals (id)
 );
 
-Create Table Solicitudes
+Create Table Solicituds
 (
    id       Serial Unique not null,
    estado   Varchar(10) not null,
-   sql      Varchar(100) not null,
+   sql      Varchar(1000) not null,
    accion   Varchar(10),       
    tabla    Varchar(20),
-   valores  Varchar,
-   user_id  Numeric Unique not null,
-   admin_id Numeric null,
+   campos   Varchar(1000),
+   user_id  Integer Unique not null,
+   admin_id Integer null,
    created  Timestamp not null,
    modified Timestamp not null,
 
    Constraint PK_SOLICITUDS primary key (id),
    
    Constraint FK_SOLICITUDS_REFERENCE_USERS Foreign Key (user_id) references Users (id)
-   Constraint FK_SOLICITUDS_REFERENCE_USERS Foreign Key (admin_id) references Users (id)
 );
 
