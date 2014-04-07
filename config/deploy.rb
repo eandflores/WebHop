@@ -19,7 +19,7 @@ set :stage, 'production'
 set :format, :pretty
 set :log_level, :debug
 set :pty, true
-set :linked_files, %w{app/Config/database.php}
+set :linked_files, %w{app/Config/database.php .htaccess}
 
 set :deploy_to, "/var/www/capistrano/Hop"
 
@@ -42,6 +42,9 @@ namespace :deploy do
       execute "chmod -R 777 #{deploy_to}/current"
       execute "cp -r #{deploy_to}/current/* /var/www/Hop"
       execute "chmod -R 777 /var/www/Hop"
+      execute "cp -r #{deploy_to}/current/.htaccess /var/www/Hop"
+      execute "cp -r #{deploy_to}/current/app/.htaccess /var/www/Hop/app"
+      execute "cp -r #{deploy_to}/current/app/webroot/.htaccess /var/www/Hop/app/webroot"
       execute "service apache2 restart"
     end
   end
