@@ -19,8 +19,8 @@
                             </option>
                     <?php }
                           else{ ?>
-                            <option value="<?php echo $categoria['CategoriaProducto']['id']; ?>">
-                              <?php echo $categoria['CategoriaProducto']['nombre']; ?>
+                            <option value="<?php echo $categoria['CategoriaLocal']['id']; ?>">
+                              <?php echo $categoria['CategoriaLocal']['nombre']; ?>
                             </option>
                     <?php } 
                         }

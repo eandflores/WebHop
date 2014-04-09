@@ -1,5 +1,3 @@
-<h3 class="Titulo">Agregar producto a Local - <?php if(isset($local)){ echo $local['Local']['nombre']; } ?></h3>
-
 <form class="form-horizontal"  method="post">
     <fieldset>
         <legend>Agregar productos asociado a local</legend>
@@ -26,6 +24,7 @@
             </div>
         </div>
 
+        <?php if($current_user['rol_id']!="3"){?>
         <div class="control-group">
             <label class="control-label" for="selectLocal">Local:</label>
             <div class="controls">
@@ -47,6 +46,7 @@
               </select>
             </div>
         </div>
+        <?php }?>
 
         <div class="control-group">
             <label class="control-label" for="inputPrecio">Precio:</label>

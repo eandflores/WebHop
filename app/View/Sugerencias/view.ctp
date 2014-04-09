@@ -18,9 +18,6 @@ if(isset($sugerencia)){ ?>
             <textarea class="form-control" rows="3" id="textArea" readonly style="margin: 0px 5px 0px 0px; width: 430px; height: 159px;">
             <?php echo $sugerencia['Sugerencia']['texto'] ?>"
             </textarea>
-
-           
-
           </div>
       </div>
 

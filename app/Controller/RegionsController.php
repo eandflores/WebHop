@@ -4,6 +4,13 @@
 		
 		var $sacaffold;
 
+		public function beforeFilter() {
+			$this->current_user = $this->Auth->user();
+			$this->logged_in = $this->Auth->loggedIn();
+			$this->set('logged_in',$this->logged_in);
+			$this->set('current_user',$this->current_user);
+		}
+
 		public function index() {
 			$this->set('regiones', $this->Region->find('all'));
 		}

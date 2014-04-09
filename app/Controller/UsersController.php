@@ -8,9 +8,13 @@
 
 		var $sacaffold;
 
-		public function beforeFilter(){
+		public function beforeFilter() {
 			parent::beforeFilter();
 			$this->Auth->allow('index','add');
+			$this->current_user = $this->Auth->user();
+			$this->logged_in = $this->Auth->loggedIn();
+			$this->set('logged_in',$this->logged_in);
+			$this->set('current_user',$this->current_user);
 		}
 		
 		public function index(){
@@ -73,9 +77,8 @@
 						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'all'));
 					} 
-					else{
+					else 
 						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
-					} 
 				} 
 			}
 		}

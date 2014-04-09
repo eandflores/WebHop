@@ -24197,3 +24197,52 @@ LINE 1: ... "User"."id")  WHERE NOT ("Producto"."id" = (Array))   ORDER...
 #1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
 #2 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2014-04-08 22:42:12 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+#0 C:\xampp\htdocs\Hop\lib\Cake\Model\ConnectionManager.php(94): ConnectionManager::_getConnectionObject('default')
+#1 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3169): ConnectionManager::getDataSource('default')
+#2 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(1096): Model->setDataSource('default')
+#3 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3191): Model->setSource('categoria_local...')
+#4 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(2642): Model->getDataSource()
+#5 C:\xampp\htdocs\Hop\app\Controller\CategoriaLocalsController.php(11): Model->find('all', Array)
+#6 [internal function]: CategoriaLocalsController->index()
+#7 C:\xampp\htdocs\Hop\lib\Cake\Controller\Controller.php(485): ReflectionMethod->invokeArgs(Object(CategoriaLocalsController), Array)
+#8 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(161): Dispatcher->_invoke(Object(CategoriaLocalsController), Object(CakeRequest), Object(CakeResponse))
+#10 C:\xampp\htdocs\Hop\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2014-04-08 22:42:14 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+#0 C:\xampp\htdocs\Hop\lib\Cake\Model\ConnectionManager.php(94): ConnectionManager::_getConnectionObject('default')
+#1 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3169): ConnectionManager::getDataSource('default')
+#2 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(1096): Model->setDataSource('default')
+#3 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3191): Model->setSource('categoria_local...')
+#4 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(2642): Model->getDataSource()
+#5 C:\xampp\htdocs\Hop\app\Controller\CategoriaLocalsController.php(11): Model->find('all', Array)
+#6 [internal function]: CategoriaLocalsController->index()
+#7 C:\xampp\htdocs\Hop\lib\Cake\Controller\Controller.php(485): ReflectionMethod->invokeArgs(Object(CategoriaLocalsController), Array)
+#8 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(161): Dispatcher->_invoke(Object(CategoriaLocalsController), Object(CakeRequest), Object(CakeResponse))
+#10 C:\xampp\htdocs\Hop\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2014-04-08 22:42:18 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+#0 C:\xampp\htdocs\Hop\lib\Cake\Model\ConnectionManager.php(94): ConnectionManager::_getConnectionObject('default')
+#1 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3169): ConnectionManager::getDataSource('default')
+#2 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(1096): Model->setDataSource('default')
+#3 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3191): Model->setSource('categoria_local...')
+#4 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(2642): Model->getDataSource()
+#5 C:\xampp\htdocs\Hop\app\Controller\CategoriaLocalsController.php(11): Model->find('all', Array)
+#6 [internal function]: CategoriaLocalsController->index()
+#7 C:\xampp\htdocs\Hop\lib\Cake\Controller\Controller.php(485): ReflectionMethod->invokeArgs(Object(CategoriaLocalsController), Array)
+#8 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(161): Dispatcher->_invoke(Object(CategoriaLocalsController), Object(CakeRequest), Object(CakeResponse))
+#10 C:\xampp\htdocs\Hop\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2014-04-08 22:48:09 Error: [MissingTableException] Table sugerencias for model Sugerencia was not found in datasource default.
+#0 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(3191): Model->setSource('sugerencias')
+#1 C:\xampp\htdocs\Hop\lib\Cake\Model\Model.php(2642): Model->getDataSource()
+#2 C:\xampp\htdocs\Hop\app\Controller\SugerenciasController.php(12): Model->find('all')
+#3 [internal function]: SugerenciasController->index()
+#4 C:\xampp\htdocs\Hop\lib\Cake\Controller\Controller.php(485): ReflectionMethod->invokeArgs(Object(SugerenciasController), Array)
+#5 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 C:\xampp\htdocs\Hop\lib\Cake\Routing\Dispatcher.php(161): Dispatcher->_invoke(Object(SugerenciasController), Object(CakeRequest), Object(CakeResponse))
+#7 C:\xampp\htdocs\Hop\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}

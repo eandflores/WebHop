@@ -328,27 +328,3 @@ a.item-menu{
 #flashMessage{
     margin: 35px 80px 0px 80px;
 }
-/*-----------------------------------------------------------------------
-/*--------------------------Post Integración--------------------------------*/
-
-.check-productos{
-    float: left;
-    width: 250px;
-}
-.check-container{
-    float: left;
-    overflow: hidden;
-}
-.buttons-check{
-    float: left;
-}
-.no-mostrar{
-    visibility:hidden !important;
-}
-#alertify{
-    margin-top: 10%;
-    font-weight: bold;
-}
-#alertify-logs{
-    font-weight: bold;
-}
