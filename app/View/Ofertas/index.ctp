@@ -67,4 +67,4 @@
     <?php } ?>
     </tbody>
 </table>
-<a href="/Hop/Ofertas/add" class="Agregar btn btn-primary">Agregar</a>
+<a href="/Hop/Ofertas/locales" class="Agregar btn btn-primary">Agregar</a>

@@ -3,7 +3,7 @@ if($current_user['rol_id']!="3"){?>
 <h3 class="Titulo">Gestión de Locales</h3>
 <?php } 
 else{?>
-<h3 class="Titulo">Gestiónar Local (es)</h3>
+<h3 class="Titulo">Gestionar Local (es)</h3>
 <?php } ?>
 <table class="table table-bordered datatable">
     <thead>

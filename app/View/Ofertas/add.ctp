@@ -1,66 +1,53 @@
-<form class="form-horizontal"  method="post">
-    <fieldset>
-        <legend>Agregar productos asociado a local</legend>
-
-        <div class="control-group">
-            <label class="control-label" for="selectProducto">Producto:</label>
-            <div class="controls">
-              <select id="selectLocal" name="producto_id">
-                <?php if(isset($productos)){
-                        foreach ($productos as $index => $producto) {
-                          if(!empty($_producto) && $_producto == $producto['Producto']['id']){ ?>
-                            <option value="<?php echo $producto['Producto']['id']; ?>" selected>
-                            	<?php echo $producto['Producto']['nombre']; ?>
-                            </option>
-                    <?php }
-                          else{ ?>
-                            <option value="<?php echo $producto['Producto']['id']; ?>">
-                            	<?php echo $producto['Producto']['nombre']; ?>
-                            </option>
-                    <?php } 
-                        }
-                      } ?>
-              </select>
-            </div>
-        </div>
-
-        <?php if($current_user['rol_id']!="3"){?>
-        <div class="control-group">
-            <label class="control-label" for="selectLocal">Local:</label>
-            <div class="controls">
-              <select id="selectLocal" name="local_id">
-                <?php if(isset($locales)){
-                        foreach ($locales as $index => $local) {
-                          if(!empty($_local) && $_local == $local['Local']['id']){ ?>
-                            <option value="<?php echo $local['Local']['id']; ?>" selected>
-                            	<?php echo $local['Local']['nombre']; ?>
-                            </option>
-                    <?php }
-                          else{ ?>
-                            <option value="<?php echo $local['Local']['id']; ?>">
-                            	<?php echo $local['Local']['nombre']; ?>
-                            </option>
-                    <?php } 
-                        }
-                      } ?>
-              </select>
-            </div>
-        </div>
-        <?php }?>
-
-        <div class="control-group">
-            <label class="control-label" for="inputPrecio">Precio:</label>
-            <div class="controls">
-              <input type="number" id="inputPrecio" name="precio" placeholder="Precio" value="<?php if(!empty($precio)){ echo $precio; } ?>" min="0">
-            </div>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn btn-success">Agregar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Ofertas'">Atras</button>
-        </div>
-    </fieldset>
+ <h3 class="Titulo">Agregar producto a Local - <?php if(isset($local)){ echo $local['Local']['nombre']; } ?></h3>
+ <form method="post" id="formOfertas">
+  <table class="table table-bordered datatable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+          if(isset($productos)){
+            foreach ($productos as $index => $producto) { ?>
+              <tr>
+                <td><input type="checkbox" id="nombre<?php echo $index; ?>" name="productos[<?php echo $index; ?>];" value="<?php echo $producto['Producto']['id']; ?>" class="checkbox"></td>
+                <td><?php echo $producto['Producto']['nombre']; ?></td>
+                <td><?php echo $producto['CategoriaProducto']['nombre']; ?></td>
+                <td><input type="number" id="precio<?php echo $index ?>" name="precios[<?php echo $index ?>];" value="0" min="0" class="precio input-small"></td>
+              </tr>
+      <?php } 
+          } else{ ?>
+            <tr>
+              <td colspan='5'>No hay Productos en la Base de Datos</td>
+            </tr>
+        <?php } ?>
+      </tbody>
+  </table>
+  <input type="submit" value="Agregar Productos" class="Agregar btn btn-primary">
+  <input type="hidden" name="local" value="<?php if(isset($local)){ echo $local['Local']['id']; } ?>">
 </form>
 <script type="text/javascript">
+  jQuery(document).ready(function() {  
+    $('#formOfertas').submit(function(){
+      var cont = 0;
+ 
+      $('.checkbox').each(function(){
+        if($(this).is(':checked')){
+          cont = cont + 1;
+        }
+      });
 
+      if(cont == 0){
+        alertify.error('Debe seleccionar al menos un producto.');
+        return false;
+      }
+      else{
+        return true;
+      }
+    });
+  });
 </script>

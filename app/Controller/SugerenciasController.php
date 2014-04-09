@@ -13,8 +13,7 @@
 		}
 
 		public function view($id) {
-			$this->Sugerencia->id = $id;
-			$this->set('sugerencia', $this->Sugerencia->read());
+			$this->set('sugerencia', $this->Sugerencia->read(nul,$id));
 		}
 
 		public function add() {

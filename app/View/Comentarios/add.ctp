@@ -9,7 +9,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Agregar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Comentarios'">Atras</button>
         </div>
     </fieldset>
 </form>

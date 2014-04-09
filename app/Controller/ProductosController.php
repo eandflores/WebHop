@@ -75,17 +75,28 @@
 				'order' => array('CategoriaProducto.nombre')
 			)));
 
-			if (!$this->request->is('get')) {
-				if (!$this->Producto->findBynombre($this->request->data['nombre'])) {
+			if ($this->request->is('post')) {
+
+				$id = $this->request->data['id'];
+				$nombre = $this->request->data['nombre'];
+
+				$this->set('nombre', $nombre);
+				$this->set('_categoria', $this->request->data['categoria_producto_id']);
+
+				$conditions = array("Producto.nombre" => $nombre,"Producto.id !=" => $id);
+
+				if($this->Producto->find('first', array('conditions' => $conditions))){
+					$this->Session->setFlash('El nombre del producto ya existe.','default', array("class" => "alert alert-error"));
+				}
+				else{
 					if ($this->Producto->save($this->request->data)) {
 						$this->Session->setFlash('El producto ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'index'));
 					} 
-					else 
+					else{
 						$this->Session->setFlash('El producto no fue actualizado, intente nuevamente.','default', array("class" => "alert alert-error"));
+					}
 				}
-				else
-					$this->Session->setFlash('El nombre del producto ya existe.','default', array("class" => "alert alert-error"));
 			} 
 		}
 
