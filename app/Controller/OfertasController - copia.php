@@ -66,8 +66,8 @@
 							$this->Session->setFlash('Su solicitud no fue enviada, intente nuevamente.','default', array("class" => "alert alert-error"));
 					}
 				}
-			else 
-							$this->Session->setFlash('El precio no puede estar vacio, intente nuevamente.','default', array("class" => "alert alert-error"));	
+				else 
+					$this->Session->setFlash('El precio no puede estar vacio, intente nuevamente.','default', array("class" => "alert alert-error"));	
 			}
 		}
 
