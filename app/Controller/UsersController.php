@@ -65,7 +65,7 @@
 
 				$this->request->data['rol_id'] = (int)$this->request->data['rol_id'];
 				$this->request->data['region_id'] = (int)$this->request->data['region_id'];
-				$this->request->data['comuna_id'] = (int)$this->request->data['comuna_id'];
+				$this->request->data['comuna_id'] = $this->request->data['comuna_id'];
 				$this->request->data['numero'] = (int)$this->request->data['numero'];
 				
 				if($this->User->findByrut($rut)){
