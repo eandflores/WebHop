@@ -71,15 +71,15 @@
 				$mensaje = '';
 
 				if($this->User->findByrut($rut)){
-					$mensaje = "El usuario no se pudo ingresar, el rut ".$rut." ya esta registrado.";
+					$mensaje = 'El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.';
 					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByusername($username)){
-					$mensaje = "El usuario no se pudo ingresar, el username ".$username." ya esta registrado.";
+					$mensaje = 'El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.';
 					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByemail($email)){
-					$mensaje ='El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.';
+					$mensaje = 'El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.';
 					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				else{
@@ -93,9 +93,8 @@
 						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 					} 
 				} 
+				echo json_encode($mensaje);
 			}
-
-			echo json_encode($mensaje);
 		}
 
 		function edit($id = null) {
