@@ -95,8 +95,7 @@
 				} 
 			}
 
-			$json['mensaje'] = $mensaje;
-			echo json_encode($json);
+			echo json_encode($mensaje);
 		}
 
 		function edit($id = null) {
