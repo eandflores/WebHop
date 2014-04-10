@@ -68,25 +68,35 @@
 				$this->request->data['comuna_id'] = $this->request->data['comuna_id'];
 				$this->request->data['numero'] = $this->request->data['numero'];
 				
+				$mensaje = '';
+
 				if($this->User->findByrut($rut)){
-					$this->Session->setFlash('El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					$mensaje = "El usuario no se pudo ingresar, el rut ".$rut." ya esta registrado.";
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByusername($username)){
-					$this->Session->setFlash('El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					$mensaje = "El usuario no se pudo ingresar, el username ".$username." ya esta registrado.";
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByemail($email)){
-					$this->Session->setFlash('El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					$mensaje ='El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.';
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				else{
 					if ($this->User->save($this->request->data)) {
-						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
+						$mensaje = 'El usuario ha sido guardado exitosamente.';
+						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'all'));
 					} 
 					else{
-						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
+						$mensaje = 'El usuario no fue guardado, intente nuevamente.'
+						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 					} 
 				} 
 			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
 		}
 
 		function edit($id = null) {
