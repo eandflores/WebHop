@@ -1,20 +1,20 @@
 <?php
 	class SugerenciasController extends AppController {
+
+		public function beforeFilter() {
+			$this->current_user = $this->Auth->user();
+			$this->logged_in = $this->Auth->loggedIn();
+			$this->set('logged_in',$this->logged_in);
+			$this->set('current_user',$this->current_user);
+		}
 		
 		public function index() {
 			$this->set('sugerencias', $this->Sugerencia->find('all'));
 		}
 
 		public function view($id) {
-			$this->Sugerencia->id = $id;
-			$this->set('sugerencia', $this->Sugerencia->read());
+			$this->set('sugerencia', $this->Sugerencia->read(nul,$id));
 		}
-
-		/*
-		public function view($id) {
-			$this->set('sugerencia', $this->Sugerencia->read(null,$id));
-		}
-		*/
 
 		public function add() {
 			if ($this->request->is('post')) {

@@ -24,7 +24,7 @@
               <?php echo $this->Html->image('mc_hop.png') ?>
           </a>
           <ul id="NavBarHome" class="nav pull-right">
-              <?php if(!empty($logged_in)): ?>
+              <?php if(!empty($logged_in) and $current_user['rol_id']=="1"): ?>
                 <li class="dropdown">
                   <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">USUARIOS<b class="caret"></b></a>
                   <ul class="dropdown-menu" id="swatch-menu">
@@ -38,7 +38,7 @@
                 <ul class="dropdown-menu" id="swatch-menu">
                   <li><a href="/Hop/Locals">Locales </a></li>
                   <li class="divider"></li>
-                  <li><a href="/Hop/CategoriaLocals">Categorías Locales</a></li>
+                  <li><a href="/Hop/CategoriaLocals">Categoría Locales</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -46,8 +46,40 @@
                 <ul class="dropdown-menu" id="swatch-menu">
                   <li><a href="/Hop/Productos">Productos </a></li>
                   <li class="divider"></li>
-                  <li><a href="/Hop/CategoriaProductos">Categorías Productos</a></li>
-                  <li><a href="/Hop/Ofertas">Productos asociados a Locales</a></li>
+                  <li><a href="/Hop/CategoriaProductos">Categoría Productos</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Ofertas">Productos Asociados a Locales</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">SUGERENCIAS <b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">                
+                  <li><a href="/Hop/Comentarios">Comentarios</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Sugerencias">Sugerencias</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Solicituds">Solicitudes</a></li>
+                </ul>
+              </li>
+              <?php endif; ?>
+
+              <?php if(!empty($logged_in) and $current_user['rol_id']!="1"): ?>
+                <li class="dropdown">
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">LOCAL<b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Locals">Local </a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/CategoriaLocals">Categoría Locales</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">PRODUCTOS<b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Productos">Productos </a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/CategoriaProductos">Categoría Productos</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Ofertas">Asociar Productos al Local</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -59,6 +91,7 @@
                 </ul>
               </li>
               <?php endif; ?>
+
               <li>
                 <a href="#contacto" class="item-menu" data-toggle='modal'>CONTÁCTANOS</a>
               </li>
@@ -70,7 +103,7 @@
                   <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i><?php echo " ".$current_user['username']." "; ?><b class="caret"></b></a>
                   <ul class="dropdown-menu" id="swatch-menu">
                     <li><a href="/Hop/Users/edit">Configurar Cuenta</a></li>
-                    <li><a href="/Hop/Users/change_pass">Cambiar Contraseña</a></li>
+                    <li><a href="/Hop/Users/contraseña">Cambiar Contraseña</a></li>
                     <li><a href="/Hop/Users/logout">Cerrar Sesión</a></li>
                   </ul>
                 </li>

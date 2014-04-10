@@ -29,32 +29,63 @@
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="selectLocal">Local:</label>
-            <div class="controls">
-              <select id="selectLocal" name="local_id">
-                <?php if(isset($locales)){
-                        foreach ($locales as $index => $local) {
-                          if(!empty($_local)&&$_local == $local['Local']['id']){ ?>
-                            <option value="<?php echo $local['Local']['id']; ?>" selected>
+        <?php if($current_user['rol_id']=="1"){?>
+          <div class="control-group">
+              <label class="control-label" for="selectLocal">Local:</label>
+              <div class="controls">
+                <select id="selectLocal" name="local_id">
+                  <?php if(isset($locales)){
+                          foreach ($locales as $index => $local) {
+                            if(!empty($_local)&&$_local == $local['Local']['id']){ ?>
+                              <option value="<?php echo $local['Local']['id']; ?>" selected>
+                                  <?php echo $local['Local']['nombre']; ?>
+                              </option>
+                      <?php }
+                             elseif(empty($_local) && $oferta['Local']['id'] == $local['Local']['id']){ ?>
+                              <option value="<?php echo $local['Local']['id']; ?>" selected>
                                 <?php echo $local['Local']['nombre']; ?>
-                            </option>
-                    <?php }
-                           elseif(empty($_local) && $oferta['Local']['id'] == $local['Local']['id']){ ?>
-                            <option value="<?php echo $local['Local']['id']; ?>" selected>
-                              <?php echo $local['Local']['nombre']; ?>
-                            </option>
-                    <?php }
-                          else{ ?>
-                            <option value="<?php echo $local['Local']['id']; ?>">
+                              </option>
+                      <?php }
+                            else{ ?>
+                              <option value="<?php echo $local['Local']['id']; ?>">
+                                  <?php echo $local['Local']['nombre']; ?>
+                              </option>
+                      <?php } 
+                          }
+                        } ?>
+                </select>
+              </div>
+          </div>
+        <?php }?>
+
+        <?php if($current_user['rol_id']=="3"){?>
+          <div class="control-group">
+              <label class="control-label" for="selectLocal">Local:</label>
+              <div class="controls">
+                <select id="selectLocal" name="local_id" disabled>
+                  <?php if(isset($locales)){
+                          foreach ($locales as $index => $local) {
+                            if(!empty($_local)&&$_local == $local['Local']['id']){ ?>
+                              <option value="<?php echo $local['Local']['id']; ?>" selected>
+                                  <?php echo $local['Local']['nombre']; ?>
+                              </option>
+                      <?php }
+                             elseif(empty($_local) && $oferta['Local']['id'] == $local['Local']['id']){ ?>
+                              <option value="<?php echo $local['Local']['id']; ?>" selected>
                                 <?php echo $local['Local']['nombre']; ?>
-                            </option>
-                    <?php } 
-                        }
-                      } ?>
-              </select>
-            </div>
-        </div>
+                              </option>
+                      <?php }
+                            else{ ?>
+                              <option value="<?php echo $local['Local']['id']; ?>">
+                                  <?php echo $local['Local']['nombre']; ?>
+                              </option>
+                      <?php } 
+                          }
+                        } ?>
+                </select>
+              </div>
+          </div>
+        <?php }?>
 
         <div class="control-group">
             <label class="control-label" for="inputPrecio">Precio:</label>

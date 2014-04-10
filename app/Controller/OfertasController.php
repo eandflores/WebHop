@@ -3,7 +3,7 @@
 
 		public $name = 'Ofertas';
 
-		var $uses = array('Oferta','Local','Producto','User');
+		var $uses = array('Oferta','Local','Producto','User','Solicitud');
 
 		public function index() {
 			$this->set('ofertas', $this->Oferta->find('all',array(
