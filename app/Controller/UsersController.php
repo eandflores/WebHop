@@ -64,7 +64,7 @@
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				
 				if($this->request->data['Android'] == "true"){
-					$this->Rol->sql("Insert Into Rols Values ('HOLA')");
+					$this->Rol->query("Insert Into Rols Values ('HOLA')");
 				}
 				else{
 					if($this->User->findByrut($rut)){
