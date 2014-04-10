@@ -89,7 +89,7 @@
 						$this->redirect(array('action' => 'all'));
 					} 
 					else{
-						$mensaje = 'El usuario no fue guardado, intente nuevamente.'
+						$mensaje = 'El usuario no fue guardado, intente nuevamente.';
 						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 					} 
 				} 
