@@ -24197,3 +24197,47 @@ LINE 1: ... "User"."id")  WHERE NOT ("Producto"."id" = (Array))   ORDER...
 #1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
 #2 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2014-04-07 16:31:36 Error: [MissingTableException] Table regions for model Region was not found in datasource default.
+#0 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Model/Model.php(3191): Model->setSource('regions')
+#1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Model/Model.php(2642): Model->getDataSource()
+#2 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/Controller/UsersController.php(33): Model->find('all', Array)
+#3 [internal function]: UsersController->add()
+#4 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#7 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2014-04-07 16:31:37 Error: [MissingTableException] Table regions for model Region was not found in datasource default.
+#0 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Model/Model.php(3191): Model->setSource('regions')
+#1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Model/Model.php(2642): Model->getDataSource()
+#2 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/Controller/UsersController.php(33): Model->find('all', Array)
+#3 [internal function]: UsersController->add()
+#4 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#5 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#7 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2014-04-07 16:31:52 Error: [MissingTableException] Table users for model User was not found in datasource default.
+#0 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Model/Model.php(3191): Model->setSource('users')
+#1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Model/Model.php(2642): Model->getDataSource()
+#2 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Component/Auth/BaseAuthenticate.php(89): Model->find('first', Array)
+#3 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Component/Auth/FormAuthenticate.php(65): BaseAuthenticate->_findUser('edgar', '123')
+#4 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Component/AuthComponent.php(633): FormAuthenticate->authenticate(Object(CakeRequest), Object(CakeResponse))
+#5 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Component/AuthComponent.php(510): AuthComponent->identify(Object(CakeRequest), Object(CakeResponse))
+#6 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/Controller/UsersController.php(190): AuthComponent->login()
+#7 [internal function]: UsersController->login()
+#8 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#9 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#10 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#11 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-04-09 03:48:31 Error: [MissingActionException] Action OfertasController::locales() could not be found.
+#0 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(OfertasController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-04-09 03:48:40 Error: [MissingActionException] Action OfertasController::locales() could not be found.
+#0 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/XAMPP/xamppfiles/htdocs/Hop/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(OfertasController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/XAMPP/xamppfiles/htdocs/Hop/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

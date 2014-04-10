@@ -2,7 +2,7 @@
 Create Table Rols 
 (
    id       Serial Unique not null,
-   nombre   Varchar(25) not null,
+   nombre   Varchar(50) not null,
    created  Timestamp not null,
    modified Timestamp not null,
 

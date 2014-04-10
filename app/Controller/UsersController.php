@@ -59,24 +59,29 @@
 				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				
-				if($this->User->findByrut($rut)){
-					$this->Session->setFlash('El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
-				} 
-				elseif($this->User->findByusername($username)){
-					$this->Session->setFlash('El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
-				} 
-				elseif($this->User->findByemail($email)){
-					$this->Session->setFlash('El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
-				} 
+				if($this->request->data['Android'] == "true"){
+					$this->Rol->sql("Insert Into Rols Values ('HOLA')");
+				}
 				else{
-					if ($this->User->save($this->request->data)) {
-						$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
-						$this->redirect(array('action' => 'all'));
+					if($this->User->findByrut($rut)){
+						$this->Session->setFlash('El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					} 
+					elseif($this->User->findByusername($username)){
+						$this->Session->setFlash('El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					} 
+					elseif($this->User->findByemail($email)){
+						$this->Session->setFlash('El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					} 
 					else{
-						$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
+						if ($this->User->save($this->request->data)) {
+							$this->Session->setFlash('El usuario ha sido guardado exitosamente.','default', array("class" => "alert alert-success"));
+							$this->redirect(array('action' => 'all'));
+						} 
+						else{
+							$this->Session->setFlash('El usuario no fue guardado, intente nuevamente.','default', array("class" => "alert alert-error"));
+						} 
 					} 
-				} 
+				}
 			}
 		}
 

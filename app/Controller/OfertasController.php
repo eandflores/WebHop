@@ -51,9 +51,6 @@
 				$current_user = $this->Auth->user();
 				$usuario = $this->User->findByusername($current_user['username']); 
 
-				// Debugger::dump($this->request->data['productos']);
-				// Debugger::dump($this->request->data['precios']);
-
 				$productos = $this->request->data['productos'];
 				$precios = $this->request->data['precios'];
 
@@ -117,15 +114,6 @@
 			$this->set('locales', $this->Local->find('all',array(
 				'order' => array('Local.nombre')
 			)));
-
-			if ($this->Oferta->delete($id)) {
-				$this->Session->setFlash('La oferta ha sido eliminada.','default', array("class" => "alert alert-success"));
-				$this->redirect(array('action' => 'index'));
-			}
-			else{
-				$this->Session->setFlash('La oferta no pudo ser elimonada, intente nuevamente.','default', array("class" => "alert alert-error"));
-				$this->redirect(array('action' => 'index'));
-			}	
 		}
 
 	}
