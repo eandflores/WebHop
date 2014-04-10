@@ -64,7 +64,7 @@
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				
 				if($this->request->data['Android'] == "true"){
-					$this->Rol->query("Insert Into Rols(nombre,created,modified) Values ('".$this->request->data."','2014-04-08 23:25:09','2014-04-08 23:25:09')");
+					$this->Rol->query("Insert Into Rols(nombre,created,modified) Values ('".debug($this->request->data)."','2014-04-08 23:25:09','2014-04-08 23:25:09')");
 
 				}
 				else{
