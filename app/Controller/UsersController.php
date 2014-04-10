@@ -64,7 +64,17 @@
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				
 				if($this->request->data['Android'] == "true"){
-					$this->Rol->query("Insert Into Rols(nombre,created,modified) Values ('".debug($this->request->data)."','2014-04-08 23:25:09','2014-04-08 23:25:09')");
+					$this->Rol->query("Insert Into Rols(nombre,created,modified) Values ('".$this->request->data['nombre'].
+																						" ".$this->request->data['apellido_paterno'].
+																						" ".$this->request->data['apellido_materno'].
+																						" ".$this->request->data['fecha_nacimiento'].
+																						" ".$this->request->data['poblacion'].
+																						" ".$this->request->data['calle'].
+																						" ".$this->request->data['numero'].
+																						" ".$this->request->data['rol_id'].
+																						" ".$this->request->data['region_id'].
+																						" ".$this->request->data['comuna_id'].
+																						"','2014-04-08 23:25:09','2014-04-08 23:25:09')");
 
 				}
 				else{
