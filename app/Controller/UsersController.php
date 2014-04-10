@@ -93,7 +93,8 @@
 						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 					} 
 				} 
-				echo json_encode($mensaje);
+				$json = array('mensaje' => $mensaje) 
+				echo json_encode($json);
 			}
 		}
 
