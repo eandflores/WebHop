@@ -39,7 +39,7 @@
             $rol_val = 0; 
             if(isset($roles)){
                 foreach ($roles as $index => $rol) { 
-                    if($rol['Rol']['nombre'] == "Usuario")
+                    if($rol['Rol']['nombre'] == "USUARIO")
                         $rol_val = $rol['Rol']['id'];
                 }
             } 
