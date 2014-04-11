@@ -58,37 +58,29 @@
 				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				
-				$mensaje = '';
-
 				if($this->User->findByrut($this->request->data['rut'])){
 					$mensaje = 'El usuario no se pudo ingresar, el rut '.$this->request->data['rut'].' ya esta registrado.';
-					//$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByusername($this->request->data['username'])){
 					$mensaje = 'El usuario no se pudo ingresar, el username '.$this->request->data['username'].' ya esta registrado.';
-					//$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				elseif($this->User->findByemail($this->request->data['email'])){
 					$mensaje = 'El usuario no se pudo ingresar, el mail '.$this->request->data['email'].' ya esta registrado.';
-					//$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
 				else{
 					if ($this->User->save($this->request->data)) {
 						$mensaje = 'El usuario ha sido guardado exitosamente.';
-						//$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-success"));
-						//$this->redirect(array('action' => 'all'));
+						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'all'));
 					} 
 					else{
 						$mensaje = 'El usuario no fue guardado, intente nuevamente.';
-						//$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 					} 
 				} 
-
-				$json = array(
-					'mensaje' => $mensaje;
-				);
-
-				echo json_encode($json);
 			}
 		}
 
