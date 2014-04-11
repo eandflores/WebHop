@@ -88,7 +88,7 @@
 			$this->autoRender = false;
 
 			$mensaje = '';
-			
+
 			if ($this->request->is('post')) {
 				if($this->User->findByrut($this->request->data['rut'])){
 					$mensaje = 'El usuario no se pudo ingresar, el rut '.$this->request->data['rut'].' ya esta registrado.';
@@ -115,7 +115,7 @@
 				} 
 			}
 
-			$json = array('mensaje ' => $mensaje);
+			$json['mensaje'] = $mensaje;
 			echo json_encode($json);
 		}
 
