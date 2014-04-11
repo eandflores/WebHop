@@ -85,7 +85,7 @@
 		}
 
 		public function guardar(){
-			$this->layout = 'android';
+			$this->autoRender = false;
 
 			if ($this->request->is('post')) {
 				if($this->User->findByrut($this->request->data['rut'])){
