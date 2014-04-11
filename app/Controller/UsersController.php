@@ -43,14 +43,10 @@
 			)));
 
 			if ($this->request->is('post')) {
-				$rut = $this->request->data['rut'];
-				$username = $this->request->data['username'];
-				$email = $this->request->data['email'];
 
-				$this->set('rut', $rut);
-				$this->set('username', $username);
-				$this->set('email', $email);
-
+				$this->set('rut', $this->request->data['rut']);
+				$this->set('username', $this->request->data['username']);
+				$this->set('email', $this->request->data['email']);
 				$this->set('nombre', $this->request->data['nombre']);
 				$this->set('apellido_paterno', $this->request->data['apellido_paterno']);
 				$this->set('apellido_materno', $this->request->data['apellido_materno']);
@@ -58,48 +54,44 @@
 				$this->set('poblacion', $this->request->data['poblacion']);
 				$this->set('calle', $this->request->data['calle']);
 				$this->set('numero', $this->request->data['numero']);
-
 				$this->set('_rol', $this->request->data['rol_id']);
 				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
-
-				$this->request->data['rol_id'] = $this->request->data['rol_id'];
-				$this->request->data['region_id'] = $this->request->data['region_id'];
-				$this->request->data['comuna_id'] = $this->request->data['comuna_id'];
-				$this->request->data['numero'] = $this->request->data['numero'];
 				
-				$mensaje = '';
+				$this->guardar();
+			}
+		}
 
-				if($this->User->findByrut($rut)){
-					$mensaje = 'El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.';
-					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
-				} 
-				elseif($this->User->findByusername($username)){
-					$mensaje = 'El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.';
-					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
-				} 
-				elseif($this->User->findByemail($email)){
-					$mensaje = 'El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.';
-					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+		public function guardar(){
+			$datos = $this->request->data;
+			$mensaje = '';
+
+			if($this->User->findByrut($datos['rut'])){
+				$mensaje = 'El usuario no se pudo ingresar, el rut '.$datos['rut'].' ya esta registrado.';
+				$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+			} 
+			elseif($this->User->findByusername($datos['username'])){
+				$mensaje = 'El usuario no se pudo ingresar, el username '.$datos['username'].' ya esta registrado.';
+				$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+			} 
+			elseif($this->User->findByemail($datos['email'])){
+				$mensaje = 'El usuario no se pudo ingresar, el mail '.$datos['email'].' ya esta registrado.';
+				$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+			} 
+			else{
+				if ($this->User->save($datos)) {
+					$mensaje = 'El usuario ha sido guardado exitosamente.';
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'all'));
 				} 
 				else{
-					if ($this->User->save($this->request->data)) {
-						$mensaje = 'El usuario ha sido guardado exitosamente.';
-						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-success"));
-						$this->redirect(array('action' => 'all'));
-					} 
-					else{
-						$mensaje = 'El usuario no fue guardado, intente nuevamente.';
-						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
-					} 
+					$mensaje = 'El usuario no fue guardado, intente nuevamente.';
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
 				} 
-				
-				$json = array(
-					'mensaje' => $mensaje
-				);
+			} 
 
-				echo json_encode($json);
-			}
+			$json = array('mensaje' => $mensaje);
+			echo json_encode($json);
 		}
 
 		function edit($id = null) {
