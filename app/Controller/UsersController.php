@@ -85,7 +85,7 @@
 				} 
 
 				$json = array(
-					'mensaje' => $mensaje
+					'mensaje' => $mensaje;
 				);
 
 				echo json_encode($json);
