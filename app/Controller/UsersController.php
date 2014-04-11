@@ -87,6 +87,8 @@
 		public function guardar(){
 			$this->autoRender = false;
 
+			$mensaje = '';
+			
 			if ($this->request->is('post')) {
 				if($this->User->findByrut($this->request->data['rut'])){
 					$mensaje = 'El usuario no se pudo ingresar, el rut '.$this->request->data['rut'].' ya esta registrado.';
@@ -113,7 +115,8 @@
 				} 
 			}
 
-			echo json_encode($this->request->data);
+			$json = array('mensaje ' => $mensaje);
+			echo json_encode($json);
 		}
 
 		function edit($id = null) {
