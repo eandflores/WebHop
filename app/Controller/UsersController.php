@@ -10,7 +10,7 @@
 
 		public function beforeFilter() {
 			parent::beforeFilter();
-			$this->Auth->allow('index','add');
+			$this->Auth->allow('index','add','guardar');
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -82,6 +82,38 @@
 					} 
 				} 
 			}
+		}
+
+		public function guardar(){
+			$this->layout = 'android';
+
+			if ($this->request->is('post')) {
+				if($this->User->findByrut($this->request->data['rut'])){
+					$mensaje = 'El usuario no se pudo ingresar, el rut '.$this->request->data['rut'].' ya esta registrado.';
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+				} 
+				elseif($this->User->findByusername($this->request->data['username'])){
+					$mensaje = 'El usuario no se pudo ingresar, el username '.$this->request->data['username'].' ya esta registrado.';
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+				} 
+				elseif($this->User->findByemail($this->request->data['email'])){
+					$mensaje = 'El usuario no se pudo ingresar, el mail '.$this->request->data['email'].' ya esta registrado.';
+					$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+				} 
+				else{
+					if ($this->User->save($this->request->data)) {
+						$mensaje = 'El usuario ha sido guardado exitosamente.';
+						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'all'));
+					} 
+					else{
+						$mensaje = 'El usuario no fue guardado, intente nuevamente.';
+						$this->Session->setFlash($mensaje,'default', array("class" => "alert alert-error"));
+					} 
+				} 
+			}
+
+			echo json_encode($this->request->data);
 		}
 
 		function edit($id = null) {
