@@ -58,7 +58,6 @@
 				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				
-				$this->guardar($this->request->data)
 				$mensaje = '';
 
 				if($this->User->findByrut($this->request->data['rut'])){
