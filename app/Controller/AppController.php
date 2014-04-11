@@ -4,7 +4,6 @@ App::uses('Controller', 'Controller');
 	//   debug($this->current_user,null,true);
 
 	class AppController extends Controller {
-		$this->autoRender = false;
 
 		public $components = array(
 	        'Auth' => array(
