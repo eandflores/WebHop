@@ -89,7 +89,7 @@
 					'mensaje' => $mensaje
 				);
 
-				json_encode($json);
+				echo json_encode($json);
 			}
 		}
 
