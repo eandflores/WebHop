@@ -59,8 +59,14 @@
 			$this->autoRender = false;
 
 			$regiones = $this->Region->find('all');
+			$regiones_ = array();
 
-			echo json_encode($regiones);
+			foreach ($regiones as $index => $region) {
+
+				$regiones_[$index] = $region['Region'];
+			}
+
+			echo json_encode($regiones_);
 		}
 	}
 ?>

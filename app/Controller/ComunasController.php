@@ -4,6 +4,11 @@
 		
 		var $sacaffold;
 
+		public function beforeFilter() {
+			parent::beforeFilter();
+			$this->Auth->allow('comunas');
+		}
+
 		public function index() {
 			$this->set('comunas', $this->Comuna->find('all'));
 		}
