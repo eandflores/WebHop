@@ -49,5 +49,13 @@
 			$this->Session->setFlash('La comuna no fue eliminada.');
         	$this->redirect(array('action' => 'index'));
 		}
+
+		public function comunas(){
+			$this->autoRender = false;
+
+			$comunas = $this->Comuna->find('all');
+
+			echo json_encode($comunas);
+		}
 	}
 ?>

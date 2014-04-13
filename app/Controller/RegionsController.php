@@ -4,6 +4,11 @@
 		
 		var $sacaffold;
 
+		public function beforeFilter() {
+			parent::beforeFilter();
+			$this->Auth->allow('regiones');
+		}
+
 		public function index() {
 			$this->set('regiones', $this->Region->find('all'));
 		}
@@ -48,6 +53,14 @@
 			}
 			$this->Session->setFlash('La región no fue eliminada.');
         	$this->redirect(array('action' => 'index'));
+		}
+
+		public function regiones(){
+			$this->autoRender = false;
+
+			$regiones = $this->Region->find('all');
+
+			echo json_encode($regiones);
 		}
 	}
 ?>
