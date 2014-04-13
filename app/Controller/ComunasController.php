@@ -59,8 +59,13 @@
 			$this->autoRender = false;
 
 			$comunas = $this->Comuna->find('all');
+			$comunas_ = array();
 
-			echo json_encode($comunas);
+			foreach ($comunas as $index => $comuna) {
+
+				$comunas_[$index] = $comuna['Comuna'];
+			}
+			echo json_encode($comunas_);
 		}
 	}
 ?>
