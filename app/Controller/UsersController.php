@@ -207,7 +207,7 @@
 			}
 		}
 
-		public function login(){
+		public function loginA(){
 			$logged_in = $this->Auth->loggedIn();
 
 			if(!empty($logged_in)){
@@ -226,7 +226,7 @@
 			}
 		}
 
-		public function loginAndroid(){
+		public function login(){
 			$this->autoRender = false;
 
 			$logged_in = $this->Auth->loggedIn();
