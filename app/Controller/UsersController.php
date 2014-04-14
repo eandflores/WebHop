@@ -10,7 +10,8 @@
 
 		public function beforeFilter() {
 			parent::beforeFilter();
-			$this->Auth->allow('index','add','guardar');
+			$this->Auth->allow('index','add',
+				'guardar','loginAndroid');
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -91,16 +92,16 @@
 
 			if ($this->request->is('post')){
 				if($this->User->findByrut($this->request->data['rut']))
-					$mensaje = 'El usuario no se pudo ingresar, el rut '.$this->request->data['rut'].' ya esta registrado.';	
+					$mensaje = 'No se pudo completar el registro, el rut '.$this->request->data['rut'].' ya esta registrado.';	
 				elseif($this->User->findByusername($this->request->data['username']))
-					$mensaje = 'El usuario no se pudo ingresar, el username '.$this->request->data['username'].' ya esta registrado.';
+					$mensaje = 'No se pudo completar el registro, el username '.$this->request->data['username'].' ya esta registrado.';
 				elseif($this->User->findByemail($this->request->data['email']))
-					$mensaje = 'El usuario no se pudo ingresar, el mail '.$this->request->data['email'].' ya esta registrado.';
+					$mensaje = 'No se pudo completar el registro, el mail '.$this->request->data['email'].' ya esta registrado.';
 				else{
 					if ($this->User->save($this->request->data)) 
-						$mensaje = 'El usuario ha sido guardado exitosamente.'; 
+						$mensaje = 'El registro se ha completado exitosamente, ahora puede iniciar sesión.'; 
 					else
-						$mensaje = 'El usuario no fue guardado, intente nuevamente.'; 
+						$mensaje = 'Ha ocurrido un error durante el registro, intentelo nuevamente.'; 
 				} 
 			}
 
@@ -223,6 +224,24 @@
         			$this->redirect(array('action' => 'login'));
 				}
 			}
+		}
+
+		public function loginAndroid(){
+			$this->autoRender = false;
+
+			$logged_in = $this->Auth->loggedIn();
+			$mensaje = "";
+
+			if($this->request->is('post')){
+				if($this->Auth->login())
+					$mensaje = "EXITO";
+				else
+					$mensaje = 'Error iniciando sesión, compruebe que su username y/o password sean correctos.';
+        			
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
 		}
 
 		public function logout(){
