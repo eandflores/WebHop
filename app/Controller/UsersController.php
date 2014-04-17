@@ -242,7 +242,8 @@
 			if($this->request->is('post')){
 				if($this->Auth->login()){
 					$mensaje = "EXITO";
-					$usuario = $this->User->read(null,$this->current_user['id']);
+					$usuario_aux = $this->Auth->user();
+					$usuario = $this->User->read(null,$usuario_aux['id']);
 				}
 				else
 					$mensaje = 'Error iniciando sesión, compruebe que su username y/o password sean correctos.';
