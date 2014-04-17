@@ -236,15 +236,13 @@
 		public function loginAndroid(){
 			$this->autoRender = false;
 
-			$logged_in = $this->Auth->loggedIn();
 			$mensaje = "";
 			$usuario = "";
 
 			if($this->request->is('post')){
 				if($this->Auth->login()){
 					$mensaje = "EXITO";
-					$usuario_aux = $this->Auth->user();
-					$usuario = $this->User->read(null,$usuario_aux['id']);
+					$usuario = $this->User->read(null,$this->current_user['id']);
 				}
 				else
 					$mensaje = 'Error iniciando sesión, compruebe que su username y/o password sean correctos.';
