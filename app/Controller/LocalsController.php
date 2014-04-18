@@ -3,9 +3,11 @@
 
 		public $name = 'Locals';
 
-		var $uses = array('Local','CategoriaLocal','Region','Comuna','User','Solicitud');
+		var $uses = array('Local','CategoriaLocal','Region','Comuna','User','Solicitud','Oferta','Producto');
 
 		public function beforeFilter() {
+			$this->Auth->allow('locales');
+
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -169,6 +171,46 @@
 	        		$this->redirect(array('action' => 'index'));
 				}
 			}
+		}
+
+		#========================Android==========================#
+
+		function locales(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$locales = array();
+			$texto = $this->request->data['nombre'];
+
+			if ($this->request->is('post')){
+
+				$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+				$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+				$texto = strtolower(str_replace($no_permitidas, $permitidas ,$texto));
+				$producto = $this->Producto->findBynombre($texto);
+				
+				if($producto != '' and $producto != null){
+					$ofertas = $this->Oferta->find('all',array(
+						 						'conditions' => array('Oferta.producto_id' => $producto['Producto']['id'])
+						 					));
+
+					foreach ($ofertas as $index => $oferta){
+
+						$local = $this->Local->find('first',array(
+						 						'conditions' => array('Local.id' => $oferta['Oferta']['local_id'])
+						 					));
+						array_push($locales,$local['Local']);
+					}
+
+					$mensaje = "EXITO";
+				}	
+				else
+					$mensaje = 'El producto solicitado no ha sido encontrado.';
+			}
+
+			$json['locales'] = $locales;
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
 		}
 	}
 ?>

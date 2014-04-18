@@ -119,5 +119,21 @@
 				$this->redirect(array('action' => 'index'));
 			}
 		}
+
+		#========================Android==========================#
+
+		function productos(){
+			$this->autoRender = false;
+
+			$productos = $this->Producto->find('all');
+			$productos_ = array();
+
+			foreach ($productos as $index => $producto) {
+
+				$productos_[$index] = $producto['Producto'];
+			}
+
+			echo json_encode($productos_);
+		}
 	}
 ?>
