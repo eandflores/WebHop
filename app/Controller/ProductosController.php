@@ -6,7 +6,7 @@
 		var $uses = array('Producto','CategoriaProducto','User','Oferta','Solicitud');
 
 		public function beforeFilter() {
-			$this->Auth->allow('locales');
+			$this->Auth->allow('productos');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
