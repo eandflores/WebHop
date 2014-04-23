@@ -179,7 +179,7 @@ Create Table Ofertas
 );
 
 Create Table Solicituds
-(
+( 
    id       Serial Unique not null,
    estado   Varchar(10) not null,
    sql      Varchar(1000) not null,

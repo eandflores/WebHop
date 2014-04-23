@@ -190,20 +190,22 @@
 				$texto = strtolower(str_replace($no_permitidas, $permitidas ,$texto));
 				$producto = $this->Producto->findBynombre($texto);
 				
-				if($producto != '' and $producto != null){
+				if($producto != '' and !is_null($producto)){
 					$ofertas = $this->Oferta->find('all',array(
 						 						'conditions' => array('Oferta.producto_id' => $producto['Producto']['id'])
 						 					));
 
-					foreach ($ofertas as $index => $oferta){
-
-						$local = $this->Local->find('first',array(
-						 						'conditions' => array('Local.id' => $oferta['Oferta']['local_id'])
-						 					));
-						array_push($locales,$local['Local']);
+					if(!is_null($ofertas)){
+						foreach ($ofertas as $index => $oferta){
+							$local = $this->Local->find('first',array(
+							 						'conditions' => array('Local.id' => $oferta['Oferta']['local_id'])
+							 					));
+							array_push($locales,$local['Local']);
+						}
+						$mensaje = "EXITO";
 					}
-
-					$mensaje = "EXITO";
+					else
+						$mensaje = 'El producto no se encuentra disponible en ninguno de los locales existentes.';
 				}	
 				else
 					$mensaje = 'El producto solicitado no ha sido encontrado.';
