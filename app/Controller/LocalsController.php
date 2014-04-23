@@ -181,35 +181,37 @@
 			$mensaje = '';
 			$locales = array();
 
-			if ($this->request->is('post')){
+			//if ($this->request->is('post')){
 
-				$texto = $this->request->data['nombre'];
+				$texto = "perro";
 				
 				$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
 				$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
 				$texto = strtolower(str_replace($no_permitidas, $permitidas ,$texto));
 				$producto = $this->Producto->findBynombre($texto);
 				
-				if($producto != '' and !is_null($producto)){
+				if(!empty($producto) and !is_null($producto)){
 					$ofertas = $this->Oferta->find('all',array(
 						 						'conditions' => array('Oferta.producto_id' => $producto['Producto']['id'])
 						 					));
 
-					if(!is_null($ofertas)){
+					if(!empty($ofertas) && !is_null($ofertas)){
 						foreach ($ofertas as $index => $oferta){
+
 							$local = $this->Local->find('first',array(
 							 						'conditions' => array('Local.id' => $oferta['Oferta']['local_id'])
 							 					));
 							array_push($locales,$local['Local']);
 						}
+
 						$mensaje = "EXITO";
 					}
 					else
-						$mensaje = 'El producto no se encuentra disponible en ninguno de los locales existentes.';
+						$mensaje = 'El producto solicitado no esta disponible en los locales registrados.';
 				}	
 				else
 					$mensaje = 'El producto solicitado no ha sido encontrado.';
-			}
+			//}
 
 			$json['locales'] = $locales;
 			$json['mensaje'] = $mensaje;
