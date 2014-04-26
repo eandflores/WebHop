@@ -10,8 +10,8 @@
 
 		public function beforeFilter() {
 			parent::beforeFilter();
-			$this->Auth->allow('index','add',
-				'guardar','loginAndroid');
+			$this->Auth->allow('index','add','guardar',
+				'loginAndroid','actualizarEmail');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -86,7 +86,7 @@
 			}
 		}
 
-		function edit($id = null) {
+		public function edit($id = null) {
 			$this->set('usuario', $this->User->read(null,$id));
 
 			$this->set('roles',$this->Rol->find('all',array(
@@ -145,7 +145,7 @@
 			}
 		}
 
-		function disable($id) {
+		public function disable($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			} 
@@ -165,7 +165,7 @@
 			
 		}
 
-		function enable($id) {
+		public function enable($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			} 
@@ -228,6 +228,30 @@
 						$mensaje = 'El registro se ha completado exitosamente, ahora puede iniciar sesión.'; 
 					else
 						$mensaje = 'Ha ocurrido un error durante el registro, intentelo nuevamente.'; 
+				} 
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarEmail(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				if($this->User->findByemail($this->request->data['email']))
+					$mensaje = 'El email '.$this->request->data['email'].' ya esta registrado, no se pudo actualizar el email.';
+				else{
+					$usuario = $this->User->read(null,$this->request->data['id']);
+					$usuario['email'] = $this->request->data['email'];
+
+					if ($this->User->save($usuario)) 
+						$mensaje = 'El email se ha actualizado exitosamente.'; 
+					else
+						$mensaje = 'No se pudo actualizar el email, intentelo nuevamente.'; 
 				} 
 			}
 
