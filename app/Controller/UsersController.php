@@ -215,12 +215,14 @@
 			$mensaje = '';
 
 			if ($this->request->is('post')){
-				if($this->User->findByrut($this->request->data['rut']))
-					$mensaje = 'No se pudo completar el registro, el rut '.$this->request->data['rut'].' ya esta registrado.';	
-				elseif($this->User->findByusername($this->request->data['username']))
+				if($this->User->findByusername($this->request->data['username']))
 					$mensaje = 'No se pudo completar el registro, el username '.$this->request->data['username'].' ya esta registrado.';
 				elseif($this->User->findByemail($this->request->data['email']))
 					$mensaje = 'No se pudo completar el registro, el mail '.$this->request->data['email'].' ya esta registrado.';
+				elseif(!empty($this->request->data['rut'])){
+					if($this->User->findByrut($this->request->data['rut']))
+						$mensaje = 'No se pudo completar el registro, el rut '.$this->request->data['rut'].' ya esta registrado.';	
+				}
 				else{
 					if ($this->User->save($this->request->data)) 
 						$mensaje = 'El registro se ha completado exitosamente, ahora puede iniciar sesión.'; 

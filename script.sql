@@ -37,10 +37,10 @@ Create Table Comunas
 Create Table Users
 (
    id                   Serial Unique not null,
-   rut                  Varchar(12) not null,
-   nombre               Varchar(50) not null,
-   apellido_paterno     Varchar(25) not null,
-   apellido_materno     Varchar(25) not null,
+   rut                  Varchar(12),
+   nombre               Varchar(50),
+   apellido_paterno     Varchar(25),
+   apellido_materno     Varchar(25),
    fecha_nacimiento     Date,
    email                Varchar(50) not null,
    username             Varchar(25) not null,
