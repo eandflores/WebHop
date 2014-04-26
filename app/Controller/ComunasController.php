@@ -2,7 +2,10 @@
 
 	class ComunasController extends AppController {
 		
-		var $sacaffold;
+		public $name = 'Comunas';
+
+		var $uses = array('Comuna','Region');
+
 
 		public function beforeFilter() {
 			parent::beforeFilter();
@@ -58,7 +61,9 @@
 		public function comunas(){
 			$this->autoRender = false;
 
-			$comunas = $this->Comuna->find('all');
+			$comunas = $this->Comuna->find('all',array(
+						 						'conditions' => array('Comuna.region_id' => $producto['Region']['id'])
+						 					));
 			$comunas_ = array();
 
 			foreach ($comunas as $index => $comuna) {
