@@ -62,7 +62,7 @@
 			$this->autoRender = false;
 
 			$comunas = $this->Comuna->find('all',array(
-						 						'conditions' => array('Comuna.region_id' => $producto['Region']['id'])
+						 						'conditions' => array('Comuna.region_id' => 8)
 						 					));
 			$comunas_ = array();
 
