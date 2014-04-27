@@ -246,7 +246,7 @@
 					$mensaje = 'El email '.$this->request->data['email'].' ya esta registrado, no se pudo actualizar el email.';
 				else{
 					$usuario = $this->User->read(null,$this->request->data['id']);
-					$usuario['email'] = $this->request->data['email'];
+					$usuario['User']['email'] = $this->request->data['email'];
 
 					if ($this->User->save($usuario)) 
 						$mensaje = 'El email se ha actualizado exitosamente.'; 
