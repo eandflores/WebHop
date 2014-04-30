@@ -296,12 +296,12 @@
 				$usuario = $this->User->read(null,$this->request->data['id']);
 
 				if(AuthComponent::password($this->request->data['passwordAntiguo']) == $usuario['User']['password']){
-					$password = $this->request->data['passwordNuevo'];
-					$usuario['User']['password'] = $password;
+					$usuario['User']['password'] = $this->request->data['passwordNuevo'];
 
 					if ($this->User->save($usuario)){
 						$mensaje = 'EXITO'; 
 						$usuario = $this->User->read(null,$this->request->data['id']);
+						$password = $usuario['User']['password'];
 					}
 					else
 						$mensaje = 'No se pudo actualizar el password, intentelo nuevamente.'; 
