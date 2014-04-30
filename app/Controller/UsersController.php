@@ -11,7 +11,7 @@
 		public function beforeFilter() {
 			parent::beforeFilter();
 			$this->Auth->allow('index','add','guardar',
-				'loginAndroid','actualizarEmail');
+				'loginAndroid','actualizarEmail','actualizarNombre');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -253,6 +253,30 @@
 					else
 						$mensaje = 'No se pudo actualizar el email, intentelo nuevamente.'; 
 				} 
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarNombre(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+				$usuario['User']['nombre'] = $this->request->data['nombre'];
+				$usuario['User']['apellido_paterno'] = $this->request->data['apellido_paterno'];
+				$usuario['User']['apellido_materno'] = $this->request->data['apellido_materno'];
+
+				if ($this->User->save($usuario)) 
+					$mensaje = 'EXITO'; 
+				else
+					$mensaje = 'No se pudo actualizar el email, intentelo nuevamente.'; 
+				
 			}
 
 			$json['mensaje'] = $mensaje;
