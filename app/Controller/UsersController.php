@@ -249,7 +249,7 @@
 					$usuario['User']['email'] = $this->request->data['email'];
 
 					if ($this->User->save($usuario)) 
-						$mensaje = 'El email se ha actualizado exitosamente.'; 
+						$mensaje = 'EXITO'; 
 					else
 						$mensaje = 'No se pudo actualizar el email, intentelo nuevamente.'; 
 				} 
