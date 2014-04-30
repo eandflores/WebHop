@@ -11,7 +11,8 @@
 		public function beforeFilter() {
 			parent::beforeFilter();
 			$this->Auth->allow('index','add','guardar',
-				'loginAndroid','actualizarEmail','actualizarNombre');
+				'loginAndroid','actualizarEmail','actualizarNombre',
+				'actualizarPassword');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -279,6 +280,36 @@
 				
 			}
 
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarPassword(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+			$password = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+
+				if(AuthComponent::password($this->request->data['passwordAntiguo']) == $usuario['User']['password']){
+					$password = AuthComponent::password($this->request->data['passwordNuevo']);
+					$usuario['User']['password'] = $password;
+
+					if ($this->User->save($usuario)) 
+						$mensaje = 'EXITO'; 
+					else
+						$mensaje = 'No se pudo actualizar el password, intentelo nuevamente.'; 
+				}
+				else
+					$mensaje = 'El password actual no es correcto.'; 
+				
+			}
+
+			$json['password'] = $password;
 			$json['mensaje'] = $mensaje;
 			echo json_encode($json);
 		}
