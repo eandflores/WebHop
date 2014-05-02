@@ -284,6 +284,29 @@
 			echo json_encode($json);
 		}
 
+		public function actualizarTelefono(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+				$usuario['User']['telefono_fijo'] = $this->request->data['telefono_fijo'];
+				$usuario['User']['telefono_movil'] = $this->request->data['telefono_movil'];
+
+				if ($this->User->save($usuario)) 
+					$mensaje = 'EXITO'; 
+				else
+					$mensaje = 'No se pudo actualizar el telefono, intentelo nuevamente.'; 
+				
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
 		public function actualizarPassword(){
 			$this->autoRender = false;
 
