@@ -12,7 +12,8 @@
 			parent::beforeFilter();
 			$this->Auth->allow('index','add','guardar',
 				'loginAndroid','actualizarEmail','actualizarNombre',
-				'actualizarPassword');
+				'actualizarPassword','actualizarTelefono',
+				'actualizarDireccion');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -305,6 +306,32 @@
 					$mensaje = 'EXITO'; 
 				else
 					$mensaje = 'No se pudo actualizar el telefono, intentelo nuevamente.'; 
+				
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarDireccion(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+				$usuario['User']['poblacion'] = $this->request->data['poblacion'];
+				$usuario['User']['calle'] = $this->request->data['calle'];
+				$usuario['User']['numero'] = $this->request->data['numero'];
+				$usuario['User']['region_id'] = $this->request->data['region_id'];
+				$usuario['User']['comuna_id'] = $this->request->data['comuna_id'];
+
+				if ($this->User->save($usuario)) 
+					$mensaje = 'EXITO'; 
+				else
+					$mensaje = 'No se pudo actualizar la dirección, intentelo nuevamente.'; 
 				
 			}
 
