@@ -236,7 +236,7 @@
 				} 
 			}
 
-			$json['usuario'] = $mensaje;
+			$json['usuario'] = $usuario;
 			$json['mensaje'] = $mensaje;
 			echo json_encode($json);
 		}
