@@ -214,6 +214,7 @@
 			$this->autoRender = false;
 
 			$mensaje = '';
+			$usuario = '';
 
 			if ($this->request->is('post')){
 				if($this->User->findByusername($this->request->data['username']))
@@ -225,13 +226,17 @@
 						$mensaje = 'No se pudo completar el registro, el rut '.$this->request->data['rut'].' ya esta registrado.';	
 				}
 				else{
-					if ($this->User->save($this->request->data)) 
-						$mensaje = 'El registro se ha completado exitosamente, ahora puede iniciar sesión.'; 
+					if ($this->User->save($this->request->data)){
+						$conditions = array("User.username" => $this->request->data['username']);
+						$usuario = $this->User->find('first', array('conditions' => $conditions));
+						$mensaje = 'EXITO'; 
+					}
 					else
 						$mensaje = 'Ha ocurrido un error durante el registro, intentelo nuevamente.'; 
 				} 
 			}
 
+			$json['usuario'] = $mensaje;
 			$json['mensaje'] = $mensaje;
 			echo json_encode($json);
 		}
