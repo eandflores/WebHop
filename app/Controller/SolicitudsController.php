@@ -115,7 +115,7 @@
 
 				if ($this->Solicitud->save($solicitud)){
 
-					if($solicitud['Solicitud']['estado'] == "Aceptada")
+					if($solicitud['Solicitud']['estado'] == "Aprobada")
 						$this->Solicitud->query($solicitud['Solicitud']['sql']);
 					
 					$mensaje = 'EXITO'; 
