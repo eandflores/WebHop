@@ -115,20 +115,11 @@
 
 				if ($this->Solicitud->save($solicitud)){
 
-					if($solicitud['Solicitud']['estado'] == "Rechazada")
-						$mensaje = 'EXITO';
-					else{
-						$consulta = $this->Solicitud->query($solicitud['Solicitud']['sql']);
-						if($consulta)
-							$mensaje = 'EXITO'; 
-						else{
-							$mensaje = $consulta; 
-							
-							$solicitud['Solicitud']['estado'] = "Pendiente";
-							$solicitud['Solicitud']['admin_id'] = null;
-							$this->Solicitud->save($solicitud);
-						}
-					}
+					if($solicitud['Solicitud']['estado'] == "Aceptada")
+						$this->Solicitud->query($solicitud['Solicitud']['sql']);
+					
+					$mensaje = 'EXITO'; 
+					
 				}
 				else{
 					if($solicitud['Solicitud']['estado'] == "Aprobada")
