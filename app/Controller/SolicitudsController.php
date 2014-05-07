@@ -5,6 +5,9 @@
 		var $uses = array('Solicitud','User');
 
 		public function beforeFilter() {
+			parent::beforeFilter();
+			$this->Auth->allow('solicitudes','actualizarSolicitud');
+
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -22,13 +25,6 @@
 			$this->set('solicitud', $this->Solicitud->read());
 		}
 
-
-		/*
-		public function view($id) {
-			$this->set('solicitud', $this->Solicitud->read(null,$id));
-		}
-		*/
-
 		public function add() {
 			if ($this->request->is('post')) {
 				if ($this->Solicitud->save($this->request->data)) {
@@ -38,7 +34,7 @@
 			}
 		}
 
-		function edit($id = null) {
+		public function edit($id = null) {
 			$this->set('solicitud', $this->Solicitud->read(null,$id));
 			
 			if($this->request->is('post')){
@@ -66,7 +62,7 @@
 			}
 		}
 
-		function delete($id) {
+		public function delete($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
@@ -80,6 +76,47 @@
 			}
 		}
 
+		//--------------------------ANDROID-------------------------//
 
-	}
+		public function solicitudes(){
+			$this->autoRender = false;
+
+			$solicitudes = $this->Solicitud->find('all',array(
+						 						'conditions' => array('Solicitud.estado' => "Pendiente")
+						 					));
+			$solicitudes_ = array();
+
+			foreach ($solicitudes as $index => $solicitud) {
+
+				$solicitudes_[$index] = $solicitud['Solicitud'];
+			}
+			echo json_encode($solicitudes_);
+		}
+
+		public function actualizarSolicitud(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$solicitud = '';
+
+			if ($this->request->is('post')){
+				
+				$solicitud = $this->Solicitud->read(null,$this->request->data['id']);
+				$solicitud['Solicitud']['estado'] = $this->request->data['estado'];
+				$solicitud['Solicitud']['admin_id'] = $this->request->data['admin_id'];
+
+				if ($this->Solicitud->save($solicitud)) 
+					$mensaje = 'EXITO'; 
+				else{
+					if($this->request->data['estado'] == "Aprobada")
+						$mensaje = 'No se pudo aprobar la solicitd, intentelo nuevamente.'; 
+					else
+						$mensaje = 'No se pudo rechazaar la solicitd, intentelo nuevamente.'; 
+				}
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+	}	
 ?>
