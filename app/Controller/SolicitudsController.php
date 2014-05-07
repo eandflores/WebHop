@@ -114,7 +114,7 @@
 						$mensaje = 'EXITO';
 					}
 					else{
-						if($this->Solicitud->query($solicitud['Solicitud']['sql']){
+						if($this->Solicitud->query($solicitud['Solicitud']['sql'])){
 							$mensaje = 'EXITO'; 
 						}
 						else{
