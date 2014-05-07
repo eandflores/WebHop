@@ -397,14 +397,13 @@
 		public function getUsuario(){
 			$this->autoRender = false;
 
-			$mensaje = '';
 			$usuario = '';
 
 			if ($this->request->is('post')){
 				$usuario = $this->User->read(null,$this->request->data['id']);
 			}
 
-			$json['usuario'] = $usuario;
+			$json['usuario']['User'] = $usuario;
 			echo json_encode($json);
 		}
 	}
