@@ -13,7 +13,7 @@
 			$this->Auth->allow('index','add','guardar',
 				'loginAndroid','actualizarEmail','actualizarNombre',
 				'actualizarPassword','actualizarTelefono',
-				'actualizarDireccion');
+				'actualizarDireccion','getUsuario');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -387,6 +387,21 @@
 				else
 					$mensaje = 'Error iniciando sesión, compruebe que su username y/o password sean correctos.';
         			
+			}
+
+			$json['usuario'] = $usuario;
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function getUsuario(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				$usuario = $this->User->read(null,$this->request->data['id']);
 			}
 
 			$json['usuario'] = $usuario;
