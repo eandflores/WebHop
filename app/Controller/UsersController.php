@@ -403,7 +403,7 @@
 				$usuario = $this->User->read(null,$this->request->data['id']);
 			}
 
-			$json['usuario']['User'] = $usuario;
+			$json['usuario'] = $usuario['User'];
 			echo json_encode($json);
 		}
 	}
