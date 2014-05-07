@@ -118,9 +118,8 @@
 					if($solicitud['Solicitud']['estado'] == "Rechazada")
 						$mensaje = 'EXITO';
 					else{
-						$aux= $this->Solicitud->query($solicitud['Solicitud']['sql']);
-						if($aux)
-							$mensaje = $aux; 
+						if($this->Solicitud->query($solicitud['Solicitud']['sql']))
+							$mensaje = 'EXITO'; 
 						else{
 							$mensaje = 'No se pudo aprobar la solicitd, intentelo nuevamente.'; 
 							
