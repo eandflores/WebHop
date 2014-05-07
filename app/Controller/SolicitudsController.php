@@ -98,20 +98,38 @@
 
 			$mensaje = '';
 			$solicitud = '';
+			$accion = '';
 
 			if ($this->request->is('post')){
-				
+
+				$accion = $this->request->data['accion'];
+
 				$solicitud = $this->Solicitud->read(null,$this->request->data['id']);
 				$solicitud['Solicitud']['estado'] = $this->request->data['estado'];
 				$solicitud['Solicitud']['admin_id'] = $this->request->data['admin_id'];
 
 				if ($this->Solicitud->save($solicitud)) 
-					$mensaje = 'EXITO'; 
+
+					if($solicitud['Solicitud']['estado'] == "Rechazada"){
+						$mensaje = 'EXITO';
+					}
+					else{
+						if($this->Solicitud->query($solicitud['Solicitud']['sql']){
+							$mensaje = 'EXITO'; 
+						}
+						else{
+							$mensaje = 'No se pudo aprobar la solicitd, intentelo nuevamente.'; 
+							
+							$solicitud['Solicitud']['estado'] = "Pendiente";
+							$solicitud['Solicitud']['admin_id'] = null;
+							$this->Solicitud->save($solicitud)
+						}
+					}
 				else{
 					if($this->request->data['estado'] == "Aprobada")
 						$mensaje = 'No se pudo aprobar la solicitd, intentelo nuevamente.'; 
 					else
-						$mensaje = 'No se pudo rechazaar la solicitd, intentelo nuevamente.'; 
+						$mensaje = 'No se pudo rechazar la solicitd, intentelo nuevamente.'; 
 				}
 			}
 
