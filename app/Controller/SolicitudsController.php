@@ -130,7 +130,7 @@
 					}
 				}
 				else{
-					if($this->request->data['estado'] == "Aprobada")
+					if($solicitud['Solicitud']['estado'] == "Aprobada")
 						$mensaje = 'No se pudo aprobar la solicitd, intentelo nuevamente.'; 
 					else
 						$mensaje = 'No se pudo rechazar la solicitd, intentelo nuevamente.'; 
