@@ -105,7 +105,12 @@
 				$accion = $this->request->data['accion'];
 
 				$solicitud = $this->Solicitud->read(null,$this->request->data['id']);
-				$solicitud['Solicitud']['estado'] = $this->request->data['estado'];
+
+				if($this->request->data['accion'] == 1)
+					$solicitud['Solicitud']['estado'] = "Aprobada";
+				else
+					$solicitud['Solicitud']['estado'] = "Rechazada";
+				
 				$solicitud['Solicitud']['admin_id'] = $this->request->data['admin_id'];
 
 				if ($this->Solicitud->save($solicitud)){
