@@ -157,4 +157,256 @@
 
 				if ($this->User->save()) {
 					$this->Session->setFlash('El usuario ha sido deshabilitado','default', array("class" => "alert alert-success"));
-					
+					$this->redirect(array('action' => 'all'));
+				} 
+				else {
+					$this->Session->setFlash('El usuario no fue deshabilitado.','default', array("class" => "alert alert-error"));
+	        		$this->redirect(array('action' => 'all'));
+				}
+			}
+			
+		}
+
+		public function enable($id) {
+			if ($this->request->is('post')) {
+				throw new MethodNotAllowedException();
+			} 
+			else {
+				$this->User->read(null,$id);
+				$this->User->set(array('estado' => true));
+
+				if ($this->User->save()) {
+					$this->Session->setFlash('El usuario ha sido habilitado','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'all'));
+				} 
+				else {
+					$this->Session->setFlash('El usuario no fue habilitado.','default', array("class" => "alert alert-error"));
+	        		$this->redirect(array('action' => 'all'));
+				}
+			}
+		}
+
+		public function login(){
+			$logged_in = $this->Auth->loggedIn();
+
+			if(!empty($logged_in)){
+				$this->Session->setFlash('Usted ya ha iniciado sesión.','default', array("class" => "alert alert-warning"));
+				$this->redirect(array('action' => 'index'));
+			}
+
+			if($this->request->is('post')){
+				if($this->Auth->login()){
+					$this->redirect($this->Auth->redirect());
+				}
+				else{
+					$this->Session->setFlash('Error iniciando sesión, compruebe que su username y/o password sean correctos.','default', array("class" => "alert alert-error"));
+        			$this->redirect(array('action' => 'login'));
+				}
+			}
+		}
+
+		public function logout(){
+			$this->redirect($this->Auth->logout());
+		}
+
+		#========================Android==========================#
+
+		public function guardar(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				if($this->User->findByusername($this->request->data['username']))
+					$mensaje = 'No se pudo completar el registro, el username '.$this->request->data['username'].' ya esta registrado.';
+				elseif($this->User->findByemail($this->request->data['email']))
+					$mensaje = 'No se pudo completar el registro, el mail '.$this->request->data['email'].' ya esta registrado.';
+				elseif(!empty($this->request->data['rut'])){
+					if($this->User->findByrut($this->request->data['rut']))
+						$mensaje = 'No se pudo completar el registro, el rut '.$this->request->data['rut'].' ya esta registrado.';	
+				}
+				else{
+					if ($this->User->save($this->request->data)){
+						$conditions = array("User.username" => $this->request->data['username']);
+						$usuario = $this->User->find('first', array('conditions' => $conditions));
+						$mensaje = 'EXITO'; 
+					}
+					else
+						$mensaje = 'Ha ocurrido un error durante el registro, intentelo nuevamente.'; 
+				} 
+			}
+
+			$json['usuario'] = $usuario['User'];
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarEmail(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				if($this->User->findByemail($this->request->data['email']))
+					$mensaje = 'El email '.$this->request->data['email'].' ya esta registrado, no se pudo actualizar el email.';
+				else{
+					$usuario = $this->User->read(null,$this->request->data['id']);
+					$usuario['User']['email'] = $this->request->data['email'];
+
+					if ($this->User->save($usuario)) 
+						$mensaje = 'EXITO'; 
+					else
+						$mensaje = 'No se pudo actualizar el email, intentelo nuevamente.'; 
+				} 
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarNombre(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+				$usuario['User']['nombre'] = $this->request->data['nombre'];
+				$usuario['User']['apellido_paterno'] = $this->request->data['apellido_paterno'];
+				$usuario['User']['apellido_materno'] = $this->request->data['apellido_materno'];
+
+				if ($this->User->save($usuario)) 
+					$mensaje = 'EXITO'; 
+				else
+					$mensaje = 'No se pudo actualizar el email, intentelo nuevamente.'; 
+				
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarTelefono(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+				$usuario['User']['telefono_fijo'] = $this->request->data['telefono_fijo'];
+				$usuario['User']['telefono_movil'] = $this->request->data['telefono_movil'];
+
+				if ($this->User->save($usuario)) 
+					$mensaje = 'EXITO'; 
+				else
+					$mensaje = 'No se pudo actualizar el telefono, intentelo nuevamente.'; 
+				
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarDireccion(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+				$usuario['User']['poblacion'] = $this->request->data['poblacion'];
+				$usuario['User']['calle'] = $this->request->data['calle'];
+				$usuario['User']['numero'] = $this->request->data['numero'];
+				$usuario['User']['region_id'] = $this->request->data['region_id'];
+				$usuario['User']['comuna_id'] = $this->request->data['comuna_id'];
+
+				if ($this->User->save($usuario)) 
+					$mensaje = 'EXITO'; 
+				else
+					$mensaje = 'No se pudo actualizar la dirección, intentelo nuevamente.'; 
+				
+			}
+
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function actualizarPassword(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+			$password = '';
+
+			if ($this->request->is('post')){
+				
+				$usuario = $this->User->read(null,$this->request->data['id']);
+
+				if(AuthComponent::password($this->request->data['passwordAntiguo']) == $usuario['User']['password']){
+					$usuario['User']['password'] = $this->request->data['passwordNuevo'];
+
+					if ($this->User->save($usuario)){
+						$mensaje = 'EXITO'; 
+						$usuario = $this->User->read(null,$this->request->data['id']);
+						$password = $usuario['User']['password'];
+					}
+					else
+						$mensaje = 'No se pudo actualizar el password, intentelo nuevamente.'; 
+				}
+				else
+					$mensaje = 'El password actual no es correcto.'; 
+				
+			}
+
+			$json['password'] = $password;
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function loginAndroid(){
+			$this->autoRender = false;
+
+			$mensaje = "";
+			$usuario = "";
+
+			if($this->request->is('post')){
+				if($this->Auth->login()){
+					$mensaje = "EXITO";
+					$usuario_aux = $this->Auth->user();
+					$usuario_aux2 = $this->User->read(null,$usuario_aux['id']);
+					$usuario = $usuario_aux2['User'];
+				}
+				else
+					$mensaje = 'Error iniciando sesión, compruebe que su username y/o password sean correctos.';
+        			
+			}
+
+			$json['usuario'] = $usuario;
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function getUsuario(){
+			$this->autoRender = false;
+
+			$mensaje = '';
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				$usuario = $this->User->read(null,$this->request->data['id']);
+			}
+
+			$json['usuario'] = $usuario;
+			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+	}
+?>
