@@ -2,7 +2,7 @@
 Create Table Rols 
 (
    id       Serial Unique not null,
-   nombre   Varchar(50) not null,
+   nombre   Varchar(50) not null, --Administrador,Usuario,Local
    created  Timestamp not null,
    modified Timestamp not null,
 
@@ -50,8 +50,6 @@ Create Table Users
    poblacion            Varchar(25),
    calle                Varchar(25),
    numero               Integer,
-   cant_votos_positivos Integer not null default '0',
-   cant_votos_negativos Integer not null default '0',
    estado               Boolean not null default true,
    img                  Varchar(200),
    rol_id               Integer not null,
@@ -160,6 +158,21 @@ Create Table Comentarios
    Constraint FK_COMENTARIOS_REFERENCE_LOCALS Foreign Key (local_id) references Locals (id)
 );
 
+Create Table Votos_Locals
+(
+   id       Serial Unique not null,
+   tipo     Varchar(10) not null, --Positivo,Negativo
+   user_id  Integer not null,
+   local_id Integer not null,
+   created  Timestamp not null,
+   modified Timestamp not null,
+
+   Constraint PK_VOTOSLOCALS Primary Key (id),
+
+   Constraint FK_VOTOSLOCALS_REFERENCE_USERS Foreign Key (user_id) references Users (id),
+   Constraint FK_VOTOSLOCALS_REFERENCE_LOCALS Foreign Key (local_id) references Locals (id)
+);
+
 Create Table Ofertas
 (
    id          Serial Unique not null,
@@ -181,13 +194,14 @@ Create Table Ofertas
 Create Table Solicituds
 ( 
    id       Serial Unique not null,
-   estado   Varchar(10) not null,
+   estado   Varchar(10) not null, -- Aprobada,Rechazada,Pendiente
    sql      Varchar(1000) not null,
    accion   Varchar(10) not null,       
    tabla    Varchar(20) not null,
    campos   Varchar(1000) not null,
    user_id  Integer not null,
    admin_id Integer,
+   local_id Integer,
    created  Timestamp not null,
    modified Timestamp not null,
 

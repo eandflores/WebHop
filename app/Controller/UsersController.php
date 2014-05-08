@@ -406,5 +406,20 @@
 			$json['usuario'] = $usuario['User'];
 			echo json_encode($json);
 		}
+
+		public function getDatos(){
+			$this->autoRender = false;
+
+			$usuario = '';
+
+			if ($this->request->is('post')){
+				$comuna = $this->Comuna->read(null,$this->request->data['comuna']);
+				$rol = $this->Rol->read(null,$this->request->data['rol']);
+			}
+
+			$json['comunaNombre'] = $comuna['nombre'];
+			$json['rolNombre'] = $rol['nombre'];
+			echo json_encode($json);
+		}
 	}
 ?>
