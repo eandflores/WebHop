@@ -417,8 +417,8 @@
 				$rol = $this->Rol->read(null,$this->request->data['rol']);
 			}
 
-			$json['comunaNombre'] = $comuna['nombre'];
-			$json['rolNombre'] = $rol['nombre'];
+			$json['comunaNombre'] = $comuna['Comuna']['nombre'];
+			$json['rolNombre'] = $rol['Rol']['nombre'];
 			echo json_encode($json);
 		}
 	}
