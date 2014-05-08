@@ -13,7 +13,7 @@
 			$this->Auth->allow('index','add','guardar',
 				'loginAndroid','actualizarEmail','actualizarNombre',
 				'actualizarPassword','actualizarTelefono',
-				'actualizarDireccion','getUsuario');
+				'actualizarDireccion','getUsuario','getDatos()');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
