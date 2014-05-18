@@ -1,12 +1,22 @@
-<form class="form-horizontal well"  method="post">
+
+<form  class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
     <fieldset>
         <legend>Agregar Local</legend>
+
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
               <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" value="<?php if(!empty($nombre)){ echo $nombre; } ?>" maxlength="30" required>
             </div>
         </div>
+
+        <div class="control-group">
+            <label class="control-label" for="ImageImage">Imagen: </label>
+            <div class="controls">
+              <input type="file" name="data[Image][image]" id="ImageImage">
+            </div>
+        </div>
+
         <div class="control-group">
             <label class="control-label" for="selectCategoriaLocal">Categoría:</label>
             <div class="controls">
@@ -26,6 +36,7 @@
                         }
                       } ?>
               </select>
+              <a href="/Hop/CategoriaLocals/add" id="boton" style="width:auto; margin-bottom:0px;" class="Agregar btn btn-primary">Agregar categoria de local</a>
             </div>
         </div>
         <?php /*
@@ -106,9 +117,11 @@
               <input type="text" id="inputSitioWeb" name="sitio_web" placeholder="Sitio Web" value="<?php if(!empty($sitio_web)){ echo $sitio_web; } ?>" maxlength="50">
             </div>
         </div>
+        
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Agregar</button>
             <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Locals'">Atras</button>
         </div>
     </fieldset>
 </form>
+

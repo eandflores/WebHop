@@ -4,7 +4,9 @@
       <tr>
         <th>#</th>
         <th>Nombre</th>
+        <?php if ($current_user['rol_id'] == 1) { ?>
         <th>Acciones</th>
+        <?php } ?>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +16,7 @@
             <tr>
               <td><?php echo $index+1 ?></td>
               <td><?php echo $categoria['CategoriaProducto']['nombre'] ?></td>
+              <?php if ($current_user['rol_id'] == 1) { ?>
               <td>
                 <a href="/Hop/CategoriaProductos/edit/<?php echo $categoria['CategoriaProducto']['id'] ?>">
                   <i class='icon icon-edit'></i>
@@ -22,6 +25,7 @@
                   <i class='icon icon-remove' ></i>
                 </a>
               </td>
+              <?php } ?>
             </tr>
     <?php } 
         } else{ ?>

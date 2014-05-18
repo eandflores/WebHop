@@ -189,7 +189,8 @@ Create Table Solicituds
    accion   Varchar(10),       
    tabla    Varchar(20),
    campos   Varchar(1000),
-   user_id  Integer Unique not null,
+   user_id  Integer not null,
+   local_id Integer null,
    admin_id Integer null,
    created  Timestamp not null,
    modified Timestamp not null,
@@ -197,5 +198,20 @@ Create Table Solicituds
    Constraint PK_SOLICITUDS primary key (id),
    
    Constraint FK_SOLICITUDS_REFERENCE_USERS Foreign Key (user_id) references Users (id)
+);
+
+Create Table Votos_Locals
+(
+   id       Serial Unique not null,
+   tipo     Varchar(10) not null,
+   user_id  Integer not null,
+   local_id Integer not null,
+   created  Timestamp not null,
+   modified Timestamp not null,
+
+   Constraint PK_VOTOSLOCALS Primary Key (id),
+
+   Constraint FK_VOTOSLOCALS_REFERENCE_USERS Foreign Key (user_id) references Users (id),
+   Constraint FK_VOTOSLOCALS_REFERENCE_LOCALS Foreign Key (local_id) references Locals (id)
 );
 

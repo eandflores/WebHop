@@ -47,12 +47,11 @@
 					elseif($this->current_user['rol_id'] != 1){
 						$categoriap = $this->CategoriaProducto->read(null,$this->request->data['categoria_producto_id']);
 						$this->request->data['estado'] = "Pendiente";
-						$this->request->data['sql'] = "INSERT INTO productos (\"nombre\",\"categoria_producto_id\",\"user_id\") VALUES ('".$this->request->data['nombre']."','".$this->request->data['categoria_producto_id']."','".$this->current_user['id']."')";
+						$this->request->data['sql'] = "INSERT INTO productos (\"nombre\",\"categoria_producto_id\",\"user_id\",\"created\",\"modified\") VALUES ('".$this->request->data['nombre']."','".$this->request->data['categoria_producto_id']."','".$this->current_user['id']."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')";
 						$this->request->data['accion'] = "Agregar";
 						$this->request->data['tabla'] = "Productos";
 						$this->request->data['campos'] = "Nombre: ".$this->request->data['nombre'].", CategoriaProducto: ".$categoriap['CategoriaProducto']['nombre'].", Usuario: ".$this->current_user['username'];
 						$this->request->data['user_id'] = $this->current_user['id'];
-						debug($this->request->data,null,true);
 
 						if ($this->Solicitud->save($this->request->data)) {
 							$this->Session->setFlash('Su solicitud fue enviada exitosamente.','default', array("class" => "alert alert-success"));

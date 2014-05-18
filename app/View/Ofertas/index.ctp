@@ -6,6 +6,7 @@
         <th>Producto</th>
         <th>Local</th>
         <th>Precio</th>
+        <th>Descripción</th>
         <th>Usuario</th>
         <th>Fecha de Actualización</th>
         <th>Acciones</th>
@@ -23,6 +24,7 @@
                     <td><?php echo $oferta['Producto']['nombre'] ?></td>
                     <td><?php echo $oferta['Local']['nombre'] ?></td>
                     <td><?php echo $oferta['Oferta']['precio'] ?></td>
+                    <td><?php echo $oferta['Oferta']['descripcion'] ?></td>
                     <td><?php echo $oferta['User']['username'] ?></td>
                     <td><?php echo $oferta['Oferta']['modified'] ?></td>
                     <td>
@@ -45,6 +47,7 @@
                     <td><?php echo $oferta['Producto']['nombre'] ?></td>
                     <td><?php echo $oferta['Local']['nombre'] ?></td>
                     <td><?php echo $oferta['Oferta']['precio'] ?></td>
+                    <td><?php echo $oferta['Oferta']['descripcion'] ?></td>
                     <td><?php echo $oferta['User']['username'] ?></td>
                     <td><?php echo $oferta['Oferta']['modified'] ?></td>
                     <td>
@@ -62,7 +65,7 @@
 
         else{ ?>
           <tr>
-            <td colspan='7'>No hay Ofertas en la Base de Datos</td>
+            <td colspan='8'>No hay Ofertas en la Base de Datos</td>
           </tr>
     <?php } ?>
     </tbody>

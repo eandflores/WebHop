@@ -6,8 +6,8 @@
     <div class="modal-body" id="modal-contacto">
         <strong>Hop: Somos un equipo al que le interesa mucho tu opinión.</strong><br>
         <strong>Si quieres comunicarte con nosotros, puedes hacerlo a través de los siguientes medios:</strong><br><br>
-        <a href="mailto:contacto@clouder.cl" class="contacto1">
-            <i class='icon-comment'></i>Correo Electrónico
+        <a href="/Hop/Sugerencias/add" class="contacto1">
+            <i class='icon-comment'></i>Envíanos tu sugerencia
         </a>
         <a href="http://www.facebook.cl/buscahop">
             <i class='icon-globe'></i>Página de Facebook

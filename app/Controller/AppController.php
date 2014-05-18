@@ -1,8 +1,6 @@
 <?php
 App::uses('Controller', 'Controller');
 
-	//   debug($this->current_user,null,true);
-
 	class AppController extends Controller {
 
 		public $components = array(
@@ -16,7 +14,12 @@ App::uses('Controller', 'Controller');
 	    );
 
 		public function isAuthorized($usuario){
-			return true;
+			if ($usuario['estado'] == 't'){
+				return true;
+			}
+
+			else
+				$this->Session->setFlash('Su cuenta a sido deshabilitada, contacte al administrador','default', array("class" => "alert alert-error"));
 		}
 
 		public function beforeFilter() {

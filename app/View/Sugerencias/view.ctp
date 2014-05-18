@@ -1,39 +1,50 @@
-<?php 
-if(isset($sugerencia)){ ?>
-  <form class="form-horizontal">
-    <fieldset>
+<style type="text/css">
+  
+  #ver{
+    padding: 20px;
+    width: 700px;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  #ver div{
+    border-radius: 50px;
+    border: 5px ridge lightgrey; 
+    padding: 20px;
+    width: 500px;
+    margin: auto;
+  }
+
+</style>
+
+<div id="ver">
+  <div>
     <legend><?php echo "Sugerencia #".$sugerencia['Sugerencia']['id']?></legend>
 
-      <div class="form-group">
-        <label for="inputUsuario" class="col-lg-2 control-label">Usuario</label>
-          <div class="col-lg-10">
-            <input type="text" class="form-control" id="inputEmail" readonly value="<?php echo $sugerencia['User']['nombre'] ?>">
-          </div>
-      </div>
-
-      <div class="form-group">
-        <label for="textArea" class="col-lg-2 control-label">Texto</label>
-          <div class="col-lg-10">
-
-            <textarea class="form-control" rows="3" id="textArea" readonly style="margin: 0px 5px 0px 0px; width: 430px; height: 159px;">
-            <?php echo $sugerencia['Sugerencia']['texto'] ?>"
-            </textarea>
-          </div>
-      </div>
-
-      <div class="form-group">
-        <label for="inputFecha" class="col-lg-2 control-label">Fecha</label>
-          <div class="col-lg-10">
-            <input type="text" class="form-control" id="inputFecha" readonly value="<?php echo $sugerencia['Sugerencia']['created'] ?>">
-          </div>
-      </div>
-
-  </form>
-<?php 
-} 
-else{ ?>
-No hay Sugerencias en la Base de Datos
-<?php 
-} ?>
-<a href="/Hop/Sugerencias" class="Atras btn btn-danger">Atras</a>
+    <?php 
+    if(isset($sugerencia)){ ?>
+      <ul class="view">
+        <li>
+          <span>Usuario => </span>
+          <?php echo $sugerencia['User']['nombre'] ?>
+        </li>
+        <li>
+          <span>Texto => </span>
+          <?php echo $sugerencia['Sugerencia']['texto'] ?>
+        </li>
+        <li>
+          <span>Fecha => </span>
+          <?php echo $sugerencia['Sugerencia']['created'] ?>
+        </li>
+      </ul>
+    <?php 
+    } 
+    else{ ?>
+    No hay Sugerencias en la Base de Datos
+    <?php 
+    } ?>
+    <a style ="margin-left:0px;" onclick="window.history.back()" class="Atras btn btn-danger">Atras</a>
+  </div>
+</div>
       

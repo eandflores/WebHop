@@ -1,6 +1,24 @@
-<form class="form-horizontal well"  method="post">
+<style type="text/css">
+  
+  .control-group img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    border: 5px ridge lightgrey; 
+    display: block;
+    margin-left: 150px;
+    margin-bottom: 15px;
+  }
+
+</style>
+
+<form class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
     <fieldset>
         <legend>Editar Local</legend>
+        <div class="control-group">
+          <img src="<?php echo $local['Local']['img'] ?>">
+          <input style="margin-left:40px;" type="file" name="data[Image][image]" id="ImageImage">
+        </div>
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
@@ -27,6 +45,7 @@
                         }
                       } ?>
               </select>
+              <a href="/Hop/CategoriaLocals/add" id="boton" style="width:auto; margin-bottom:0px;" class="Agregar btn btn-primary">Agregar categoria de local</a>
             </div>
         </div>
         <?php /*
@@ -112,7 +131,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Actualizar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Locals'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.history.back()">Atras</button>
         </div>
         <input type="hidden" name="id" value="<?php if(!empty($id)){ echo $id; } else { echo $local['Local']['id']; } ?>" required>
     </fieldset>
