@@ -40,7 +40,7 @@
 					if(!$this->CategoriaLocal->findBynombre($this->request->data['nombre'])){
 						
 						$this->request->data['estado'] = "Pendiente";
-						$this->request->data['sql'] = "INSERT INTO categoria_locals (\"nombre\") VALUES ('".$this->request->data['nombre']."')";
+						$this->request->data['sql'] = "INSERT INTO categoria_locals (\"nombre\",\"created\",\"modified\") VALUES ('".$this->request->data['nombre']."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')";
 						$this->request->data['accion'] = "Agregar";
 						$this->request->data['tabla'] = "CategoriaLocales";
 						$this->request->data['campos'] = "Nombre: ".$this->request->data['nombre'];

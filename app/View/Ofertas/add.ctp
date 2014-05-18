@@ -7,6 +7,7 @@
           <th>Nombre</th>
           <th>Categoría</th>
           <th>Precio</th>
+          <th>Descripcion</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,8 @@
                 <td><?php echo $producto['Producto']['nombre']; ?></td>
                 <td><?php echo $producto['CategoriaProducto']['nombre']; ?></td>
                 <td><input type="number" id="precio<?php echo $index ?>" name="precios[<?php echo $index ?>];" value="0" min="0" class="precio input-small"></td>
+                <td><textarea rows="1" style="width:450px; margin:auto; font-size:14px; font-weight:bold" id="descripcion<?php echo $index ?>" name="descripciones[<?php echo $index ?>];" placeholder="Descripción" maxlength="250"></textarea>
+                </td>
               </tr>
       <?php } 
           } else{ ?>
@@ -29,6 +32,7 @@
   </table>
   <input type="submit" value="Agregar Productos" class="Agregar btn btn-primary">
   <input type="hidden" name="local" value="<?php if(isset($local)){ echo $local['Local']['id']; } ?>">
+  <a href="/Hop/Productos/add" id="boton" style="width:auto" class="Agregar btn btn-primary">Agregar nuevo producto</a>
 </form>
 <script type="text/javascript">
   jQuery(document).ready(function() {  

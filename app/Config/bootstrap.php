@@ -96,6 +96,7 @@
  *		'persistent' => true, // [optional] set this to false for non-persistent connections
  *	));
  */
+CakePlugin::loadAll();
 Cache::config('default', array('engine' => 'File'));
 
 /**

@@ -1,14 +1,44 @@
-<form class="form-horizontal"  method="post">
+<form class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
     <fieldset>
         <?php if ($logged_in): ?>
             <legend>Agregar Usuario</legend>
         <?php else: ?>
             <legend>Registrarse</legend>
         <?php endif; ?>
-    	<div class="control-group">
+
+        <legend>Datos Obligatorios</legend>
+
+        <div class="control-group">
             <label class="control-label" for="inputRut">Rut:</label>
             <div class="controls">
               <input type="text" id="inputRut" name="rut" placeholder="Rut" value="<?php if(!empty($rut)){ echo $rut; } ?>" maxlength="12" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputUsername">Username:</label>
+            <div class="controls">
+              <input type="text" id="inputUsername" name="username" placeholder="Username" value="<?php if(!empty($username)){ echo $username; } ?>" maxlength="25" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Password:</label>
+            <div class="controls">
+              <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="50" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Email:</label>
+            <div class="controls">
+              <input type="email" id="inputEmail" name="email" placeholder="Email" value="<?php if(!empty($email)){ echo $email; } ?>" maxlength="50" required>
+            </div>
+        </div>
+
+        <legend>Datos Opcionales</legend>
+        <div class="control-group">
+            <label class="control-label" for="ImageImage">Imagen: </label>
+            <div class="controls">
+              <input type="file" name="data[Image][image]" id="ImageImage">
             </div>
         </div>
         <?php 
@@ -50,43 +80,25 @@
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
-              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" value="<?php if(!empty($nombre)){ echo $nombre; } ?>" maxlength="50" required>
+              <input type="text" id="inputNombre" name="nombre" placeholder="Nombre" value="<?php if(!empty($nombre)){ echo $nombre; } ?>" maxlength="50">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputApellidoPat">Apellido Paterno:</label>
             <div class="controls">
-              <input type="text" id="inputApellidoPat" name="apellido_paterno" placeholder="Apellido Paterno" value="<?php if(!empty($apellido_paterno)){ echo $apellido_paterno; } ?>"maxlength="25" required>
+              <input type="text" id="inputApellidoPat" name="apellido_paterno" placeholder="Apellido Paterno" value="<?php if(!empty($apellido_paterno)){ echo $apellido_paterno; } ?>"maxlength="25">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputApellidoMat">Apellido Materno:</label>
             <div class="controls">
-              <input type="text" id="inputApellidoMat" name="apellido_materno" placeholder="Apellido Materno" value="<?php if(!empty($apellido_materno)){ echo $apellido_materno; } ?>" maxlength="25" required>
+              <input type="text" id="inputApellidoMat" name="apellido_materno" placeholder="Apellido Materno" value="<?php if(!empty($apellido_materno)){ echo $apellido_materno; } ?>" maxlength="25">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputFechaNac">Fecha de Nacimiento:</label>
             <div class="controls">
-              <input type="date" id="inputFechaNac" name="fecha_nacimiento" max="<?php echo date("Y-m-d") ?>" value="<?php if(!empty($fecha_nacimiento)){ echo $fecha_nacimiento; } else { echo date("Y-m-d"); } ?>" required>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputEmail">Email:</label>
-            <div class="controls">
-              <input type="email" id="inputEmail" name="email" placeholder="Email" value="<?php if(!empty($email)){ echo $email; } ?>" maxlength="50" required>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputUsername">Username:</label>
-            <div class="controls">
-              <input type="text" id="inputUsername" name="username" placeholder="Username" value="<?php if(!empty($username)){ echo $username; } ?>" maxlength="25" required>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputPassword">Password:</label>
-            <div class="controls">
-              <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="50" required>
+              <input type="date" id="inputFechaNac" name="fecha_nacimiento" max="<?php echo date("Y-m-d") ?>" value="<?php if(!empty($fecha_nacimiento)){ echo $fecha_nacimiento; } else { echo date("Y-m-d"); } ?>">
             </div>
         </div>
         <div class="control-group">
@@ -134,19 +146,19 @@
         <div class="control-group">
             <label class="control-label" for="inputPoblacion">Población:</label>
             <div class="controls">
-              <input type="text" id="inputPoblacion" name="poblacion" placeholder="Población" value="<?php if(!empty($poblacion)){ echo $poblacion; } ?>" maxlength="25" required>
+              <input type="text" id="inputPoblacion" name="poblacion" placeholder="Población" value="<?php if(!empty($poblacion)){ echo $poblacion; } ?>" maxlength="25">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputCalle">Calle:</label>
             <div class="controls">
-              <input type="text" id="inputCalle" name="calle" placeholder="Calle" value="<?php if(!empty($calle)){ echo $calle; } ?>" maxlength="25" required>
+              <input type="text" id="inputCalle" name="calle" placeholder="Calle" value="<?php if(!empty($calle)){ echo $calle; } ?>" maxlength="25">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputNumero">Numero:</label>
             <div class="controls">
-              <input type="number" id="inputNumero" name="numero" placeholder="Número" value="<?php if(!empty($numero)){ echo $numero; } ?>" min="0" required>
+              <input type="number" id="inputNumero" name="numero" placeholder="Número" value="<?php if(!empty($numero)){ echo $numero; } ?>" min="0">
             </div>
         </div>
         <div class="form-actions">

@@ -26,6 +26,7 @@
                         }
                       } ?>
               </select>
+              <a href="/Hop/CategoriaProductos/add" id="boton" style="width:auto; margin-bottom:0px;" class="Agregar btn btn-primary">Agregar categoria de producto</a>
             </div>
         </div>
         <div class="form-actions">

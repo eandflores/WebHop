@@ -1,10 +1,28 @@
-<form class="form-horizontal"  method="post">
+<style type="text/css">
+  
+  .control-group img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    border: 5px ridge lightgrey; 
+    display: block;
+    margin-left: 150px;
+    margin-bottom: 15px;
+  }
+
+</style>
+
+<form class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
     <fieldset>
         <?php if ($logged_in): ?>
-          <legend>Editar Usuario - <?php echo $usuario['User']['username'] ?></legend>
+          <legend>Editar Usuario - <?php echo $current_user['username'] ?></legend>
         <?php else: ?>
           <legend>Configurar Cuenta</legend>
         <?php endif; ?>
+        <div class="control-group">
+          <img src="<?php echo $usuario['User']['img'] ?>">
+          <input style="margin-left:40px;" type="file" name="data[Image][image]" id="ImageImage">
+        </div>
         <div class="control-group">
             <label class="control-label" for="inputRut">Rut:</label>
             <div class="controls">
@@ -41,32 +59,34 @@
               <input type="email" id="inputEmail" name="email" value="<?php if(!empty($email)){ echo $email; } else { echo $usuario['User']['email']; } ?>" maxlength="50" required>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="selectRol">Rol:</label>
-            <div class="controls">
-              <select id="selectRol" name="rol_id">
-                <?php if(isset($roles)){
-                        foreach ($roles as $index => $rol) {
-                          if(!empty($_rol) && $_rol == $rol['Rol']['id']){ ?>
-                            <option value="<?php echo $rol['Rol']['id']; ?>" selected>
-                              <?php echo $rol['Rol']['nombre']; ?>
-                            </option>
-                    <?php }
-                          elseif(empty($_rol) && $usuario['Rol']['id'] == $rol['Rol']['id']){ ?>
-                            <option value="<?php echo $rol['Rol']['id']; ?>" selected>
-                              <?php echo $rol['Rol']['nombre']; ?>
-                            </option>
-                    <?php }
-                          else{ ?>
-                            <option value="<?php echo $rol['Rol']['id']; ?>">
-                              <?php echo $rol['Rol']['nombre']; ?>
-                            </option>
-                    <?php } 
-                        }
-                      } ?>
-              </select>
-            </div>
-        </div>
+        <?php if($current_user['rol_id']=="1"){ ?>
+          <div class="control-group">
+              <label class="control-label" for="selectRol">Rol:</label>
+              <div class="controls">
+                <select id="selectRol" name="rol_id">
+                  <?php if(isset($roles)){
+                          foreach ($roles as $index => $rol) {
+                            if(!empty($_rol) && $_rol == $rol['Rol']['id']){ ?>
+                              <option value="<?php echo $rol['Rol']['id']; ?>" selected>
+                                <?php echo $rol['Rol']['nombre']; ?>
+                              </option>
+                      <?php }
+                            elseif(empty($_rol) && $usuario['Rol']['id'] == $rol['Rol']['id']){ ?>
+                              <option value="<?php echo $rol['Rol']['id']; ?>" selected>
+                                <?php echo $rol['Rol']['nombre']; ?>
+                              </option>
+                      <?php }
+                            else{ ?>
+                              <option value="<?php echo $rol['Rol']['id']; ?>">
+                                <?php echo $rol['Rol']['nombre']; ?>
+                              </option>
+                      <?php } 
+                          }
+                        } ?>
+                </select>
+              </div>
+          </div>
+          <?php } ?>
         <div class="control-group">
             <label class="control-label" for="selectRegion">Region:</label>
             <div class="controls">
@@ -151,8 +171,8 @@
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Actualizar</button>
-            <button type="reset" class="btn btn-danger" onclick="window.location='/Hop/Users/all'">Atras</button>
+            <button type="reset" class="btn btn-danger" onclick="window.history.back()">Atras</button>
         </div>
-        <input type="hidden" name="id" value="<?php if(!empty($id)){ echo $id; } else { echo $usuario['User']['id']; } ?>" required>
+        <input type="hidden" name="id" value="<?php if(!empty($id)){ echo $id; } else { echo $current_user['id']; } ?>" required>
     </fieldset>
 </form>

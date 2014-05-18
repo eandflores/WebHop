@@ -1,4 +1,7 @@
 <h3 class="Titulo">Gestión Comentarios</h3>
+
+
+
 <table class="table table-bordered datatable">
     <thead>
       <tr>
@@ -102,3 +105,5 @@
       <?php } ?>
     </tbody>
 </table>
+
+

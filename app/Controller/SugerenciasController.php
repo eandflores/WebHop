@@ -1,7 +1,12 @@
 <?php
 	class SugerenciasController extends AppController {
 
+		public $name = 'Sugerencias';
+		
+		var $uses = array('User','Sugerencia');
+
 		public function beforeFilter() {
+			$this->Auth->allow('add');
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -13,14 +18,14 @@
 		}
 
 		public function view($id) {
-			$this->set('sugerencia', $this->Sugerencia->read(nul,$id));
+			$this->set('sugerencia', $this->Sugerencia->read(null,$id));
 		}
 
 		public function add() {
 			if ($this->request->is('post')) {
 				if ($this->Sugerencia->save($this->request->data)) {
-					$this->Session->setFlash('La sugerencia ha sido enviada exitosamente.');
-					$this->redirect(array('action' => 'index'));
+					$this->Session->setFlash('La sugerencia ha sido enviada exitosamente.','default', array("class" => "alert alert-success"));
+					$this->redirect(array('controller' => 'Users' , 'action' => 'index'));
 				}
 			}
 		}
