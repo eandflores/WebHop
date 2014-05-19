@@ -23,7 +23,7 @@
               if($current_user['local_id'] == $comentario['Comentario']['local_id']){?>
                 <tr>
                   <td><?php echo $indice; $indice ++;?></td>
-                  <td><?php echo $comentario['User']['nombre'] ?></td>
+                  <td><?php echo $comentario['User']['username'] ?></td>
 
                  <!-- Inicio Obtener Texto de Comentario --> 
                   <?php if(strlen($comentario['Comentario']['texto']) > 80) { 
@@ -47,9 +47,6 @@
                     <a href="/Hop/Comentarios/view/<?php echo $comentario['Comentario']['id'] ?>">
                       <i class='icon icon-zoom-in'></i>
                     </a>
-                    <a href="/Hop/Comentarios/edit/<?php echo $comentario['Comentario']['id'] ?>">
-                      <i class='icon icon-edit'></i>
-                    </a>
                     <a href="/Hop/Comentarios/delete/<?php echo $comentario['Comentario']['id'] ?>" onclick="return confirm('Está seguro que desea eliminar la comentario ?');">
                       <i class='icon icon-remove'></i>
                     </a>
@@ -63,7 +60,7 @@
             foreach ($comentarios as $index => $comentario) { ?>
               <tr>
                 <td><?php echo $index+1 ?></td>
-                <td><?php echo $comentario['User']['nombre'] ?></td>
+                <td><?php echo $comentario['User']['username'] ?></td>
 
                <!-- Inicio Obtener Texto de Comentario --> 
                 <?php if(strlen($comentario['Comentario']['texto']) > 80) { 

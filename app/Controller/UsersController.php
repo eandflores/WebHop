@@ -23,7 +23,6 @@
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
 			$this->set('current_user',$this->current_user);
-
 		}
 		
 		public function index(){
@@ -56,10 +55,14 @@
 			)));
 
 			if ($this->request->is('post')) {
+				$rut = $this->request->data['rut'];
+				$username = $this->request->data['username'];
+				$email = $this->request->data['email'];
 
-				$this->set('rut', $this->request->data['rut']);
-				$this->set('username', $this->request->data['username']);
-				$this->set('email', $this->request->data['email']);
+				$this->set('rut', $rut);
+				$this->set('username', $username);
+				$this->set('email', $email);
+
 				$this->set('nombre', $this->request->data['nombre']);
 				$this->set('apellido_paterno', $this->request->data['apellido_paterno']);
 				$this->set('apellido_materno', $this->request->data['apellido_materno']);
@@ -67,10 +70,10 @@
 				$this->set('poblacion', $this->request->data['poblacion']);
 				$this->set('calle', $this->request->data['calle']);
 				$this->set('numero', $this->request->data['numero']);
+
 				$this->set('_rol', $this->request->data['rol_id']);
 				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
-
 				$this->request->data['img']= "";
 
 				$mensaje = '';
@@ -78,7 +81,7 @@
 				if ($this->data['Image']) {
 	                $image = $this->data['Image']['image'];
 	                $imageTypes = array("image/gif", "image/jpeg", "image/png");
-	                $uploadFolder = "img/upload/img_user";
+	                $uploadFolder = "img/upload/img_local";
 	                $uploadPath = WWW_ROOT . $uploadFolder;
 	               
 	                foreach ($imageTypes as $type) {
@@ -98,7 +101,7 @@
 	                            if (move_uploaded_file($image['tmp_name'], $full_image_path)) {
 	                                $mensaje ="EXITO";
 	                                $this->set('imageName',$imageName);
-	                                $ImagePath = '/Hop/img/upload/img_user/'.$imageName;
+	                                $ImagePath = '/Hop/img/upload/img_local/'.$imageName;
 	            					$this->request->data['img']=$ImagePath;
 	                            } 
 	                            else
@@ -219,9 +222,11 @@
 
 
 				if($mensaje == "EXITO" || $mensaje == "VACIO"){
-					if($this->User->find('first', array('conditions' => $conditions1))){
-						$this->Session->setFlash('El usuario no se pudo actualizar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
-					} 
+					if(!empty($rut)){
+						if($this->User->find('first', array('conditions' => $conditions1))){
+							$this->Session->setFlash('El usuario no se pudo actualizar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
+						} 
+					}
 					elseif($this->User->find('first', array('conditions' => $conditions2))){
 						$this->Session->setFlash('El usuario no se pudo actualizar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					} 

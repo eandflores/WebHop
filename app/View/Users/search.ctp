@@ -7,6 +7,7 @@
 
 #view{
     margin-top: 15px; 
+    overflow: hidden;
 }
 
 #view li{
@@ -24,6 +25,7 @@ form.clearfix span{
 }
 
 form.clearfix {
+    margin-bottom: 10px;
     margin-left: 0px;
 }
 
@@ -384,12 +386,13 @@ form.clearfix {
                                 $fijo = $local['Local']['telefono_fijo'];
                             $movil = $local['Local']['telefono_movil'];
                             $web = $local['Local']['sitio_web'];
+                            $email = $local['Local']['email'];
                             $like = "/Hop/img/like.png";
                             $dislike = "/Hop/img/dislike.png";
                             $votos_negativos = $VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'negativo' , 'VotosLocal.local_id' => $local_id)));
                             $votos_positivos = $VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'positivo' , 'VotosLocal.local_id' => $local_id)));
 
-                            $windowText =  "<div id=\"marker_total\"><div id=\"marker_medio\"><div id=\"marker_izq\"><p><b>$nombreLoc</b></p><img src= \" $img\">$direccion<br>$fijo$movil<br>$web</div><div id=\"marker_der\"><a href=\"/Hop/Ofertas/view/$local_id\" class=\"btn_agregar Agregar btn btn-primary\">Ver productos</a><br><a href=\"/Hop/Locals/edit/$local_id\" class=\"btn_agregar Agregar btn btn-primary\">Editar información</a></div></div><br><div id=\"ver_comentarios\"><a href=\"/Hop/Users/search?loc=$local_id&nomb=$nombre\" id=\"mostrar\">VER VOMENTARIOS...</a></div><div id=\"votos\"><a href=\"/Hop/VotosLocals/add?loc=$local_id&nomb=$nombre&tipo=positivo\"><img src= \" $like\"></a>$votos_positivos<a href=\"/Hop/VotosLocals/add?loc=$local_id&nomb=$nombre&tipo=negativo\"><img src= \" $dislike\"></a>$votos_negativos</div></div>";
+                            $windowText =  "<div id=\"marker_total\"><div id=\"marker_medio\"><div id=\"marker_izq\"><p><b>$nombreLoc</b></p><img src= \" $img\">$direccion<br>$fijo$movil<br>$web<br>$email</div><div id=\"marker_der\"><a href=\"/Hop/Ofertas/view/$local_id\" class=\"btn_agregar Agregar btn btn-primary\">Ver productos</a><br><a href=\"/Hop/Locals/edit/$local_id\" class=\"btn_agregar Agregar btn btn-primary\">Editar información</a></div></div><br><div id=\"ver_comentarios\"><a href=\"/Hop/Users/search?loc=$local_id&nomb=$nombre\" id=\"mostrar\">VER VOMENTARIOS...</a></div><div id=\"votos\"><a href=\"/Hop/VotosLocals/add?loc=$local_id&nomb=$nombre&tipo=positivo\"><img src= \" $like\"></a>$votos_positivos<a href=\"/Hop/VotosLocals/add?loc=$local_id&nomb=$nombre&tipo=negativo\"><img src= \" $dislike\"></a>$votos_negativos</div></div>";
 
                             $marker_options = array(
                                 "showWindow"   => true,

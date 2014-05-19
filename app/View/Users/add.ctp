@@ -9,13 +9,6 @@
         <legend>Datos Obligatorios</legend>
 
         <div class="control-group">
-            <label class="control-label" for="inputRut">Rut:</label>
-            <div class="controls">
-              <input type="text" id="inputRut" name="rut" placeholder="Rut" value="<?php if(!empty($rut)){ echo $rut; } ?>" maxlength="12" required>
-            </div>
-        </div>
-
-        <div class="control-group">
             <label class="control-label" for="inputUsername">Username:</label>
             <div class="controls">
               <input type="text" id="inputUsername" name="username" placeholder="Username" value="<?php if(!empty($username)){ echo $username; } ?>" maxlength="25" required>
@@ -34,13 +27,6 @@
             </div>
         </div>
 
-        <legend>Datos Opcionales</legend>
-        <div class="control-group">
-            <label class="control-label" for="ImageImage">Imagen: </label>
-            <div class="controls">
-              <input type="file" name="data[Image][image]" id="ImageImage">
-            </div>
-        </div>
         <?php 
         if ($logged_in): ?>
             <div class="control-group">
@@ -69,7 +55,7 @@
             $rol_val = 0; 
             if(isset($roles)){
                 foreach ($roles as $index => $rol) { 
-                    if($rol['Rol']['nombre'] == "USUARIO")
+                    if($rol['Rol']['nombre'] == "Usuario")
                         $rol_val = $rol['Rol']['id'];
                 }
             } 
@@ -77,6 +63,21 @@
             <input type="hidden" id="inputRol" name="rol_id" value="<?php echo $rol_val ?>">
         <?php 
         endif; ?>
+
+        <legend>Datos Opcionales</legend>
+        <div class="control-group">
+            <label class="control-label" for="ImageImage">Imagen: </label>
+            <div class="controls">
+              <input type="file" name="data[Image][image]" id="ImageImage">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="inputRut">Rut:</label>
+            <div class="controls">
+              <input type="text" id="inputRut" name="rut" placeholder="Rut" value="<?php if(!empty($rut)){ echo $rut; } ?>" maxlength="12">
+            </div>
+        </div>
         <div class="control-group">
             <label class="control-label" for="inputNombre">Nombre:</label>
             <div class="controls">
@@ -109,12 +110,12 @@
                         foreach ($regiones as $index => $region) {
                           if(!empty($_region) && $_region == $region['Region']['id']){ ?>
                             <option value="<?php echo $region['Region']['id']; ?>" selected>
-                            	<?php echo $region['Region']['nombre']; ?>
+                                <?php echo $region['Region']['nombre']; ?>
                             </option>
                     <?php }
                           else{ ?>
                             <option value="<?php echo $region['Region']['id']; ?>">
-                            	<?php echo $region['Region']['nombre']; ?>
+                                <?php echo $region['Region']['nombre']; ?>
                             </option>
                     <?php } 
                         }
@@ -138,7 +139,7 @@
                                 <?php echo $comuna['Comuna']['nombre']; ?>
                             </option>
                     <?php } 
-                     	}
+                        }
                       } ?>
               </select>
             </div>

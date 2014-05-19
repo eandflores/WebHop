@@ -41,15 +41,6 @@ else{?>
                         <a href="/Hop/Locals/edit/<?php echo $local['Local']['id'] ?>">
                           <i class='icon icon-edit'></i>
                         </a>
-                        <?php if($local['Local']['estado'] != true) { ?>
-                          <a href="/Hop/Locals/enable/<?php echo $local['Local']['id'] ?>" onclick="return confirm('Esta seguro que desea habilitar el local ?');">
-                            <i class='icon icon-ok'></i>
-                          </a>
-                        <?php } else { ?>
-                        <a href="/Hop/Locals/disable/<?php echo $local['Local']['id'] ?>" onclick="return confirm('Esta seguro que desea deshabilitar el local ?');">
-                          <i class='icon icon-remove'></i>
-                        </a>
-                        <?php } ?>
                       </td>
                     </tr>
       <?php }

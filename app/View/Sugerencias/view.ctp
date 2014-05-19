@@ -27,7 +27,7 @@
       <ul class="view">
         <li>
           <span>Usuario => </span>
-          <?php echo $sugerencia['User']['nombre'] ?>
+          <?php echo $sugerencia['User']['username'] ?>
         </li>
         <li>
           <span>Texto => </span>

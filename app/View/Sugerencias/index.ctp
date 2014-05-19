@@ -16,7 +16,7 @@
           foreach ($sugerencias as $index => $sugerencia) { ?>
             <tr>
               <td><?php echo $index+1 ?></td>
-              <td><?php echo $sugerencia['User']['nombre'] ?></td>
+              <td><?php echo $sugerencia['User']['username'] ?></td>
              <!-- Obtener Texto de Sugerencia --> 
               <?php if(strlen($sugerencia['Sugerencia']['texto']) > 80) { 
               ?>
