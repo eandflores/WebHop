@@ -9,10 +9,10 @@ set :use_sudo, true
 set :user, 'root'
 set :password, '12qwaszx'
 
-role :app, 'root@192.168.1.126'
-role :web, 'root@192.168.1.126'
+role :app, 'root@186.103.146.219'
+role :web, 'root@186.103.146.219'
 
-server '192.168.1.126', roles: [:web, :app], user: 'root'
+server '186.103.146.219', roles: [:web, :app], user: 'root'
 
 set :stage, 'production'
 
