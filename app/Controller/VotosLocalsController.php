@@ -133,9 +133,9 @@
 
 			if ($this->request->is('post')){
 
-				$voto_positivo = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.user_id' => $user_id , 'VotosLocal.local_id' => $local_id , 'VotosLocal.tipo' => 'positivo')));
-				$voto_negativo = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.user_id' => $user_id , 'VotosLocal.local_id' => $local_id , 'VotosLocal.tipo' => 'negativo')));
-				$voto_user = $this->VotosLocal->find('first', array('conditions' => array('VotosLocal.user_id' => $user_id , 'VotosLocal.local_id' => $local_id)));
+				$voto_positivo = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.user_id' => $this->request->data['user_id'] , 'VotosLocal.local_id' => $this->request->data['local_id'] , 'VotosLocal.tipo' => 'positivo')));
+				$voto_negativo = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.user_id' => $this->request->data['user_id'] , 'VotosLocal.local_id' => $this->request->data['local_id'], 'VotosLocal.tipo' => 'negativo')));
+				$voto_user = $this->VotosLocal->find('first', array('conditions' => array('VotosLocal.user_id' => $this->request->data['user_id'] , 'VotosLocal.local_id' => $this->request->data['local_id'])));
 
 				if(($voto_positivo == 0) && ($voto_negativo == 0)){
 					if ($this->VotosLocal->save($this->request->data)) 
