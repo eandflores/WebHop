@@ -42,24 +42,7 @@
 			$this->set('local',$this->Local->findByid($local_id));
 
 			if ($this->request->is('post')) {
-<<<<<<< HEAD
 
-				$current_user = $this->Auth->user();
-				$usuario = $this->User->findByusername($current_user['username']); 
-
-				$productos = $this->request->data['productos'];
-				$precios = $this->request->data['precios'];
-
-				$resgitros = array();
-
-				foreach($productos as $index => $producto){
-					$registros[$index] = array(
-					    'producto_id' => $producto,
-					    'user_id' => $usuario['User']['id'],
-					    'precio' => $precios[$index],
-					    'local_id' => $this->request->data['local']
-					);
-=======
 				if($this->current_user['rol_id'] != 2){
 					$current_user = $this->Auth->user();
 					$usuario = $this->User->findByusername($current_user['username']); 
@@ -86,7 +69,6 @@
 					else{
 						$this->Session->setFlash('Las productos no fuerón asociados , intente nuevamente.','default', array("class" => "alert alert-error"));
 					}
->>>>>>> e0581f479032cc34c7691f0a8410295bb7aa8ca4
 				}
 
 				elseif($this->current_user['rol_id']== 2){

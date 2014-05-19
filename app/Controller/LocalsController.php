@@ -6,7 +6,7 @@
 		var $uses = array('Local','CategoriaLocal','Region','Comuna','User','Solicitud','Oferta','Producto');
 
 		public function beforeFilter() {
-			$this->Auth->allow('locales');
+			$this->Auth->allow('locales','getLocal','getDatos');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -140,7 +140,7 @@
 			}
 		}
 
-		function edit($id = null) {
+		public function edit($id = null) {
 			$this->set('local', $this->Local->read(null,$id));
 
 			$this->set('categorias',$this->CategoriaLocal->find('all',array(
@@ -269,7 +269,7 @@
 			} 
 		}
 
-		function disable($id) {
+		public function disable($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			} 
@@ -289,7 +289,7 @@
 			
 		}
 
-		function enable($id) {
+		public function enable($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			} 
@@ -310,7 +310,7 @@
 
 		#========================Android==========================#
 
-		function locales(){
+		public function locales(){
 			$this->autoRender = false;
 
 			$mensaje = '';
@@ -350,6 +350,35 @@
 
 			$json['locales'] = $locales;
 			$json['mensaje'] = $mensaje;
+			echo json_encode($json);
+		}
+
+		public function getLocal(){
+			$this->autoRender = false;
+
+			$local = '';
+
+			if ($this->request->is('post')){
+				$local = $this->Local->find('first',array(
+						 						'conditions' => array('Local.nombre' => $this->request->data['nombre'])
+						 					));
+			}
+
+			echo json_encode($local['Local']);
+		}
+
+		public function getDatos(){
+			$this->autoRender = false;
+
+			$json = '';
+
+			if ($this->request->is('post')){
+				$comuna = $this->Comuna->read(null,$this->request->data['comuna']);
+				$categoria_local = $this->CategoriaLocal->read(null,$this->request->data['categoria_local']);
+			}
+
+			$json['comunaNombre'] = $comuna['Comuna']['nombre'];
+			$json['categoriaLocalNombre'] = $categoria_local['CategoriaLocal']['nombre'];
 			echo json_encode($json);
 		}
 	}

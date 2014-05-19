@@ -353,51 +353,55 @@
 				$nombre = $this->request->data['nombre'];
 				$local_id = '';
 			}
-			else{
+			elseif (!empty($this->params->query)){
 				$nombre = $this->params->query['nomb'];
 				$local_id = $this->params->query['loc'];
 			}
-				$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
-				$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
-				$nombre = strtolower(str_replace($no_permitidas, $permitidas ,$nombre));
-				$this->set('nombre', $nombre);
-				$this->set('loc_id', $local_id);
-				$conditions = array("Producto.nombre" => $nombre);
-				$buscado=$this->Producto->find('first',array('conditions'=>$conditions));
+			else{
+				$this->redirect(array('action' => 'index'));
+			}
+			
+			$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+			$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+			$nombre = strtolower(str_replace($no_permitidas, $permitidas ,$nombre));
+			$this->set('nombre', $nombre);
+			$this->set('loc_id', $local_id);
+			$conditions = array("Producto.nombre" => $nombre);
+			$buscado=$this->Producto->find('first',array('conditions'=>$conditions));
 
-				$conditionsN = array("Producto.nombre LIKE" => "%$nombre%");
-				$buscadoN=$this->Producto->find('all',array('conditions'=>$conditionsN));
-				
-				if(!empty($buscado)){
-					$buscado_id=$buscado['Producto']['id'];
-					$conditions2 = array("Oferta.producto_id" => $buscado_id);
-					$buscado_oferta=$this->Oferta->find('all',array('conditions'=>$conditions2));
-					if(!empty($buscado_oferta)){
-						$buscado_oferta = Set::sort($buscado_oferta, '{n}.Local.votos_positivos', 'desc');
-						$cont_local = count($buscado_oferta);
-						$buscado_local = array();
-						$indice = 1;
-						$buscado_local[0]['Local'] = $buscado_oferta[0]['Local'];
-						if($cont_local>1){
-							for ($index=0;$index<$cont_local-1; $index++){
-								if($buscado_oferta[$index]['Local']['id'] != $buscado_oferta[$index+1]['Local']['id']){
-									$buscado_local[$indice]['Local'] = $buscado_oferta[$index+1]['Local'];
-									$indice++;
-								}
+			$conditionsN = array("Producto.nombre LIKE" => "%$nombre%");
+			$buscadoN=$this->Producto->find('all',array('conditions'=>$conditionsN));
+			
+			if(!empty($buscado)){
+				$buscado_id=$buscado['Producto']['id'];
+				$conditions2 = array("Oferta.producto_id" => $buscado_id);
+				$buscado_oferta=$this->Oferta->find('all',array('conditions'=>$conditions2));
+				if(!empty($buscado_oferta)){
+					$buscado_oferta = Set::sort($buscado_oferta, '{n}.Local.votos_positivos', 'desc');
+					$cont_local = count($buscado_oferta);
+					$buscado_local = array();
+					$indice = 1;
+					$buscado_local[0]['Local'] = $buscado_oferta[0]['Local'];
+					if($cont_local>1){
+						for ($index=0;$index<$cont_local-1; $index++){
+							if($buscado_oferta[$index]['Local']['id'] != $buscado_oferta[$index+1]['Local']['id']){
+								$buscado_local[$indice]['Local'] = $buscado_oferta[$index+1]['Local'];
+								$indice++;
 							}
 						}
-						$this->set('buscado_local',$buscado_local);
-						
 					}
-					else 
-						$this->Session->setFlash('El producto buscado no esta asociado a ningun local','default', array("class" => "alert alert-error"));
+					$this->set('buscado_local',$buscado_local);
+					
 				}
 				else 
-					if(!empty($buscadoN)){
-						$this->set('buscadoN',$buscadoN);
-					}
-					else	
-						$this->Session->setFlash('El producto buscado no fue encontrado','default', array("class" => "alert alert-error"));
+					$this->Session->setFlash('El producto buscado no esta asociado a ningun local','default', array("class" => "alert alert-error"));
+			}
+			else 
+				if(!empty($buscadoN)){
+					$this->set('buscadoN',$buscadoN);
+				}
+				else	
+					$this->Session->setFlash('El producto buscado no fue encontrado','default', array("class" => "alert alert-error"));
 		}
 
 		#========================Android==========================#
@@ -601,7 +605,7 @@
 		public function getDatos(){
 			$this->autoRender = false;
 
-			$usuario = '';
+			$json = '';
 
 			if ($this->request->is('post')){
 				$comuna = $this->Comuna->read(null,$this->request->data['comuna']);

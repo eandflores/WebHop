@@ -58,6 +58,8 @@
         	$this->redirect(array('action' => 'index'));
 		}
 
+		//================ ANDORID ===============================//
+		
 		public function comunas(){
 			$this->autoRender = false;
 
