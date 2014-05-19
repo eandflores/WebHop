@@ -57,7 +57,7 @@
 
 						if ($this->Solicitud->save($this->request->data)) {
 							$this->Session->setFlash('Su solicitud fue enviada exitosamente.','default', array("class" => "alert alert-success"));
-							$this->redirect(array('action' => 'index'));
+							$this->redirect(array('controller' => 'Users' , 'action' => 'index'));
 						} 
 						else 
 							$this->Session->setFlash('Su solicitud no fue enviada, intente nuevamente.','default', array("class" => "alert alert-error"));
