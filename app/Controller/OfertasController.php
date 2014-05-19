@@ -240,7 +240,7 @@
 				$ofertas_[$index] = $oferta['Oferta'];
 				
 				$producto = $this->Producto->find('first', 
-					array('conditions' => array('Producto.id' => $ofertas_[$index]['prodcuto_id']))
+					array('conditions' => array('Producto.id' => $oferta['Oferta']['producto_id']))
 				);
 
 				$ofertas_[$index]['producto_nombre'] = $producto['Producto']['nombre'];
