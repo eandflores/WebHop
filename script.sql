@@ -161,7 +161,7 @@ Create Table Comentarios
 Create Table Votos_Locals
 (
    id       Serial Unique not null,
-   tipo     Varchar(10) not null, --Positivo,Negativo
+   tipo     Varchar(10) not null, --positivo,negativo
    user_id  Integer not null,
    local_id Integer not null,
    created  Timestamp not null,

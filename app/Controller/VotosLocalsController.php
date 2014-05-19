@@ -6,6 +6,8 @@
 		var $uses = array('Local','User','VotosLocal');
 
 		public function beforeFilter() {
+			$this->Auth->allow('addAndroid');
+
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -121,6 +123,56 @@
 			}	
 		}
 
+		//========================== ABDROID =======================//
+
+		public function addAndroid() {
+
+			$this->autoRender = false;
+
+			$mensaje = "";
+
+			if ($this->request->is('post')){
+
+				$voto_positivo = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.user_id' => $user_id , 'VotosLocal.local_id' => $local_id , 'VotosLocal.tipo' => 'positivo')));
+				$voto_negativo = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.user_id' => $user_id , 'VotosLocal.local_id' => $local_id , 'VotosLocal.tipo' => 'negativo')));
+				$voto_user = $this->VotosLocal->find('first', array('conditions' => array('VotosLocal.user_id' => $user_id , 'VotosLocal.local_id' => $local_id)));
+
+				if(($voto_positivo == 0) && ($voto_negativo == 0)){
+					if ($this->VotosLocal->save($this->request->data)) 
+						$mensaje = "EXITO";
+					else
+						$mensaje = "No se pudo guardar su voto, intente nuevamente."
+				}
+
+				elseif (($voto_negativo == 0) && ($this->params->query['tipo'] == 'negativo')) {
+					$this->VotosLocal->read(null,$voto_user['VotosLocal']['id']);
+					$this->VotosLocal->set(array('tipo' => 'negativo'));
+					
+					if ($this->VotosLocal->save()) 
+						$mensaje = "EXITO";
+					else
+						$mensaje = "No se pudo actualizar su voto, intente nuevamente."
+				}
+
+
+				elseif (($voto_positivo == 0) && ($this->params->query['tipo'] == 'positivo')) {
+					$this->VotosLocal->read(null,$voto_user['VotosLocal']['id']);
+					$this->VotosLocal->set(array('tipo' => 'positivo'));
+					
+					if ($this->VotosLocal->save()) 
+						$mensaje = "EXITO";
+					else
+						$mensaje = "No se pudo actualizar su voto, intente nuevamente."
+				}
+
+				else 
+					$mensaje = "No se puede ingresar dos veces el mismo voto.";
+				
+			}
+
+			echo json_encode($mensaje);
+
+		 }
 
 	}
 ?>
