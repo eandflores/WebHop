@@ -376,8 +376,8 @@
 				$comuna = $this->Comuna->read(null,$this->request->data['comuna']);
 				$categoria_local = $this->CategoriaLocal->read(null,$this->request->data['categoria_local']);
 
-				$votos_negativos = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'negativo' , 'VotosLocal.local_id' => $id)));
-				$votos_positivos = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'positivo' , 'VotosLocal.local_id' => $id)));
+				$votos_negativos = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'negativo' , 'VotosLocal.local_id' => $this->request->data['id'])));
+				$votos_positivos = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'positivo' , 'VotosLocal.local_id' => $this->request->data['id'])));
 			}
 
 			$json['comunaNombre'] = $comuna['Comuna']['nombre'];
