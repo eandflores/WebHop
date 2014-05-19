@@ -141,7 +141,7 @@
 					if ($this->VotosLocal->save($this->request->data)) 
 						$mensaje = "EXITO";
 					else
-						$mensaje = "No se pudo guardar su voto, intente nuevamente."
+						$mensaje = "No se pudo guardar su voto, intente nuevamente.";
 				}
 
 				elseif (($voto_negativo == 0) && ($this->params->query['tipo'] == 'negativo')) {
@@ -151,7 +151,7 @@
 					if ($this->VotosLocal->save()) 
 						$mensaje = "EXITO";
 					else
-						$mensaje = "No se pudo actualizar su voto, intente nuevamente."
+						$mensaje = "No se pudo actualizar su voto, intente nuevamente.";
 				}
 
 
@@ -162,7 +162,7 @@
 					if ($this->VotosLocal->save()) 
 						$mensaje = "EXITO";
 					else
-						$mensaje = "No se pudo actualizar su voto, intente nuevamente."
+						$mensaje = "No se pudo actualizar su voto, intente nuevamente.";
 				}
 
 				else 
