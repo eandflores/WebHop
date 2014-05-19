@@ -40,6 +40,7 @@ class DATABASE_CONFIG {
 		'encoding' => 'utf8',
 	);
 
+	/*
 	public $test = array(
 		'datasource' => 'Database/Postgres',
 		'persistent' => false,
@@ -51,4 +52,5 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
+	*/
 }

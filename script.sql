@@ -145,8 +145,6 @@ Create Table Comentarios
 (
    id                   Serial Unique not null,
    texto                Varchar(250) not null,
-   cant_votos_positivos Integer not null default '0',
-   cant_votos_negativos Integer not null default '0',
    user_id              Integer not null,
    local_id             Integer not null,
    created              Timestamp not null,
@@ -177,7 +175,7 @@ Create Table Ofertas
 (
    id          Serial Unique not null,
    precio      Integer,
-   descripcion Varchar(500) not null,
+   descripcion Varchar(500),
    user_id     Integer not null,
    producto_id Integer not null,
    local_id    Integer not null,

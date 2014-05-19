@@ -6,6 +6,8 @@
 		var $uses = array('Oferta','Local','Producto','User','Solicitud');
 
 		public function beforeFilter() {
+			$this->Auth->allow('ofertas');
+
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
 			$this->set('logged_in',$this->logged_in);
@@ -112,7 +114,7 @@
 
 			}
 
-		function edit($id = null) {
+		public function edit($id = null) {
 			$this->set('productos',$this->Producto->find('all',array(
 				'order' => array('Producto.nombre')
 			)));
@@ -169,7 +171,7 @@
 			}
 		}
 
-		function delete($id) {
+		public function delete($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
@@ -216,10 +218,29 @@
 			}
 		}
 
-		function locales(){
+		public function locales(){
 			$this->set('locales', $this->Local->find('all',array(
 				'order' => array('Local.nombre')
 			)));
+		}
+
+		//========================================== ANDROID ===========================================//
+		
+		public function ofertas(){
+			$this->autoRender = false;
+
+			$ofertas = $this->Oferta->find('all', 
+				array('conditions' => array('Oferta.local_id' => $this->request->data['local_id']))
+			);
+
+			$ofertas_ = array();
+
+			foreach ($ofertas as $index => $oferta) {
+
+				$ofertas_[$index] = $oferta['Oferta'];
+			}
+
+			echo json_encode($ofertas_);
 		}
 
 	}

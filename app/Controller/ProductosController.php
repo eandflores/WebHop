@@ -69,7 +69,7 @@
 			}
 		}
 
-		function edit($id = null) {
+		public function edit($id = null) {
 			$this->set('producto', $this->Producto->read(null,$id));
 
 			$this->set('categorias',$this->CategoriaProducto->find('all',array(
@@ -101,7 +101,7 @@
 			} 
 		}
 
-		function delete($id) {
+		public function delete($id) {
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
@@ -123,7 +123,7 @@
 
 		#========================Android==========================#
 
-		function productos(){
+		public function productos(){
 			$this->autoRender = false;
 
 			$productos = $this->Producto->find('all');
