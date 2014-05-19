@@ -3,7 +3,7 @@
 
 		public $name = 'Locals';
 
-		var $uses = array('Local','CategoriaLocal','Region','Comuna','User','Solicitud','Oferta','Producto');
+		var $uses = array('Local','CategoriaLocal','Region','Comuna','User','Solicitud','Oferta','Producto','VotosLocal','Comentarios');
 
 		public function beforeFilter() {
 			$this->Auth->allow('locales','getLocal','getDatos');
@@ -375,10 +375,15 @@
 			if ($this->request->is('post')){
 				$comuna = $this->Comuna->read(null,$this->request->data['comuna']);
 				$categoria_local = $this->CategoriaLocal->read(null,$this->request->data['categoria_local']);
+
+				$votos_negativos = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'negativo' , 'VotosLocal.local_id' => $id)));
+				$votos_positivos = $this->VotosLocal->find('count', array('conditions' => array('VotosLocal.tipo' => 'positivo' , 'VotosLocal.local_id' => $id)));
 			}
 
 			$json['comunaNombre'] = $comuna['Comuna']['nombre'];
 			$json['categoriaLocalNombre'] = $categoria_local['CategoriaLocal']['nombre'];
+			$json['votosPositivos'] = $votos_positivos;
+			$json['votosNegativos'] = $votos_negativos;
 			echo json_encode($json);
 		}
 	}
