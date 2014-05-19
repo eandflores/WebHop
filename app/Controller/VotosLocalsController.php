@@ -144,7 +144,7 @@
 						$mensaje = "No se pudo guardar su voto, intente nuevamente.";
 				}
 
-				elseif (($voto_negativo == 0) && ($this->params->query['tipo'] == 'negativo')) {
+				elseif (($voto_negativo == 0) && ($this->request->data['tipo'] == 'negativo')) {
 					$this->VotosLocal->read(null,$voto_user['VotosLocal']['id']);
 					$this->VotosLocal->set(array('tipo' => 'negativo'));
 					
@@ -155,7 +155,7 @@
 				}
 
 
-				elseif (($voto_positivo == 0) && ($this->params->query['tipo'] == 'positivo')) {
+				elseif (($voto_positivo == 0) && ($this->request->data['tipo'] == 'positivo')) {
 					$this->VotosLocal->read(null,$voto_user['VotosLocal']['id']);
 					$this->VotosLocal->set(array('tipo' => 'positivo'));
 					
