@@ -238,9 +238,12 @@
 			foreach ($ofertas as $index => $oferta) {
 
 				$ofertas_[$index] = $oferta['Oferta'];
-				$ofertas_[$index]['producto_nombre'] = $this->Producto->find('first', 
-					array('conditions' => array('Producto.nombre' => $ofertas_[$index]['prodcuto_id']))
+				
+				$producto = $this->Producto->find('first', 
+					array('conditions' => array('Producto.id' => $ofertas_[$index]['prodcuto_id']))
 				);
+
+				$ofertas_[$index]['producto_nombre'] = $producto['Producto']['nombre'];
 			}
 
 			echo json_encode($ofertas_);
