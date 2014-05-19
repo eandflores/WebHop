@@ -170,6 +170,7 @@
 				
 			}
 
+			$json['mensaje'] = $mensaje;
 			echo json_encode($mensaje);
 
 		 }
