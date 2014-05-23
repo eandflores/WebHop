@@ -33,10 +33,16 @@
 
               <!-- ADMINISTRADOR -->
               <?php if(!empty($logged_in) and $current_user['rol_id']=="1"): ?>
-                <li>
-                  <a href="/Hop/Users/all">USUARIOS</a>
-                </li>
-                <li class="dropdown">
+              <li class="dropdown">
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">USUARIOS<b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Users/all">Usuarios </a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Users/asociadosall">Usuarios Asociados a Locales</a></li>
+                </ul>
+              </li>
+
+              <li class="dropdown">
                 <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">LOCÁLES<b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
                   <li><a href="/Hop/Locals">Locales </a></li>
@@ -50,6 +56,8 @@
                   <li><a href="/Hop/Productos">Productos </a></li>
                   <li class="divider"></li>
                   <li><a href="/Hop/CategoriaProductos">Categoría Productos</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/SubcategoriaProductos">Subcategoría Productos</a></li>
                   <li class="divider"></li>
                   <li><a href="/Hop/Ofertas">Productos Asociados a Locales</a></li>
                 </ul>

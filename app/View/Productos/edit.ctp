@@ -8,21 +8,21 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="selectCategoriaProducto">Categoría:</label>
+            <label class="control-label" for="selectSubcategoriaProducto">Subcategoría:</label>
             <div class="controls">
-              <select id="selectCategoriaProducto" name="categoria_producto_id">
-                <?php if(isset($categorias)){
-                        foreach ($categorias as $index => $categoria) {
-                          if(!empty($_categoria) && $_categoria == $categoria['CategoriaProducto']['id']){ ?>
-                            <option value="<?php echo $categoria['CategoriaProducto']['id']; ?>" selected>
-                              <?php echo $categoria['CategoriaProducto']['nombre']; ?>
+              <select id="selectSubcategoriaProducto" name="subcategoria_producto_id">
+                <?php if(isset($subcategorias)){
+                        foreach ($subcategorias as $index => $subcategoria) {
+                          if(!empty($_subcategoria) && $_subcategoria == $subcategoria['SubcategoriaProducto']['id']){ ?>
+                            <option value="<?php echo $subcategoria['SubcategoriaProducto']['id']; ?>" selected>
+                              <?php echo $subcategoria['SubcategoriaProducto']['nombre']; ?>
                             </option>
                     <?php }
-                          elseif($producto['CategoriaProducto']['id'] == $categoria['CategoriaProducto']['id']){ ?>
-                            <option value="<?php echo $categoria['CategoriaProducto']['id'] ?>" selected><?php echo $categoria['CategoriaProducto']['nombre'] ?></option>
+                          elseif($producto['SubcategoriaProducto']['id'] == $subcategoria['SubcategoriaProducto']['id']){ ?>
+                            <option value="<?php echo $subcategoria['SubcategoriaProducto']['id'] ?>" selected><?php echo $subcategoria['SubcategoriaProducto']['nombre'] ?></option>
                     <?php }
                           else{ ?>
-                            <option value="<?php echo $categoria['CategoriaProducto']['id'] ?>"><?php echo $categoria['CategoriaProducto']['nombre'] ?></option>
+                            <option value="<?php echo $subcategoria['SubcategoriaProducto']['id'] ?>"><?php echo $subcategoria['SubcategoriaProducto']['nombre'] ?></option>
                     <?php } 
                         }
                       } ?>

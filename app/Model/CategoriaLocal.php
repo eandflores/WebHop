@@ -3,7 +3,7 @@
 
 		public $name = 'CategoriaLocal';
 
-		var $hasMany='Local';
+		var $hasMany='SubcategoriaLocal';
 
 	}
 ?>

@@ -53,9 +53,7 @@ Create Table Users
    estado               Boolean not null default true,
    img                  Varchar(200),
    rol_id               Integer not null,
-   region_id            Integer not null,
    comuna_id            Integer not null,
-   local_id             Integer,
    created              Timestamp not null,
    modified             Timestamp not null,
 
@@ -89,18 +87,31 @@ Create Table Categoria_Productos
    Constraint PK_CATEGORIA_PRODUCTOS Primary Key (id)
 );
 
+Create Table Subcategoria_Productos
+(
+   id                      Serial Unique not null,
+   nombre                  Varchar(25) not null,
+   categoria_producto_id   Integer not null,
+   created                 Timestamp not null,
+   modified                Timestamp not null,
+   
+   Constraint PK_SUBCATEGORIA_PRODUCTOS Primary Key (id),
+
+   Constraint FK_SUBCATEGORIA_PRODUCTOS_REFERENCE_CATEGORIA_PRODUCTOS Foreign Key (categoria_producto_id) references Categoria_Productos (id)
+);
+
 Create Table Productos
 (
    id                    Serial Unique not null,
    nombre                Varchar(30) not null,
-   categoria_producto_id Integer not null,
+   subcategoria_producto_id Integer not null,
    user_id               Integer not null,
    created               Timestamp not null,
    modified              Timestamp not null,
 
    Constraint PK_PRODUCTOS Primary Key (id),
 
-   Constraint FK_PRODUCTOS_REFERENCE_CATEGORIA_PRODUCTOS Foreign Key (categoria_producto_id) references Categoria_Productos (id),
+   Constraint FK_PRODUCTOS_REFERENCE_SUBCATEGORIA_PRODUCTOS Foreign Key (subcategoria_producto_id) references Subcategoria_Productos (id),
    Constraint FK_PRODUCTOS_REFERENCE_USERS Foreign Key (user_id) references Users (id)
 );
 
@@ -116,26 +127,27 @@ Create Table Categoria_Locals
 
 Create Table Locals
 (
-   id                 Serial Unique not null,
-   nombre             Varchar(30) not null,
-   calle              Varchar(25) not null,
-   numero             Integer not null,
-   telefono_fijo      Integer,
-   telefono_movil     Integer,
-   email              Varchar(50),
-   sitio_web          Varchar(50),
-   estado             Boolean not null default true,
-   img                Varchar(200),
-   categoria_local_id Integer not null,
-   user_id            Integer not null,
-   region_id          Integer not null,
-   comuna_id          Integer not null,
-   created            Timestamp not null,
-   modified           Timestamp not null,
+   id                      Serial Unique not null,
+   nombre                  Varchar(30) not null,
+   calle                   Varchar(25) not null,
+   numero                  Integer not null,
+   telefono_fijo           Integer,
+   telefono_movil          Integer,
+   email                   Varchar(50),
+   sitio_web               Varchar(50),
+   estado                  Boolean not null default true,
+   img                     Varchar(200),
+   subcategoria_local_id   Integer not null,
+   user_id                 Integer not null,
+   admin_id                Integer,
+   comuna_id               Integer not null,
+   visitas                 Integer,
+   created                 Timestamp not null,
+   modified                Timestamp not null,
 
    Constraint PK_LOCALS Primary Key (id),
 
-   Constraint FK_LOCALS_REFERENCE_CATEGORIA_LOCALS Foreign Key (categoria_local_id) references Categoria_Locals (id),
+   Constraint FK_LOCALS_REFERENCE_SUBCATEGORIA_LOCALS Foreign Key (subcategoria_local_id) references Subcategoria_Locals (id),
    Constraint FK_LOCALS_REFERENCE_USERS Foreign Key (user_id) references Users (id),
    Constraint FK_LOCALS_REFERENCE_REGIONS Foreign Key (region_id) references Regions (id),
    Constraint FK_LOCALS_REFERENCE_COMUNAS Foreign Key (comuna_id) references Comunas (id)
@@ -145,6 +157,8 @@ Create Table Comentarios
 (
    id                   Serial Unique not null,
    texto                Varchar(250) not null,
+   cant_votos_positivos Integer not null default '0',
+   cant_votos_negativos Integer not null default '0',
    user_id              Integer not null,
    local_id             Integer not null,
    created              Timestamp not null,
@@ -175,10 +189,12 @@ Create Table Ofertas
 (
    id          Serial Unique not null,
    precio      Integer,
-   descripcion Varchar(500),
+   descripcion Varchar(25) not null,
+   descripcion Varchar(500) not null,
    user_id     Integer not null,
    producto_id Integer not null,
    local_id    Integer not null,
+   visitas     Integer,
    created     Timestamp not null,
    modified    Timestamp not null,
 

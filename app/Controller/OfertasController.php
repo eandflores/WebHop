@@ -16,13 +16,13 @@
 
 		public function index() {
 			$this->set('ofertas', $this->Oferta->find('all',array(
-				'order' => array('Oferta.precio')
+				'order' => array('Oferta.local_id')
 			)));
 		}
 
 		public function view($local_id = null) {
 			$this->set('ofertas', $this->Oferta->find('all',array(
-				'order' => array('Oferta.precio')
+				'order' => array('Oferta.local_id')
 			)));
 
 			$this->set('local', $this->Local->read(null,$local_id));
@@ -50,6 +50,7 @@
 					$usuario = $this->User->findByusername($current_user['username']); 
 					$productos = $this->request->data['productos'];
 					$precios = $this->request->data['precios'];
+					$marcas = $this->request->data['marcas'];
 					$descripciones = $this->request->data['descripciones'];
 
 					$resgitros = array();
@@ -59,6 +60,7 @@
 						    'producto_id' => $producto,
 						    'user_id' => $usuario['User']['id'],
 						    'precio' => $precios[$index],
+						    'marca' => $marcas[$index],
 						    'descripcion' => $descripciones[$index],
 						    'local_id' => $this->request->data['local']
 						);
@@ -85,6 +87,7 @@
 					foreach($productos as $index => $producto){
 					    $producto_id = $producto;
 					    $user_id = $usuario['User']['id'];
+					    $marca = $marcas[$index];
 					    $precio = $precios[$index];
 					    $descripcion = $descripciones[$index];
 					    $local_id = $this->request->data['local'];
@@ -95,10 +98,10 @@
 							
 							'local_id' => $local_id,
 							'estado' => "Pendiente",
-							'sql' => "INSERT INTO ofertas (\"precio\",\"user_id\",\"producto_id\",\"local_id\",\"descripcion\",\"created\",\"modified\") VALUES ('".$precio."','".$this->current_user['id']."','".$producto_id."','".$local_id."','".$descripcion."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')",
+							'sql' => "INSERT INTO ofertas (\"precio\",\"marca\",\"user_id\",\"producto_id\",\"local_id\",\"descripcion\",\"created\",\"modified\") VALUES ('".$precio."','".$marca."','".$this->current_user['id']."','".$producto_id."','".$local_id."','".$descripcion."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')",
 							'accion' => "Agregar",
 							'tabla' => "Ofertas",
-							'campos' => "Producto: ".$producto['Producto']['nombre'].", Precio: ".$precio.", Local: ".$local['Local']['nombre'].", Descripcion: ".$descripcion. ", Usuario: ".$this->current_user['username'],
+							'campos' => "Producto: ".$producto['Producto']['nombre'].", Precio: ".$precio.", Marca: ".$marca.", Local: ".$local['Local']['nombre'].", Descripcion: ".$descripcion. ", Usuario: ".$this->current_user['username'],
 							'user_id' => $this->current_user['id'],		
 						);
 					}

@@ -3,7 +3,7 @@
 		
 		public $name = 'User';
 	
-		var $belongsTo = array('Rol','Region','Comuna');
+		var $belongsTo = array('Rol','Comuna');
 
 		public function beforeSave($options = array()){
 			if(!empty($this->data['User']['id'])){

@@ -6,7 +6,7 @@
 
 		public $helpers = array('GoogleMap');
 
-		var $uses = array('User','Rol','Region','Comuna','Producto','Oferta','Local','Comentario','VotosLocal');
+		var $uses = array('User','Rol','Comuna','Producto','Oferta','Local','Comentario','VotosLocal');
 
 		var $sacaffold;
 
@@ -44,9 +44,6 @@
 		}
 
 		public function add() {
-			$this->set('regiones',$this->Region->find('all',array(
-				'order' => array('Region.nombre')
-			)));
 			$this->set('comunas',$this->Comuna->find('all',array(
 				'order' => array('Comuna.nombre')
 			)));
@@ -249,19 +246,28 @@
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			} 
-			else {
-				$this->User->read(null,$id);
-				$this->User->set(array('estado' => false));
 
-				if ($this->User->save()) {
-					$this->Session->setFlash('El usuario ha sido deshabilitado','default', array("class" => "alert alert-success"));
-					$this->redirect(array('action' => 'all'));
-				} 
-				else {
-					$this->Session->setFlash('El usuario no fue deshabilitado.','default', array("class" => "alert alert-error"));
-	        		$this->redirect(array('action' => 'all'));
+			else{
+				$cont_admin = $this->User->find('count', array('conditions' => array('User.rol_id' => 1 , 'User.estado' => true)));
+				$actual=$this->User->read(null,$id);
+				if (($cont_admin > 1 && $actual['User']['rol_id'] == 1) || $actual['User']['rol_id'] != 1 ) {
+
+					$this->User->set(array('estado' => false));
+
+					if ($this->User->save()) {
+						$this->Session->setFlash('El usuario ha sido deshabilitado','default', array("class" => "alert alert-success"));
+						$this->redirect(array('action' => 'all'));
+					} 
+					else {
+						$this->Session->setFlash('El usuario no fue deshabilitado.','default', array("class" => "alert alert-error"));
+		        		$this->redirect(array('action' => 'all'));
+					}
 				}
-			}
+				else {
+					$this->Session->setFlash('No pueden estar todos los adminstradores deshabilitados.','default', array("class" => "alert alert-error"));
+		        	$this->redirect(array('action' => 'all'));
+				}
+			}	
 			
 		}
 
@@ -269,9 +275,10 @@
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			} 
-			else {
+			else {		
 				$this->User->read(null,$id);
 				$this->User->set(array('estado' => true));
+
 
 				if ($this->User->save()) {
 					$this->Session->setFlash('El usuario ha sido habilitado','default', array("class" => "alert alert-success"));
@@ -301,6 +308,34 @@
         			$this->redirect(array('action' => 'login'));
 				}
 			}
+		}
+
+		public function asociadosall() {
+			$this->set('locales', $this->Local->find('all',array(
+				'order' => array('Local.admin_id')
+			)));
+
+			$options['joins'] = array(
+			array('table' => 'User',
+			    'alias' => 'User',
+			    'type' => 'LEFT',
+			    'conditions' => array(
+			        'Local.admin_id = User.id',
+			    )
+			  )
+			);
+			$todos=$this->Local->find('all', $options);
+			debug($todos);
+		}
+
+		public function asociadosview($id) {
+			$this->set('usuario', $this->User->read(null,$id));
+		}
+
+		public function asociadosadd() {
+			$this->set('usuarios', $this->User->find('all',array(
+				'order' => array('User.nombre')
+			)));
 		}
 
 		public function logout(){

@@ -3,7 +3,7 @@
 		
 		public $name = 'Local';
 
-		var $belongsTo = array('CategoriaLocal','User','Region','Comuna');
+		var $belongsTo = array('CategoriaLocal','User','Comuna');
 
 	}
 ?>

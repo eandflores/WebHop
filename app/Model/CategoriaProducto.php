@@ -3,7 +3,8 @@
 		
 		public $name = 'CategoriaProducto';
 
-		var $hasMany='Producto';
+		var $displayField = 'nombre';
+		var $hasMany='SubcategoriaProducto';
 
 	}
 ?>

@@ -57,6 +57,13 @@
           </div>
 
         <div class="control-group">
+            <label class="control-label" for="inputMarca">Marca:</label>
+            <div class="controls">
+              <input type="number" id="inputMarca" name="marca" placeholder="Marca" value="<?php if(!empty($marca)){ echo $marca; } else {  echo $oferta['Oferta']['marca']; } ?>" min="0">
+            </div>
+        </div>
+
+        <div class="control-group">
             <label class="control-label" for="inputPrecio">Precio:</label>
             <div class="controls">
               <input type="number" id="inputPrecio" name="precio" placeholder="Precio" value="<?php if(!empty($precio)){ echo $precio; } else {  echo $oferta['Oferta']['precio']; } ?>" min="0">

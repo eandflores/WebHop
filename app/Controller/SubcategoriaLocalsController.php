@@ -1,9 +1,9 @@
 <?php
-	class CategoriaProductosController extends AppController {
-		
-		public $name = 'CategoriaProductos';
+	class SubcategoriaLocalsController extends AppController {
 
-		var $uses = array('CategoriaProducto','SubcategoriaProducto','Producto','User','Solicitud');
+		public $name = 'SubcategoriaLocals';
+
+		var $uses = array('SubcategoriaLocal','Local','Solicitud');
 
 		public function beforeFilter() {
 			$this->current_user = $this->Auth->user();
@@ -13,19 +13,19 @@
 		}
 
 		public function index() {
-			$this->set('categoriaproductos', $this->CategoriaProducto->find('all',array(
-				'order' => array('CategoriaProducto.nombre')
+			$this->set('subcategoriaLocales', $this->SubcategoriaLocal->find('all',array(
+				'order' => array('SubcategoriaLocal.nombre')
 			)));
 		}
 
 		public function add() {
-			if ($this->request->is('post')) {
+			if ($this->request->is('post')){
 
 				$this->set('nombre', $this->request->data['nombre']);
 
 				if($this->current_user['rol_id']== 1){
-					if(!$this->CategoriaProducto->findBynombre($this->request->data['nombre'])){
-						if ($this->CategoriaProducto->save($this->request->data)) {
+					if(!$this->SubcategoriaLocal->findBynombre($this->request->data['nombre'])){
+						if ($this->SubcategoriaLocal->save($this->request->data)) {
 							$this->Session->setFlash('La categoria ha sido guardada exitosamente.','default', array("class" => "alert alert-success"));
 							$this->redirect(array('action' => 'index'));
 						} 
@@ -35,13 +35,14 @@
 					else
 						$this->Session->setFlash('La categoria ya existe.','default', array("class" => "alert alert-error"));
 				}
+
 				elseif($this->current_user['rol_id']!= 1){
-					if(!$this->CategoriaProducto->findBynombre($this->request->data['nombre'])){
+					if(!$this->SubcategoriaLocal->findBynombre($this->request->data['nombre'])){
 						
 						$this->request->data['estado'] = "Pendiente";
-						$this->request->data['sql'] = "INSERT INTO categoria_productos (\"nombre\",\"created\",\"modified\") VALUES ('".$this->request->data['nombre']."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')";
+						$this->request->data['sql'] = "INSERT INTO subcategoria_locals (\"nombre\",\"created\",\"modified\") VALUES ('".$this->request->data['nombre']."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')";
 						$this->request->data['accion'] = "Agregar";
-						$this->request->data['tabla'] = "CategoriaProductos";
+						$this->request->data['tabla'] = "SubcategoriaLocales";
 						$this->request->data['campos'] = "Nombre: ".$this->request->data['nombre'];
 						$this->request->data['user_id'] = $this->current_user['id'];
 						
@@ -56,34 +57,35 @@
 					else
 						$this->Session->setFlash('La categoria ya existe.','default', array("class" => "alert alert-error"));
 				}
+
 			}
 		}
 
 		function edit($id = null) {
-			$this->set('categoria', $this->CategoriaProducto->read(null,$id));
-			
+			$this->set('categoria', $this->SubcategoriaLocal->read(null,$id));
+
 			if ($this->request->is('post')) {
 
 				$id = $this->request->data['id'];
 				$nombre = $this->request->data['nombre'];
-
+				
 				$this->set('id', $id);
 				$this->set('nombre', $nombre);
 
-				$conditions = array("CategoriaProducto.nombre" => $nombre,"CategoriaProducto.id !=" => $id);
+				$conditions = array("SubcategoriaLocal.nombre" => $nombre,"SubcategoriaLocal.id !=" => $id);
 
-				if($this->CategoriaProducto->find('first', array('conditions' => $conditions))){
+				if($this->SubcategoriaLocal->find('first', array('conditions' => $conditions))){
 					$this->Session->setFlash('La categoria ya existe.','default', array("class" => "alert alert-error"));
-				}
+				} 
 				else{
-					if ($this->CategoriaProducto->save($this->request->data)) {
+					if ($this->SubcategoriaLocal->save($this->request->data)) {
 						$this->Session->setFlash('La categoria ha sido actualizada exitosamente.','default', array("class" => "alert alert-success"));
 						$this->redirect(array('action' => 'index'));
 					} 
 					else{
 						$this->Session->setFlash('La categoria no fue actualizada, intente nuevamente.','default', array("class" => "alert alert-error"));
 					}
-				}		
+				}	
 			} 
 		}
 
@@ -91,8 +93,8 @@
 			if ($this->request->is('post')) {
 				throw new MethodNotAllowedException();
 			}
-			if(!$this->SubcategoriaProducto->findBycategoria_producto_id($id)){
-				if ($this->CategoriaProducto->delete($id)) {
+			if(!$this->Local->findBycategoria_local_id($id)){
+				if ($this->SubcategoriaLocal->delete($id)) {
 					$this->Session->setFlash('La categoria ha sido eliminada','default', array("class" => "alert alert-success"));
 					$this->redirect(array('action' => 'index'));
 				} 
@@ -102,7 +104,7 @@
 		        }
 		    } 
 		    else{
-				$this->Session->setFlash('La categoria no fue eliminada porque esta asociada a algun producto.','default', array("class" => "alert alert-error"));
+				$this->Session->setFlash('La categoria no fue eliminada porque esta asociada a algun local.','default', array("class" => "alert alert-error"));
 				$this->redirect(array('action' => 'index'));
 			}	
 		}

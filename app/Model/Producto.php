@@ -3,7 +3,7 @@
 		
 		public $name = 'Producto';
 
-		var $belongsTo = array('CategoriaProducto','User');
+		var $belongsTo = array('SubcategoriaProducto','User');
 
 	}
 ?>

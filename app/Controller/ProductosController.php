@@ -3,7 +3,7 @@
 		
 		public $name = 'Productos';
 
-		var $uses = array('Producto','CategoriaProducto','User','Oferta','Solicitud');
+		var $uses = array('Producto','SubcategoriaProducto','CategoriaProducto','User','Oferta','Solicitud');
 
 		public function beforeFilter() {
 			$this->Auth->allow('productos');
@@ -21,14 +21,14 @@
 		}
 
 		public function add() {
-			$this->set('categorias',$this->CategoriaProducto->find('all',array(
-				'order' => array('CategoriaProducto.nombre')
+			$this->set('subcategorias',$this->SubcategoriaProducto->find('all',array(
+				'order' => array('SubcategoriaProducto.nombre')
 			)));
 
 			if ($this->request->is('post')) {
 
 				$this->set('nombre', $this->request->data['nombre']);
-				$this->set('_categoria', $this->request->data['categoria_producto_id']);
+				$this->set('_subcategoria', $this->request->data['subcategoria_producto_id']);
 
 				if(!$this->Producto->findBynombre($this->request->data['nombre'])){
 					if($this->current_user['rol_id'] == 1){
@@ -47,12 +47,12 @@
 					}
 
 					elseif($this->current_user['rol_id'] != 1){
-						$categoriap = $this->CategoriaProducto->read(null,$this->request->data['categoria_producto_id']);
+						$subcategoriap = $this->SubcategoriaProducto->read(null,$this->request->data['subcategoria_producto_id']);
 						$this->request->data['estado'] = "Pendiente";
-						$this->request->data['sql'] = "INSERT INTO productos (\"nombre\",\"categoria_producto_id\",\"user_id\",\"created\",\"modified\") VALUES ('".$this->request->data['nombre']."','".$this->request->data['categoria_producto_id']."','".$this->current_user['id']."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')";
+						$this->request->data['sql'] = "INSERT INTO productos (\"nombre\",\"subcategoria_producto_id\",\"user_id\",\"created\",\"modified\") VALUES ('".$this->request->data['nombre']."','".$this->request->data['subcategoria_producto_id']."','".$this->current_user['id']."','".date("d-m-Y H:i:s")."','".date("d-m-Y H:i:s")."')";
 						$this->request->data['accion'] = "Agregar";
 						$this->request->data['tabla'] = "Productos";
-						$this->request->data['campos'] = "Nombre: ".$this->request->data['nombre'].", CategoriaProducto: ".$categoriap['CategoriaProducto']['nombre'].", Usuario: ".$this->current_user['username'];
+						$this->request->data['campos'] = "Nombre: ".$this->request->data['nombre'].", SubcategoriaProducto: ".$subcategoriap['SubcategoriaProducto']['nombre'].", Usuario: ".$this->current_user['username'];
 						$this->request->data['user_id'] = $this->current_user['id'];
 
 						if ($this->Solicitud->save($this->request->data)) {
@@ -72,8 +72,8 @@
 		public function edit($id = null) {
 			$this->set('producto', $this->Producto->read(null,$id));
 
-			$this->set('categorias',$this->CategoriaProducto->find('all',array(
-				'order' => array('CategoriaProducto.nombre')
+			$this->set('subcategorias',$this->SubcategoriaProducto->find('all',array(
+				'order' => array('SubcategoriaProducto.nombre')
 			)));
 
 			if ($this->request->is('post')) {
@@ -82,7 +82,7 @@
 				$nombre = $this->request->data['nombre'];
 
 				$this->set('nombre', $nombre);
-				$this->set('_categoria', $this->request->data['categoria_producto_id']);
+				$this->set('_subcategoria', $this->request->data['subcategoria_producto_id']);
 
 				$conditions = array("Producto.nombre" => $nombre,"Producto.id !=" => $id);
 
