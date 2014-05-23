@@ -11,6 +11,10 @@ html,body,#wrapper{
     background-image:-moz-linear-gradient(top, #ffffff, #d8e7ee);
     background-image:-o-linear-gradient(top, #ffffff, #d8e7ee);
 }
+.margenIndex{
+    margin-left: 30px;
+    margin-right: 30px;
+}
 #center{
     margin:auto;
     min-height: 100%;

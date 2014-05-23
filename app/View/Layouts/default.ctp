@@ -12,6 +12,9 @@
   echo $this->Html->css("main.css");
   echo $this->Html->css("alertify.core.css");
   echo $this->Html->css("alertify.default.css");
+  echo $this->Html->css("TableTools.css");
+  echo $this->Html->css("dataTables.colVis.css");
+
 ?>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -52,7 +55,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">SUGERENCIAS <b class="caret"></b></a>
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">SOLICITUDES <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">                
                   <li><a href="/Hop/Comentarios">Comentarios</a></li>
                   <li class="divider"></li>
@@ -113,6 +116,8 @@
   echo $this->Html->script("jquery-1.7.2.js");
   echo $this->Html->script("bootstrap.js");
   echo $this->Html->script("jquery.dataTables.js");
+  echo $this->Html->script("dataTables.colVis.js");
+  echo $this->Html->script("TableTools.min.js");
   echo $this->Html->script("main.js");
   echo $this->Html->script("bootstrap-tooltip.js");
   echo $this->Html->script("alertify.js");

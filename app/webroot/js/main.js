@@ -1,17 +1,78 @@
 jQuery(document).ready(function() {     
+    $.extend( true, $.fn.DataTable.TableTools.classes, {
+        "container": "btn-group DTTT_container",
+        "buttons": {
+            "normal": "btn btn-primary",
+            "disabled": "btn disabled"
+        },
+        "collection": {
+            "container": "DTTT_dropdown dropdown-menu",
+            "buttons": {
+                "normal": "",
+                "disabled": "disabled"
+            }
+        }
+    } );
+
     $('.datatable').dataTable({
+        // Para no ordenar los indices de la filas
+        "fnDrawCallback": function ( oSettings ) {
+            /* Need to redo the counters if filtered or sorted */
+            var that = this;
+
+            if ( oSettings.bSorted || oSettings.bFiltered )
+            {
+                this.$('td:first-child', {"filter":"applied"}).each( function (i) {
+                    that.fnUpdate( i+1, this.parentNode, 0, false, false );
+                } );
+            }
+        },
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0 ] }
+        ],
+        // Cambiar Palabras tablas
         "oLanguage": {
-                "sLengthMenu": "_MENU_ elementos",
-                "sSearch": "Buscar:",
-                "sZeroRecords": "No hay elementos que mostrar",
-                "sInfo": "Mostrando _START_ de _END_ de _TOTAL_ elementos", 
-                /*Paginador titulos*/
-                "oPaginate": {
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior",
+            "sLengthMenu": "_MENU_ elementos",
+            "sSearch": "Buscar:",
+            "sZeroRecords": "No hay elementos que mostrar",
+            "sInfo": "Mostrando _START_ de _END_ de _TOTAL_ elementos", 
+            /*Paginador titulos*/
+            "oPaginate": {
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior",
+            }
+        },
+        "sDom": 'CT<"clear">lfrtip',
+        //Aparecer o desaparecer columnas
+        "colVis": {
+            "buttonText": "Agregar / Ocultar columnas"
+        },
+        //Exportar
+        "oTableTools": {
+            "sSwfPath": "/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {   
+                    'sTitle': $('.TituloExport').val(),
+                    "sExtends":    "xls",
+                    "sButtonText": '<i class="icon-th-list icon-white"></i> Excel ',
+                    "sPdfOrientation": "landscape",
+                    "mColumns": "visible"
+                },
+                {
+                    'sTitle': $('.TituloExport').val(),
+                    "sExtends":    "pdf",
+                    "sButtonText": '<i class="icon-download-alt icon-white"></i> PDF ',
+                    "sPdfOrientation": "landscape",
+                    "mColumns": "visible"
                 }
-            },
+            ],
+
+        },
     });
+
+    $('.ColVis_MasterButton').addClass('btn btn-primary');
+    $('.ColVis_MasterButton').css('width', '200px');
+    $('.ColVis_MasterButton').removeClass('ColVis_Button');
 
     $('#flashMessage').append('<button type="button" class="close" data-dismiss="alert">&times;</button>');
 

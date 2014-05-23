@@ -68,7 +68,7 @@
 				$this->Solicitud->set(array('estado' => "Rechazado"));
 				$this->Solicitud->set(array('admin_id' => $this->current_user['id']));
 				$this->Solicitud->set(array('modified' => date("d-m-Y H:i:s")));
-				$this->Solicitud->data['Solicitud']['admin_username'] = $admin_username;
+				
 				if ($this->Solicitud->save()) {
 					$this->Session->setFlash('La Solicitud ha sido rechazada','default', array("class" => "alert alert-success"));
 					$this->redirect(array('action' => 'index'));
