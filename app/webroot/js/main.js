@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
         "sDom": 'CT<"clear">lfrtip',
         //Aparecer o desaparecer columnas
         "colVis": {
-            "buttonText": "Agregar / Ocultar columnas"
+            "buttonText": "Mostrar / Ocultar columnas"
         },
         //Exportar
         "oTableTools": {

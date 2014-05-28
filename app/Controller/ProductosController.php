@@ -121,6 +121,62 @@
 			}
 		}
 
+		public function informe() {
+			$fecha_inicio = $this->request->data['fechaIni4'];
+			$fecha_fin = $this->request->data['fechaFin4'];
+			$categoria = $this->request->data['categoria'];
+			$subcategoria = $this->request->data['subcategoria'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('categoria', $categoria);
+			$this->set('subcategoria', $subcategoria);
+
+			$productos = array();
+
+			if($subcategoria != "Todas"){
+
+				$this->set('subcat',$this->SubcategoriaProducto->read(null,$subcategoria));
+				
+				$productos = $this->Producto->find('all',array(
+	 						'order' => 'Producto.created',
+	 						'conditions' => array(
+	 											'Producto.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Producto.created <=' => $fecha_fin.' 23:59:59',
+	 											"Producto.subcategoria_producto_id" => $subcategoria
+	 										)
+	 					));
+			} else {
+				
+				if($categoria == "Todas"){
+
+					$productos = $this->Producto->find('all',array(
+		 						'order' => 'Producto.created',
+		 						'conditions' => array(
+		 											'Producto.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Producto.created <=' => $fecha_fin.' 23:59:59',
+		 										)
+		 					));
+				}
+				else{
+
+					$this->set('cat',$this->CategoriaProducto->read(null,$categoria));
+				
+					$productos = $this->Producto->find('all',array(
+		 						'order' => 'Producto.created',
+		 						'conditions' => array(
+		 											'Producto.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Producto.created <=' => $fecha_fin.' 23:59:59',
+		 											"SubcategoriaProducto.categoria_producto_id" => $categoria
+		 										)
+		 					));
+				}
+			}
+			
+			$this->set('categorias', $this->CategoriaProducto->find('all'));
+			$this->set('productos', $productos);
+		}
+
 		#========================Android==========================#
 
 		public function productos(){

@@ -308,6 +308,99 @@
 			}
 		}
 
+		public function informe() {
+			$fecha_inicio = $this->request->data['fechaIni2'];
+			$fecha_fin = $this->request->data['fechaFin2'];
+			$tipoLocal = $this->request->data['tipoLocal'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('tipoLocal', $tipoLocal);
+
+			$locales = array();
+
+			if($tipoLocal == "Todos"){
+				$locales = $this->Local->find('all',array(
+		 						'order' => 'Local.created',
+		 						'conditions' => array(
+		 											'Local.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Local.created <=' => $fecha_fin.' 23:59:59',
+		 										)
+		 					));
+
+			} else if($tipoLocal == "Administrados"){
+				$locales = $this->Local->find('all',array(
+		 						'order' => 'Local.created',
+		 						'conditions' => array(
+		 											'Local.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Local.created <=' => $fecha_fin.' 23:59:59',
+		 											"not" => array("Local.admin_id" => null)
+		 										)
+		 					));
+			} else {
+				$locales = $this->Local->find('all',array(
+		 						'order' => 'Local.created',
+		 						'conditions' => array(
+		 											'Local.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Local.created <=' => $fecha_fin.' 23:59:59',
+		 											"Local.admin_id" => null
+		 										)
+		 					));
+			}
+			
+			$this->set('usuarios', $this->User->find('all'));
+			$this->set('locales', $locales);
+			$this->set('votos', $this->VotosLocal->find('all'));
+    			
+		}
+
+		public function informe_anulados() {
+			$fecha_inicio = $this->request->data['fechaIni5'];
+			$fecha_fin = $this->request->data['fechaFin5'];
+			$tipoLocal = $this->request->data['tipoLocalAnulado'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('tipoLocal', $tipoLocal);
+
+			$locales = array();
+
+			if($tipoLocal == "Todos"){
+				$locales = $this->Local->find('all',array(
+		 						'order' => 'Local.fecha_anulacion',
+		 						'conditions' => array(
+		 											'Local.fecha_anulacion >=' => $fecha_inicio.' 00:00:00',
+		 											'Local.fecha_anulacion <=' => $fecha_fin.' 23:59:59',
+		 											'Local.estado' => false
+		 										)
+		 					));
+
+			} else if($tipoLocal == "Administrados"){
+				$locales = $this->Local->find('all',array(
+		 						'order' => 'Local.fecha_anulacion',
+		 						'conditions' => array(
+		 											'Local.fecha_anulacion >=' => $fecha_inicio.' 00:00:00',
+		 											'Local.fecha_anulacion <=' => $fecha_fin.' 23:59:59',
+		 											"not" => array("Local.admin_id" => null),
+		 											'Local.estado' => false
+		 										)
+		 					));
+			} else {
+				$locales = $this->Local->find('all',array(
+		 						'order' => 'Local.created',
+		 						'conditions' => array(
+		 											'Local.fecha_anulacion >=' => $fecha_inicio.' 00:00:00',
+		 											'Local.fecha_anulacion <=' => $fecha_fin.' 23:59:59',
+		 											"Local.admin_id" => null,
+		 											'Local.estado' => false
+		 										)
+		 					));
+			}
+			
+			$this->set('usuarios', $this->User->find('all'));
+			$this->set('locales', $locales);
+		}
+
 		#========================Android==========================#
 
 		public function locales(){

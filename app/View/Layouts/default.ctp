@@ -72,6 +72,9 @@
                   <li><a href="/Hop/Solicituds">Solicitudes</a></li>
                 </ul>
               </li>
+              <li>
+                <a href="/Hop/Users/informes" class="item-menu" data-toggle='modal'>REPORTES</a>
+              </li>
               <?php endif; ?>
 
               <!-- LOCALES -->
@@ -89,6 +92,9 @@
                   <li class="divider"></li>
                   <li><a href="/Hop/Solicituds">Solicitudes</a></li>
                 </ul>
+              </li>
+              <li>
+                <a href="/Hop/Users/informes_locales" class="item-menu" data-toggle='modal'>REPORTES</a>
               </li>
               <?php endif; ?>
 

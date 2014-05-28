@@ -6,7 +6,7 @@
 
 		public $helpers = array('GoogleMap');
 
-		var $uses = array('User','Rol','Comuna','Producto','Oferta','Local','Comentario','VotosLocal');
+		var $uses = array('User','Rol','Comuna','Producto','Oferta','Local','Comentario','VotosLocal','CategoriaProducto','SubcategoriaProducto');
 
 		var $sacaffold;
 
@@ -442,6 +442,124 @@
 				}
 				else	
 					$this->Session->setFlash('El producto buscado no fue encontrado','default', array("class" => "alert alert-error"));
+		}
+
+		public function informes(){
+			$categorias = $this->CategoriaProducto->find('all',array(
+	 						'order' => 'CategoriaProducto.nombre'
+	 					));
+
+			$subcategorias = $this->SubcategoriaProducto->find('all',array(
+	 						'order' => 'SubcategoriaProducto.nombre'
+	 					));
+
+			$productos = $this->Producto->find('all',array(
+	 						'order' => 'Producto.nombre'
+	 					));
+
+			$locales = $this->Local->find('all',array(
+	 						'order' => 'Local.nombre'
+	 					));
+
+			$marcas = $this->Oferta->find('all',array(
+							'fields' => 'marca',
+	 						'order' => 'Oferta.marca',
+	 						'group' => 'marca'
+	 					));
+
+			$this->set('categorias', $categorias);
+			$this->set('subcategorias', $subcategorias);
+			$this->set('productos', $productos);
+			$this->set('locales', $locales);
+			$this->set('marcas', $marcas);
+		}
+
+		public function informes_locales(){
+			
+			$productos = $this->Producto->find('all',array(
+	 						'order' => 'Producto.nombre'
+	 					));
+
+			$marcas = $this->Oferta->find('all',array(
+							'fields' => 'marca',
+	 						'order' => 'Oferta.marca',
+	 						'group' => 'marca'
+	 					));
+
+			$this->set('productos', $productos);
+			$this->set('marcas', $marcas);
+		}
+
+		public function informe() {
+			$fecha_inicio = $this->request->data['fechaIni3'];
+			$fecha_fin = $this->request->data['fechaFin3'];
+			$rolUsuario = $this->request->data['rolUsuario'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('rolUsuario', $rolUsuario);
+
+			$usuarios = array();
+
+			if($rolUsuario == "Todos"){
+				$usuarios = $this->User->find('all',array(
+		 						'order' => 'User.created',
+		 						'conditions' => array(
+		 											'User.created >=' => $fecha_inicio.' 00:00:00',
+		 											'User.created <=' => $fecha_fin.' 23:59:59',
+		 										)
+		 					));
+
+			} else {
+				$usuarios = $this->User->find('all',array(
+		 						'order' => 'User.created',
+		 						'conditions' => array(
+		 											'User.created >=' => $fecha_inicio.' 00:00:00',
+		 											'User.created <=' => $fecha_fin.' 23:59:59',
+		 											"User.rol_id" => $rolUsuario
+		 										)
+		 					));
+			}
+			
+			$this->set('roles', $this->Rol->find('all'));
+			$this->set('usuarios', $usuarios);
+		}
+
+		public function informe_anulados() {
+			$fecha_inicio = $this->request->data['fechaIni6'];
+			$fecha_fin = $this->request->data['fechaFin6'];
+			$rolUsuario = $this->request->data['rolUsuarioAnulado'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('rolUsuario', $rolUsuario);
+
+			$usuarios = array();
+
+			if($rolUsuario == "Todos"){
+				$usuarios = $this->User->find('all',array(
+		 						'order' => 'User.fecha_anulacion',
+		 						'conditions' => array(
+		 											'User.fecha_anulacion >=' => $fecha_inicio.' 00:00:00',
+		 											'User.fecha_anulacion <=' => $fecha_fin.' 23:59:59',
+		 											'User.estado' => false
+		 										)
+		 					));
+
+			} else {
+				$usuarios = $this->User->find('all',array(
+		 						'order' => 'User.fecha_anulacion',
+		 						'conditions' => array(
+		 											'User.fecha_anulacion >=' => $fecha_inicio.' 00:00:00',
+		 											'User.fecha_anulacion <=' => $fecha_fin.' 23:59:59',
+		 											"User.rol_id" => $rolUsuario,
+		 											'User.estado' => false
+		 										)
+		 					));
+			}
+			
+			$this->set('roles', $this->Rol->find('all'));
+			$this->set('usuarios', $usuarios);
 		}
 
 		#========================Android==========================#

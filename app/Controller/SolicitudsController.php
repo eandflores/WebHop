@@ -1,7 +1,8 @@
 <?php
 	class SolicitudsController extends AppController {
 		public $name = 'Solicituds';
-		var $uses = array('Solicitud','User');
+		var $uses = array('Solicitud','User','Local');
+
 		public function beforeFilter() {
 			parent::beforeFilter();
 			$this->Auth->allow('solicitudes','actualizarSolicitud');
@@ -79,7 +80,110 @@
 				}
 			}
 		}
+
+		public function informe() {
+			$fecha_inicio = $this->request->data['fechaIni1'];
+			$fecha_fin = $this->request->data['fechaFin1'];
+			$estado = $this->request->data['estado'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('estado', $estado);
+
+			$solicitudes = array();
+
+			if($estado == "Todos"){
+				$solicitudes = $this->Solicitud->find('all',array(
+		 						'order' => 'Solicitud.created',
+		 						'conditions' => array(
+		 											'Solicitud.estado' => array("Aprobado","Rechazado"),
+		 											'Solicitud.modified >=' => $fecha_inicio.' 00:00:00',
+		 											'Solicitud.modified <=' => $fecha_fin.' 23:59:59',
+		 										)
+		 					));
+			}
+			else if($estado == "Creadas"){
+				$solicitudes = $this->Solicitud->find('all',array(
+		 						'order' => 'Solicitud.created',
+		 						'conditions' => array(
+		 											'Solicitud.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Solicitud.created <=' => $fecha_fin.' 23:59:59',
+		 										)
+		 					));
+			}
+			else{
+				$solicitudes = $this->Solicitud->find('all',array(
+		 						'order' => 'Solicitud.created',
+		 						'conditions' => array(
+		 											'Solicitud.estado' => $estado,
+		 											'Solicitud.modified >=' => $fecha_inicio.' 00:00:00',
+		 											'Solicitud.modified <=' => $fecha_fin.' 23:59:59',
+		 										)
+		 					));
+			}
+
+			$this->set('usuarios', $this->User->find('all'));
+			$this->set('solicitudes', $solicitudes);
+		}
+
+		public function informe_local() {
+			$fecha_inicio = $this->request->data['fechaIni1'];
+			$fecha_fin = $this->request->data['fechaFin1'];
+			$estado = $this->request->data['estado'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('estado', $estado);
+
+			$solicitudes = array();
+			$localesId = array();
+
+			$conditionsl = array("Local.admin_id" => $this->current_user['id']);
+			$locales = $this->Local->find('all',array('conditions' => $conditionsl, 'order' => array('Local.nombre')));
+
+			foreach ($locales as $index => $local) {
+				array_push($localesId,$local['Local']['id']);
+			}
+
+			if($estado == "Todos"){
+				$solicitudes = $this->Solicitud->find('all',array(
+		 						'order' => 'Solicitud.created',
+		 						'conditions' => array(
+		 											'Solicitud.estado' => array("Aprobado","Rechazado"),
+		 											'Solicitud.modified >=' => $fecha_inicio.' 00:00:00',
+		 											'Solicitud.modified <=' => $fecha_fin.' 23:59:59',
+		 											'Solicitud.local_id' => $localesId
+		 										)
+		 					));
+			}
+			else if($estado == "Creadas"){
+				$solicitudes = $this->Solicitud->find('all',array(
+		 						'order' => 'Solicitud.created',
+		 						'conditions' => array(
+		 											'Solicitud.created >=' => $fecha_inicio.' 00:00:00',
+		 											'Solicitud.created <=' => $fecha_fin.' 23:59:59',
+		 											'Solicitud.local_id' => $localesId
+		 										)
+		 					));
+			}
+			else{
+				$solicitudes = $this->Solicitud->find('all',array(
+		 						'order' => 'Solicitud.created',
+		 						'conditions' => array(
+		 											'Solicitud.estado' => $estado,
+		 											'Solicitud.modified >=' => $fecha_inicio.' 00:00:00',
+		 											'Solicitud.modified <=' => $fecha_fin.' 23:59:59',
+		 											'Solicitud.local_id' => $localesId
+		 										)
+		 					));
+			}
+
+			$this->set('usuarios', $this->User->find('all'));
+			$this->set('solicitudes', $solicitudes);
+		}
+
 		//--------------------------ANDROID-------------------------//
+		
 		public function solicitudes(){
 			$this->autoRender = false;
 			$solicitudes = $this->Solicitud->find('all',array(

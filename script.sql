@@ -104,6 +104,7 @@ Create Table Productos
 (
    id                    Serial Unique not null,
    nombre                Varchar(30) not null,
+   visitas               Integer,
    subcategoria_producto_id Integer not null,
    user_id               Integer not null,
    created               Timestamp not null,
@@ -208,7 +209,7 @@ Create Table Ofertas
 Create Table Solicituds
 ( 
    id       Serial Unique not null,
-   estado   Varchar(10) not null, -- Aprobada,Rechazada,Pendiente
+   estado   Varchar(10) not null, -- Aprobado,Rechazado,Pendiente
    sql      Varchar(1000) not null,
    accion   Varchar(10) not null,       
    tabla    Varchar(20) not null,

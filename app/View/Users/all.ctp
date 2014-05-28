@@ -53,5 +53,5 @@
         <?php } ?>
       </tbody>
   </table>
-</div>
   <a href="/Hop/Users/add" class="Agregar btn btn-primary">Agregar</a>
+</div>

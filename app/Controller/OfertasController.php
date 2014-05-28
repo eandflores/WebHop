@@ -227,6 +227,208 @@
 			)));
 		}
 
+		public function informe() {
+			$fecha_inicio = $this->request->data['fechaIni7'];
+			$fecha_fin = $this->request->data['fechaFin7'];
+			$local = $this->request->data['local'];
+			$producto = $this->request->data['producto'];
+			$marca = $this->request->data['marca'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('local', $local);
+			$this->set('producto', $producto);
+			$this->set('marca', $marca);
+
+			$ofertas = array();
+
+			if($local != "Todos" && $producto != "Todos" && $marca != "Todas"){
+
+				$this->set('loc',$this->Local->read(null,$local));
+				$this->set('product',$this->Producto->read(null,$producto));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $local,
+	 											"Oferta.producto_id" => $producto,
+	 											"Oferta.marca" => $marca
+	 										)
+	 					));
+			} 
+			else if($local != "Todos" && $producto != "Todos"){
+
+				$this->set('loc',$this->Local->read(null,$local));
+				$this->set('product',$this->Producto->read(null,$producto));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $local,
+ 												"Oferta.producto_id" => $producto
+	 										)
+	 					));
+			}
+			else if($local != "Todos" && $marca != "Todas"){
+
+				$this->set('loc',$this->Local->read(null,$local));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $local,
+ 												"Oferta.marca" => $marca
+	 										)
+	 					));
+			}
+			else if($producto != "Todos" && $marca != "Todas"){
+
+				$this->set('product',$this->Producto->read(null,$producto));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.producto_id" => $producto,
+ 												"Oferta.marca" => $marca
+	 										)
+	 					));
+			}
+			else if($local != "Todos"){
+
+				$this->set('loc',$this->Local->read(null,$local));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $local
+	 										)
+	 					));
+			}
+			else if($producto != "Todos"){
+
+				$this->set('product',$this->Producto->read(null,$producto));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.producto_id" => $producto
+	 										)
+	 					));
+			}
+			else if($marca != "Todas"){ 
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+ 												"Oferta.marca" => $marca
+	 										)
+	 					));
+			}
+			else{ 
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59'
+	 										)
+	 					));
+			}
+			
+			$this->set('ofertas', $ofertas);
+		}
+
+		public function informe_local() {
+			$fecha_inicio = $this->request->data['fechaIni2'];
+			$fecha_fin = $this->request->data['fechaFin2'];
+			$producto = $this->request->data['producto'];
+			$marca = $this->request->data['marca'];
+
+			$this->set('fecha_inicio', $fecha_inicio);
+			$this->set('fecha_fin', $fecha_fin);
+			$this->set('producto', $producto);
+			$this->set('marca', $marca);
+
+			$ofertas = array();
+			$localesId = array();
+
+			$conditionsl = array("Local.admin_id" => $this->current_user['id']);
+			$locales = $this->Local->find('all',array('conditions' => $conditionsl, 'order' => array('Local.nombre')));
+
+			foreach ($locales as $index => $local) {
+				array_push($localesId,$local['Local']['id']);
+			}
+
+			if($producto != "Todos" && $marca != "Todas"){
+
+				$this->set('product',$this->Producto->read(null,$producto));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $localesId,
+	 											"Oferta.producto_id" => $producto,
+	 											"Oferta.marca" => $marca
+	 										)
+	 					));
+			} 
+			else if($producto != "Todos"){
+
+				$this->set('product',$this->Producto->read(null,$producto));
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $localesId,
+	 											"Oferta.producto_id" => $producto
+	 										)
+	 					));
+			}
+			else if($marca != "Todas"){
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $localesId,
+	 											"Oferta.marca" => $marca
+	 										)
+	 					));
+			}
+			else{
+
+				$ofertas = $this->Oferta->find('all',array(
+	 						'order' => 'Oferta.created',
+	 						'conditions' => array(
+	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
+	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
+	 											"Oferta.local_id" => $localesId
+	 										)
+	 					));
+			}
+			
+			$this->set('ofertas', $ofertas);
+		}
+
 		//========================================== ANDROID ===========================================//
 		
 		public function ofertas(){
