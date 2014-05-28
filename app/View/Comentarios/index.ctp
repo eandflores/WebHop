@@ -20,7 +20,7 @@
           if(isset($comentarios)){
             if($current_user['rol_id']=="3"){
               foreach ($comentarios as $index => $comentario) { 
-                if($current_user['local_id'] == $comentario['Comentario']['local_id']){?>
+                if($current_user['id'] == $comentario['Local']['admin_id']){?>
                   <tr>
                     <td><?php echo $indice; $indice ++;?></td>
                     <td><?php echo $comentario['User']['username'] ?></td>

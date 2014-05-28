@@ -65,10 +65,6 @@
             <?php echo $local['Comuna']['nombre'] ?>
           </li>
           <li>
-            <span>Región => </span>
-            <?php echo $local['Region']['nombre'] ?>
-          </li>
-          <li>
             <span>Teléfono Fijo => </span>
             <?php echo $local['Local']['telefono_fijo'] ?>
           </li>

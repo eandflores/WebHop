@@ -16,6 +16,12 @@
 			$this->set('comentarios', $this->Comentario->find('all'));
 		}
 
+		public function local($id) {
+			$conditions = array("Comentario.local_id" => $id);
+			$comentarios = $this->Comentario->find('all', array('conditions' => $conditions, 'order' => array('Comentario.created')));
+			$this->set('comentarios', $comentarios);
+		}
+
 		public function view($id) {
 			$this->set('comentario', $this->Comentario->read(null,$id));
 		}

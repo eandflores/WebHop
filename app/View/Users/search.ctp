@@ -217,6 +217,7 @@ form.clearfix {
         overflow: hidden;
         height: auto;
         margin-bottom: 10px;
+        width: 100%;
     }
 
     #marker_izq{

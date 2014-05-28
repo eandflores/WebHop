@@ -2,7 +2,7 @@
   
   #ver{
     padding: 20px;
-    width: 700px;
+    max-width: 90%;
     margin-left: 50px;
     margin-bottom: 15px;
     text-align: center;
@@ -12,9 +12,9 @@
     border-radius: 50px;
     border: 5px ridge lightgrey; 
     padding: 20px;
-    width: 500px;
-    margin: auto;
+    margin: 0 auto;
   }
+
 
 </style>
 

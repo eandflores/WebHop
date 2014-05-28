@@ -56,6 +56,7 @@ Create Table Users
    comuna_id            Integer not null,
    created              Timestamp not null,
    modified             Timestamp not null,
+   fecha_anulacion      Timestamp not null,
 
    Constraint PK_USERS Primary Key (id),
 
@@ -144,6 +145,7 @@ Create Table Locals
    visitas                 Integer,
    created                 Timestamp not null,
    modified                Timestamp not null,
+   fecha_anulacion         Timestamp not null,
 
    Constraint PK_LOCALS Primary Key (id),
 

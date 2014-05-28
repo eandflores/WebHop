@@ -15,9 +15,18 @@
 		}
 
 		public function index() {
+			if( $this->current_user['rol_id'] == 1) { 
 			$this->set('ofertas', $this->Oferta->find('all',array(
 				'order' => array('Oferta.local_id')
 			)));
+			}
+			elseif( $this->current_user['rol_id'] == 3) {
+				$conditions = array("Local.admin_id" => $this->current_user['id']);
+				$ofertas = $this->Oferta->find('all', array('conditions' => $conditions, 'order' => array('Local.nombre')));
+				$this->set('ofertas', $ofertas);
+			}
+			else	
+				$this->redirect(array('action' => 'index'));
 		}
 
 		public function view($local_id = null) {
@@ -26,6 +35,10 @@
 			)));
 
 			$this->set('local', $this->Local->read(null,$local_id));
+			$local=$this->Local->read(null,$local_id);
+			$visitas=$local['Local']['visitas']+1;
+			$this->Local->set(array('visitas' => $visitas));
+			$this->Local->save();
 		}
 
 		public function add($local_id = null) {
@@ -222,9 +235,17 @@
 		}
 
 		public function locales(){
-			$this->set('locales', $this->Local->find('all',array(
-				'order' => array('Local.nombre')
-			)));
+			if( $this->current_user['rol_id'] == 3) {
+				$conditions = array("Local.admin_id" => $this->current_user['id']);
+				$locales = $this->Local->find('all', array('conditions' => $conditions, 'order' => array('Local.nombre')));
+				$this->set('locales', $locales);
+			}
+			else{ 
+				$this->set('locales', $this->Local->find('all',array(
+					'order' => array('Local.nombre')
+				)));
+			}
+
 		}
 
 		//========================================== ANDROID ===========================================//
