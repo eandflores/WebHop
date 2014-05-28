@@ -13,10 +13,73 @@
 		}
 		
 		public function index() {
-			$this->set('solicitudes', $this->Solicitud->find('all',array(
-				'order' => array('Solicitud.estado')
-			)));
+			if( $this->current_user['rol_id'] == 3) {
+				$conditionsl = array("Local.admin_id" => $this->current_user['id']);
+				$locales = $this->Local->find('all',array('conditions' => $conditionsl, 'order' => array('Local.nombre')));
+				
+				$conditions1 = array();
+				foreach ($locales as $index => $local) {
+					array_push($conditions1, $local['Local']['id']);					
+				}
+
+				$conditions2 = array("Solicitud.estado" => "Pendiente", "Solicitud.local_id" => $conditions1);
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions2, 'order' => array('Solicitud.sql')));
+				$this->set('solicitudes', $solicitudes);
+			}
+			elseif( $this->current_user['rol_id'] == 1) { 
+				$conditions = array("Solicitud.estado" => "Pendiente");
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions, 'order' => array('Solicitud.sql')));
+				$this->set('solicitudes', $solicitudes);
+			}
+			else
+				$this->redirect(array('controller' => 'Users' , 'action' => 'index'));
 		}
+
+		public function rechazadas() {
+			if( $this->current_user['rol_id'] == 3) {
+				$conditionsl = array("Local.admin_id" => $this->current_user['id']);
+				$locales = $this->Local->find('all',array('conditions' => $conditionsl, 'order' => array('Local.nombre')));
+				
+				$conditions1 = array();
+				foreach ($locales as $index => $local) {
+					array_push($conditions1, $local['Local']['id']);					
+				}
+
+				$conditions2 = array("Solicitud.estado" => "Rechazado", "Solicitud.local_id" => $conditions1);
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions2, 'order' => array('Solicitud.sql')));
+				$this->set('solicitudes', $solicitudes);
+			}
+			elseif( $this->current_user['rol_id'] == 1) {  
+				$conditions = array("Solicitud.estado" => "Rechazado");
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions, 'order' => array('Solicitud.sql')));
+				$this->set('solicitudes', $solicitudes);
+			}
+			else
+				$this->redirect(array('controller' => 'Users' , 'action' => 'index'));
+		}
+		public function aprobadas() {
+			if( $this->current_user['rol_id'] == 3) {
+				$conditionsl = array("Local.admin_id" => $this->current_user['id']);
+				$locales = $this->Local->find('all',array('conditions' => $conditionsl, 'order' => array('Local.nombre')));
+				
+				$conditions1 = array();
+				foreach ($locales as $index => $local) {
+					array_push($conditions1, $local['Local']['id']);					
+				}
+
+				$conditions2 = array("Solicitud.estado" => "Aprobado", "Solicitud.local_id" => $conditions1);
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions2, 'order' => array('Solicitud.sql')));
+				$this->set('solicitudes', $solicitudes);
+			}
+			elseif( $this->current_user['rol_id'] == 1) { 
+				$conditions = array("Solicitud.estado" => "Aprobado");
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions, 'order' => array('Solicitud.sql')));
+				$this->set('solicitudes', $solicitudes);
+			}
+			else
+				$this->redirect(array('controller' => 'Users' , 'action' => 'index'));
+		}
+
 		public function view($id) {
 			$this->set('solicitud', $this->Solicitud->read(null,$id));
 			$admin_id = $this->Solicitud->data['Solicitud']['admin_id'];
@@ -195,6 +258,7 @@
 			}
 			echo json_encode($solicitudes_);
 		}
+		
 		public function actualizarSolicitud(){
 			$this->autoRender = false;
 			$mensaje = '';

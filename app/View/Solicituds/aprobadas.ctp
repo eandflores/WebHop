@@ -1,6 +1,6 @@
 <div class="margenIndex">
-  <h3 class="Titulo">Solicitudes Pendientes</h3>
-  <input type="hidden" class="TituloExport" value='<?php echo "Listado Solicitudes Pendientes ".date("d-m-Y"); ?>'>
+  <h3 class="Titulo">Solicitudes Aprobadas</h3>
+  <input type="hidden" class="TituloExport" value='<?php echo "Listado Solicitudes Aprobadas ".date("d-m-Y"); ?>'>
 
   <table class="table table-bordered datatable">
     <thead>
@@ -32,14 +32,6 @@
                 <a href="/Hop/Solicituds/view/<?php echo $solicitud['Solicitud']['id'] ?>">
                   <i class='icon icon-zoom-in'></i>
                 </a>
-                <?php if($current_user['id'] == 3 || $solicitud['Solicitud']['local_id'] == null ) { ?>
-                          <a href="/Hop/Solicituds/aprobar/<?php echo $solicitud['Solicitud']['id'] ?>" onclick="return confirm('Esta seguro que desea aprobar la solicitud ?');">
-                            <i class='icon icon-ok'></i>
-                          </a>
-                          <a href="/Hop/Solicituds/rechazar/<?php echo $solicitud['Solicitud']['id'] ?>" onclick="return confirm('Esta seguro que desea rechazar la solicitud ?');">
-                          <i class='icon icon-remove'></i>
-                        </a>
-                <?php } ?>
               </td>
             </tr>
         <?php 

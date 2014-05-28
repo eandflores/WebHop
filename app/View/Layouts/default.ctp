@@ -63,13 +63,21 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">SOLICITUDES <b class="caret"></b></a>
-                <ul class="dropdown-menu" id="swatch-menu">                
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">COMENTARIOS <b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
                   <li><a href="/Hop/Comentarios">Comentarios</a></li>
                   <li class="divider"></li>
                   <li><a href="/Hop/Sugerencias">Sugerencias</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">SOLICITUDES <b class="caret"></b></a>
+                <ul class="dropdown-menu" id="swatch-menu">
+                  <li><a href="/Hop/Solicituds">Pendientes</a></li>
                   <li class="divider"></li>
-                  <li><a href="/Hop/Solicituds">Solicitudes</a></li>
+                  <li><a href="/Hop/Solicituds/aprobadas">Aprobadas</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Solicituds/rechazadas">Rechazadas</a></li>
                 </ul>
               </li>
               <li>
@@ -86,11 +94,16 @@
                 <a href="/Hop/Ofertas">PRODUCTOS</a>
               </li>
               <li class="dropdown">
+                <a href="/Hop/Comentarios">COMENTARIOS</a>
+              </li>
+              <li class="dropdown">
                 <a class="dropdown-toggle item-menu" data-toggle="dropdown" href="#">SOLICITUDES <b class="caret"></b></a>
                 <ul class="dropdown-menu" id="swatch-menu">
-                  <li><a href="/Hop/Comentarios">Comentarios</a></li>
+                  <li><a href="/Hop/Solicituds">Pendientes</a></li>
                   <li class="divider"></li>
-                  <li><a href="/Hop/Solicituds">Solicitudes</a></li>
+                  <li><a href="/Hop/Solicituds/aprobadas">Aprobadas</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/Hop/Solicituds/rechazadas">Rechazadas</a></li>
                 </ul>
               </li>
               <li>

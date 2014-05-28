@@ -34,9 +34,13 @@
 		}
 
 		public function all() {
-			$this->set('usuarios', $this->User->find('all',array(
-				'order' => array('User.nombre')
-			)));
+			if( $this->current_user['rol_id'] == 1) { 
+				$this->set('usuarios', $this->User->find('all',array(
+					'order' => array('User.nombre')
+				)));
+			}
+			else
+				$this->redirect(array('action' => 'index'));
 		}
 
 		public function view($id) {
@@ -55,6 +59,8 @@
 				$rut = $this->request->data['rut'];
 				$username = $this->request->data['username'];
 				$email = $this->request->data['email'];
+				$password = $this->request->data['password'];
+				$password2 = $this->request->data['password2'];
 
 				$this->set('rut', $rut);
 				$this->set('username', $username);
@@ -69,7 +75,6 @@
 				$this->set('numero', $this->request->data['numero']);
 
 				$this->set('_rol', $this->request->data['rol_id']);
-				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				$this->request->data['img']= "";
 
@@ -81,7 +86,7 @@
 	                $uploadFolder = "img/upload/img_local";
 	                $uploadPath = WWW_ROOT . $uploadFolder;
 	               
-	                foreach ($imageTypes as $type) {
+	                foreach ($imageTypes as $type) {	
 	                	if($image['type'] == ""){
 	                		$mensaje = "VACIO";
 	                		$this->request->data['img']='/Hop/img/user.png';
@@ -115,14 +120,19 @@
 
 
 				if($mensaje == "EXITO" || $mensaje == "VACIO"){
-					if($this->User->findByrut($rut)){
-						$this->Session->setFlash('El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					if(!empty($rut) && $rut != " "){
+						if($this->User->findByrut($rut)){
+							$this->Session->setFlash('El usuario no se pudo ingresar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
+						}
 					} 
 					elseif($this->User->findByusername($username)){
 						$this->Session->setFlash('El usuario no se pudo ingresar, el username '.$username.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					} 
 					elseif($this->User->findByemail($email)){
 						$this->Session->setFlash('El usuario no se pudo ingresar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					} 
+					elseif($password != $password2){
+						$this->Session->setFlash('El usuario no se pudo ingresar, los password no coinciden.','default', array("class" => "alert alert-error"));
 					} 
 					else{
 						if ($this->User->save($this->request->data)) {
@@ -143,9 +153,6 @@
 
 			$this->set('roles',$this->Rol->find('all',array(
 				'order' => array('Rol.nombre')
-			)));
-			$this->set('regiones',$this->Region->find('all',array(
-				'order' => array('Region.nombre')
 			)));
 			$this->set('comunas',$this->Comuna->find('all',array(
 				'order' => array('Comuna.nombre')
@@ -173,11 +180,10 @@
 				$this->set('telefono_movil', $this->request->data['telefono_movil']);
 
 				$this->set('_rol', $this->request->data['rol_id']);
-				$this->set('_region', $this->request->data['region_id']);
 				$this->set('_comuna', $this->request->data['comuna_id']);
 				$this->User->set(array('modified' => date("d-m-Y H:i:s")));
 				
-				$conditions1 = array("User.rut" => $rut,"User.id !=" => $id);
+				$conditions1 = array("User.rut" => $rut, "User.rut !=" => ' ', "User.id !=" => $id);
 				$conditions2 = array("User.email" => $email,"User.id !=" => $id);
 
 				if ($this->data['Image']) {
@@ -217,17 +223,15 @@
                 	}
             	}
 
-
 				if($mensaje == "EXITO" || $mensaje == "VACIO"){
-					if(!empty($rut)){
-						if($this->User->find('first', array('conditions' => $conditions1))){
-							$this->Session->setFlash('El usuario no se pudo actualizar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
-						} 
-					}
+					if($this->User->find('first', array('conditions' => $conditions1))){
+						$this->Session->setFlash('El usuario no se pudo actualizar, el rut '.$rut.' ya esta registrado.','default', array("class" => "alert alert-error"));
+					} 
 					elseif($this->User->find('first', array('conditions' => $conditions2))){
 						$this->Session->setFlash('El usuario no se pudo actualizar, el mail '.$email.' ya esta registrado.','default', array("class" => "alert alert-error"));
 					} 
 					else{
+						debug($this->request->data);
 						if ($this->User->save($this->request->data)) {
 							$this->Session->setFlash('El usuario ha sido actualizado exitosamente.','default', array("class" => "alert alert-success"));
 							$this->redirect(array('action' => 'all'));
@@ -253,6 +257,7 @@
 				if (($cont_admin > 1 && $actual['User']['rol_id'] == 1) || $actual['User']['rol_id'] != 1 ) {
 
 					$this->User->set(array('estado' => false));
+					$this->User->set(array('fecha_anulacion' => date("d-m-Y H:i:s")));
 
 					if ($this->User->save()) {
 						$this->Session->setFlash('El usuario ha sido deshabilitado','default', array("class" => "alert alert-success"));
@@ -311,31 +316,66 @@
 		}
 
 		public function asociadosall() {
-			$this->set('locales', $this->Local->find('all',array(
-				'order' => array('Local.admin_id')
-			)));
-
-			$options['joins'] = array(
-			array('table' => 'User',
-			    'alias' => 'User',
-			    'type' => 'LEFT',
-			    'conditions' => array(
-			        'Local.admin_id = User.id',
-			    )
-			  )
-			);
-			$todos=$this->Local->find('all', $options);
-			debug($todos);
+			if( $this->current_user['rol_id'] == 1) { 
+				$this->set('usuarios', $this->User->find('all',array(
+					'order' => array('User.nombre')
+				)));
+			}
+			else
+				$this->redirect(array('action' => 'index'));
 		}
 
 		public function asociadosview($id) {
-			$this->set('usuario', $this->User->read(null,$id));
+			$usuario = $this->User->read(null,$id);
+			$conditions = array("Local.admin_id" => $usuario['User']['id']);
+			$locales = $this->Local->find('all',array('conditions'=>$conditions));
+			$conditions2 = array("Local.admin_id" => null);
+			$locales_all = $this->Local->find('all',array('conditions'=>$conditions2));
+			$this->set('usuario',$usuario);
+			$this->set('locales',$locales);
+			$this->set('locales_all',$locales_all);
 		}
 
-		public function asociadosadd() {
-			$this->set('usuarios', $this->User->find('all',array(
-				'order' => array('User.nombre')
-			)));
+		public function asociadosadd($user_id = null) {
+
+			if ($this->request->is('post')) {
+				
+				$locales_id = $this->request->data['locales'];
+				$usuario = $this->request->data['usuario'];
+
+				$cont=$this->Local->find('count', array('conditions' => array("Local.admin_id" => $usuario)));
+				
+				foreach($locales_id as $index => $local_id){
+					$this->Local->read(null,$locales_id[$index]);
+					$this->Local->set(array('admin_id' => $usuario));
+					if ($this->Local->save()) {
+						$cont = $cont-1;
+					}	
+				}
+				
+				if ($cont == 0 || $cont == -1) {
+					$this->Session->setFlash('Los locales han sido asociados exitosamente.','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'asociadosall'));
+				}
+				else{
+					$this->Session->setFlash('Los locales no fuerón asociados , intente nuevamente.','default', array("class" => "alert alert-error"));
+					$this->redirect(array('action' => 'asociadosall'));
+				}	
+			}
+		}
+
+		public function asociadosdelete($local_id = null){
+			$this->Local->read(null,$local_id);
+			$this->Local->set(array('admin_id' => null));
+
+			if ($this->Local->save()) {
+					$this->Session->setFlash('El local ha sido asociado exitosamente','default', array("class" => "alert alert-success"));
+					$this->redirect(array('action' => 'asociadosall'));
+				} 
+			else {
+				$this->Session->setFlash('El local no fue asociado exitosamente, intente nuevamente.','default', array("class" => "alert alert-error"));
+				$this->redirect(array('action' => 'asociadosall'));
+			}			
 		}
 
 		public function logout(){
@@ -404,6 +444,7 @@
 			$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
 			$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
 			$nombre = strtolower(str_replace($no_permitidas, $permitidas ,$nombre));
+			$nombre = ucwords ($nombre);
 			$this->set('nombre', $nombre);
 			$this->set('loc_id', $local_id);
 			$conditions = array("Producto.nombre" => $nombre);
@@ -413,11 +454,26 @@
 			$buscadoN=$this->Producto->find('all',array('conditions'=>$conditionsN));
 			
 			if(!empty($buscado)){
-				$buscado_id=$buscado['Producto']['id'];
+
+				$this->Producto->read(null,$buscado['Producto']['id']);
+				$visitas_producto=$buscado['Producto']['visitas']+1;
+				$this->Producto->set(array('visitas' => $visitas_producto));
+				$this->Producto->save();
+
+				$buscado_id=$buscado['Producto']['id'];				
 				$conditions2 = array("Oferta.producto_id" => $buscado_id);
 				$buscado_oferta=$this->Oferta->find('all',array('conditions'=>$conditions2));
+
 				if(!empty($buscado_oferta)){
-					$buscado_oferta = Set::sort($buscado_oferta, '{n}.Local.votos_positivos', 'desc');
+					
+					foreach ($buscado_oferta as $index => $busc_ofer) {
+						$this->Oferta->read(null,$busc_ofer['Oferta']['id']);
+						$visitas_oferta=$busc_ofer['Oferta']['visitas']+1;
+						$this->Oferta->set(array('visitas' => $visitas_oferta));
+						$this->Oferta->save();
+					}
+
+					$buscado_oferta = Set::sort($buscado_oferta, '{n}.Local.visitas', 'desc');
 					$cont_local = count($buscado_oferta);
 					$buscado_local = array();
 					$indice = 1;
@@ -431,6 +487,7 @@
 						}
 					}
 					$this->set('buscado_local',$buscado_local);
+
 					
 				}
 				else 

@@ -15,9 +15,18 @@
 		}
 
 		public function index() {
-			$this->set('locales', $this->Local->find('all',array(
-				'order' => array('Local.nombre')
-			)));
+			if( $this->current_user['rol_id'] == 1) { 
+				$this->set('locales', $this->Local->find('all',array(
+					'order' => array('Local.nombre')
+				)));
+			}
+			elseif( $this->current_user['rol_id'] == 3) {
+				$conditions = array("Local.admin_id" => $this->current_user['id']);
+				$locales = $this->Local->find('all', array('conditions' => $conditions, 'order' => array('Local.nombre')));
+				$this->set('locales', $locales);
+			}
+			else	
+				$this->redirect(array('action' => 'index'));
 		}
 
 		public function view($id) {
@@ -276,6 +285,7 @@
 			else {
 				$this->Local->read(null,$id);
 				$this->Local->set(array('estado' => false));
+				$this->Local->set(array('fecha_anulacion' => date("d-m-Y H:i:s")));
 
 				if ($this->Local->save()) {
 					$this->Session->setFlash('El local ha sido deshabilitado','default', array("class" => "alert alert-success"));

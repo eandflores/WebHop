@@ -55,8 +55,14 @@
                     <?php echo "Deshabilitado" ?>
             <?php } ?>
           </li>
+          <?php if($usuario['User']['estado'] != true){ ?>
           <li>
-            <span>Rol => </span>
+            <span>Fecha de Desabilitación => </span>
+            <?php echo $usuario['User']['fecha_anulacion'] ?>
+          </li>
+          <?php } ?>
+          <li>
+            <span>Tipo de Usuario => </span>
             <?php echo $usuario['Rol']['nombre'] ?>
           </li>
           <li>
@@ -69,15 +75,11 @@
           </li>
           <li>
             <span>Dirección => </span>
-            <?php echo $usuario['User']['calle']." ".$usuario['User']['numero'] ?>
+            <?php echo $usuario['User']['calle']." #".$usuario['User']['numero'].", ".$usuario['User']['poblacion'] ?>
           </li>
           <li>
             <span>Comuna => </span>
             <?php echo $usuario['Comuna']['nombre'] ?>
-          </li>
-          <li>
-            <span>Región => </span>
-            <?php echo $usuario['Region']['nombre'] ?>
           </li>
           <li>
             <span>Teléfono Fijo => </span>

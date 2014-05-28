@@ -21,6 +21,12 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="inputPassword2">Password:</label>
+            <div class="controls">
+              <input type="password" id="inputPassword2" name="password2" placeholder="Password" maxlength="50" required>
+            </div>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="inputEmail">Email:</label>
             <div class="controls">
               <input type="email" id="inputEmail" name="email" placeholder="Email" value="<?php if(!empty($email)){ echo $email; } ?>" maxlength="50" required>
@@ -64,6 +70,28 @@
         <?php 
         endif; ?>
 
+        <div class="control-group">
+            <label class="control-label" for="selectComuna">Comuna:</label>
+            <div class="controls">
+              <select required id="selectComuna" name="comuna_id">
+                <?php if(isset($comunas)){   
+                    foreach ($comunas as $index => $comuna) { 
+                        if(!empty($_comuna) && $_comuna == $comuna['Comuna']['id']){ ?>
+                            <option value="<?php echo $comuna['Comuna']['id']; ?>" selected>
+                                <?php echo $comuna['Comuna']['nombre']; ?>
+                            </option>
+                    <?php }
+                          else{ ?>
+                            <option value="<?php echo $comuna['Comuna']['id']; ?>">
+                                <?php echo $comuna['Comuna']['nombre']; ?>
+                            </option>
+                    <?php } 
+                        } 
+                     } ?>
+              </select>
+            </div>
+        </div>
+
         <legend>Datos Opcionales</legend>
         <div class="control-group">
             <label class="control-label" for="ImageImage">Imagen: </label>
@@ -100,48 +128,6 @@
             <label class="control-label" for="inputFechaNac">Fecha de Nacimiento:</label>
             <div class="controls">
               <input type="date" id="inputFechaNac" name="fecha_nacimiento" max="<?php echo date("Y-m-d") ?>" value="<?php if(!empty($fecha_nacimiento)){ echo $fecha_nacimiento; } else { echo date("Y-m-d"); } ?>">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="selectRegion">Region:</label>
-            <div class="controls">
-              <select id="selectRegion" name="region_id">
-                <?php if(isset($regiones)){
-                        foreach ($regiones as $index => $region) {
-                          if(!empty($_region) && $_region == $region['Region']['id']){ ?>
-                            <option value="<?php echo $region['Region']['id']; ?>" selected>
-                                <?php echo $region['Region']['nombre']; ?>
-                            </option>
-                    <?php }
-                          else{ ?>
-                            <option value="<?php echo $region['Region']['id']; ?>">
-                                <?php echo $region['Region']['nombre']; ?>
-                            </option>
-                    <?php } 
-                        }
-                      } ?>
-              </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="selectComuna">Comuna:</label>
-            <div class="controls">
-              <select id="selectComuna" name="comuna_id">
-                <?php if(isset($comunas)){
-                        foreach ($comunas as $index => $comuna) { 
-                          if(!empty($_comuna) && $_comuna == $comuna['Comuna']['id']){ ?>
-                            <option value="<?php echo $comuna['Comuna']['id']; ?>" selected>
-                                <?php echo $comuna['Comuna']['nombre']; ?>
-                            </option>
-                    <?php }
-                          else{ ?>
-                            <option value="<?php echo $comuna['Comuna']['id']; ?>">
-                                <?php echo $comuna['Comuna']['nombre']; ?>
-                            </option>
-                    <?php } 
-                        }
-                      } ?>
-              </select>
             </div>
         </div>
         <div class="control-group">
