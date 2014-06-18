@@ -1,4 +1,44 @@
 <div class="margenIndex">
+  <h3 class="Titulo">Productos asociados al Local - <?php if(isset($local)){ echo $local['Local']['nombre']; } ?></h3>
+  <input type="hidden" class="TituloExport" value='<?php echo "Listado Selección Locales ".date("d-m-Y"); ?>'>
+  <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Producto</th>
+          <th>Marca</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Local</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+          $indice = 1;
+          if(isset($ofertas)){
+                foreach ($ofertas as $index => $oferta){
+                  ?>
+                    <tr>
+                      <td><?php echo $indice; $indice ++;?></td>
+                      <td><?php echo $oferta['Producto']['nombre'] ?></td>
+                      <td><?php echo $oferta['Oferta']['marca'] ?></td>
+                      <td><?php echo $oferta['Oferta']['descripcion'] ?></td>
+                      <td><?php echo $oferta['Oferta']['precio'] ?></td>
+                      <td><?php echo $oferta['Local']['nombre'] ?></td>
+                    </tr>
+            <?php } 
+          }
+
+          else{ ?>
+            <tr>
+              <td colspan='6'>No hay Ofertas en la Base de Datos</td>
+            </tr>
+      <?php } ?>
+      </tbody>
+  </table>
+</div>  
+
+<div class="margenIndex">
   <h3 class="Titulo">Agregar producto a Local - <?php if(isset($local)){ echo $local['Local']['nombre']; } ?></h3>
   <form style="margin-left:0px;" method="post" id="formOfertas">
     <table class="table table-bordered datatable">

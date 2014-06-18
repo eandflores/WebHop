@@ -31,11 +31,11 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Postgres',
 		'persistent' => false,
-		'host' => '186.103.146.219',
+		'host' => 'localhost',
 		'port' => '5432',
-		'login' => 'postgres',
-		'password' => 'clouder',
-		'database' => 'hop_nuevo',
+		'login' => 'edgardo',
+		'password' => '12qwaszx',
+		'database' => 'Hop',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);

@@ -7,7 +7,6 @@
     display:none;
   }
 </style>
-
 <div style="margin-right:50px">
   <h3 style="margin-left:50px">Reportes de Gestión</h3>
   <form class="form-horizontal well" enctype="multipart/form-data" method="post" accept-charset="utf-8" action="/Hop/Solicituds/informe_local">
@@ -22,6 +21,9 @@
           <div class="controls">
             <input type="date" id="inputFechaFin1" name="fechaFin1" value="<?php echo date("Y-m-d"); ?>" required>
           </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label">Tipo:</label>
           <div class="controls">
             <select name="estado">
               <option value="Creadas">Creadas</option>
@@ -36,7 +38,6 @@
       </div>
     </fieldset>
   </form>
-
   <form class="form-horizontal well" enctype="multipart/form-data" method="post" accept-charset="utf-8" action="/Hop/Ofertas/informe_local">
     <fieldset>
       <legend>Informe de ofertas agregadas por rango de fechas</legend>
@@ -82,6 +83,5 @@
   jQuery(document).ready(function() {  
     $('#selectProducto').val('Todos');
     $('#selectMarca').val('Todas');
-
   });
 </script>

@@ -6,7 +6,7 @@
 		var $uses = array('Oferta','Local','Producto','User','Solicitud');
 
 		public function beforeFilter() {
-			$this->Auth->allow('ofertas');
+			$this->Auth->allow('ofertas','view');
 
 			$this->current_user = $this->Auth->user();
 			$this->logged_in = $this->Auth->loggedIn();
@@ -29,16 +29,32 @@
 				$this->redirect(array('action' => 'index'));
 		}
 
-		public function view($local_id = null) {
-			$this->set('ofertas', $this->Oferta->find('all',array(
-				'order' => array('Oferta.local_id')
-			)));
+		public function view($local_id = null) { 
+			if (!empty($this->params->query)){
+				$producto_id = $this->params->query['prod'];
+				$local_id = $this->params->query['loc'];
 
-			$this->set('local', $this->Local->read(null,$local_id));
-			$local=$this->Local->read(null,$local_id);
-			$visitas=$local['Local']['visitas']+1;
-			$this->Local->set(array('visitas' => $visitas));
-			$this->Local->save();
+				$conditions = array("Oferta.producto_id" => $producto_id, "Oferta.local_id" => $local_id);
+				$ofertas = $this->Oferta->find('all', array('conditions' => $conditions, 'order' => array('Oferta.local_id')));
+				$this->set('ofertas', $ofertas);
+
+				$this->set('local', $this->Local->read(null,$local_id));
+				$local=$this->Local->read(null,$local_id);
+				$visitas=$local['Local']['visitas']+1;
+				$this->Local->set(array('visitas' => $visitas));
+				$this->Local->save();
+			}
+			else{
+				$this->set('ofertas', $this->Oferta->find('all',array(
+				'order' => array('Oferta.local_id')
+				)));
+
+				$this->set('local', $this->Local->read(null,$local_id));
+				$local=$this->Local->read(null,$local_id);
+				$visitas=$local['Local']['visitas']+1;
+				$this->Local->set(array('visitas' => $visitas));
+				$this->Local->save();
+			}
 		}
 
 		public function add($local_id = null) {
@@ -49,10 +65,13 @@
 				'fields'	     => 'Oferta.producto_id'
 			));
 
-			//if(count($ofertas) == 0){
-				$this->set('productos',$this->Producto->find('all',array(
+			$this->set('productos',$this->Producto->find('all',array(
 				'order' => array('Producto.nombre')
-				)));
+			)));
+
+			$ofertas = $this->Oferta->find('all', array('conditions' => array("Oferta.local_id" => $local_id)));
+			$this->set('ofertas',$ofertas, array('order' => array('Oferta.producto_id')
+				));
 				
 			$this->set('local',$this->Local->findByid($local_id));
 
@@ -241,9 +260,9 @@
 				$this->set('locales', $locales);
 			}
 			else{ 
-				$this->set('locales', $this->Local->find('all',array(
-					'order' => array('Local.nombre')
-				)));
+				$conditions = array("Local.admin_id" => null);
+				$locales = $this->Local->find('all', array('conditions' => $conditions, 'order' => array('Local.nombre')));
+				$this->set('locales', $locales);
 			}
 
 		}

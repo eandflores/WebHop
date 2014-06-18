@@ -41,6 +41,9 @@
                     <a href="/Hop/Comentarios/local/<?php echo $local['Local']['id'] ?>">
                       <i class='icon icon-comment'></i>
                     </a>
+                    <a href="/Hop/Ofertas/view/<?php echo $local['Local']['id'] ?>">
+                      <i class='icon icon-shopping-cart'></i>
+                    </a>
                     <?php if($local['Local']['admin_id'] == null || $current_user['id'] == $local['Local']['admin_id'])  { ?>
                       <a href="/Hop/Locals/edit/<?php echo $local['Local']['id'] ?>">
                         <i class='icon icon-edit'></i>

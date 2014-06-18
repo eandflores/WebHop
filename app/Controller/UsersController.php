@@ -13,7 +13,7 @@
 		public function beforeFilter() {
 			parent::beforeFilter();
 
-			$this->Auth->allow('index','add','guardar',
+			$this->Auth->allow('index','add','guardar','',
 				'loginAndroid','actualizarEmail','actualizarNombre',
 				'actualizarPassword','actualizarTelefono',
 				'actualizarDireccion','getUsuario','getDatos',
@@ -409,26 +409,15 @@
 		}
 
 		public function search(){
-			
-			$productos_all= $this->Producto->find('all',array(
-				'order' => array('Producto.nombre')
-			));
-			$comentarios_all= $this->Comentario->find('all',array(
+
+			$comentarios_all = $this->Comentario->find('all',array(
 				'order' => array('Comentario.created' => 'desc')
 			));
+
 			$this->set('comentarios', $comentarios_all);
 
-			$votoslocal_all= $this->VotosLocal->find('all',array(
-				'order' => array('VotosLocal.local_id' => 'desc')
-			));
 			$this->set('VotosLocal', $this->VotosLocal);
-
-			foreach ($productos_all as $index => $producto){
-				$productos[$index]=$producto['Producto']['nombre'];
-			}
 			
-			$this->set('productos_all', $productos);
-
 			if ($this->request->is('post')) {
 				$nombre = $this->request->data['nombre'];
 				$local_id = '';
@@ -444,23 +433,22 @@
 			$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
 			$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
 			$nombre = strtolower(str_replace($no_permitidas, $permitidas ,$nombre));
-			$nombre = ucwords ($nombre);
+			
 			$this->set('nombre', $nombre);
 			$this->set('loc_id', $local_id);
-			$conditions = array("Producto.nombre" => $nombre);
-			$buscado=$this->Producto->find('first',array('conditions'=>$conditions));
 
-			$conditionsN = array("Producto.nombre LIKE" => "%$nombre%");
-			$buscadoN=$this->Producto->find('all',array('conditions'=>$conditionsN));
+			$conditions = array("Producto.nombre" => $nombre);
+			$buscado = $this->Producto->find('first',array('conditions'=>$conditions));
 			
 			if(!empty($buscado)){
 
 				$this->Producto->read(null,$buscado['Producto']['id']);
-				$visitas_producto=$buscado['Producto']['visitas']+1;
+				$visitas_producto = $buscado['Producto']['visitas'] + 1;
 				$this->Producto->set(array('visitas' => $visitas_producto));
 				$this->Producto->save();
 
-				$buscado_id=$buscado['Producto']['id'];				
+				$buscado_id=$buscado['Producto']['id'];
+				$this->set('prod_id', $buscado_id);
 				$conditions2 = array("Oferta.producto_id" => $buscado_id);
 				$buscado_oferta=$this->Oferta->find('all',array('conditions'=>$conditions2));
 
@@ -478,6 +466,7 @@
 					$buscado_local = array();
 					$indice = 1;
 					$buscado_local[0]['Local'] = $buscado_oferta[0]['Local'];
+					
 					if($cont_local>1){
 						for ($index=0;$index<$cont_local-1; $index++){
 							if($buscado_oferta[$index]['Local']['id'] != $buscado_oferta[$index+1]['Local']['id']){
@@ -488,17 +477,59 @@
 					}
 					$this->set('buscado_local',$buscado_local);
 
-					
 				}
 				else 
 					$this->Session->setFlash('El producto buscado no esta asociado a ningun local','default', array("class" => "alert alert-error"));
 			}
-			else 
-				if(!empty($buscadoN)){
-					$this->set('buscadoN',$buscadoN);
+			else{
+				$nombres = explode(" ",$nombre);
+				$conditionFinal = array();
+
+				foreach ($nombres as $indexnombre => $nombre){
+					//Busca los que contengan el nombre
+					$conditionsN = array("Producto.nombre LIKE" => "%$nombre%");
+					//Busca los que contengan la subcategoria
+					$conditionsSub = array("SubcategoriaProducto.nombre LIKE" => "%$nombre%");
+
+					//Busca las marcas
+
+					//Busca los que contengan la marca
+					$conditionsM = array("Oferta.marca LIKE" => "%$nombre%");
+					$arrayM = $this->Oferta->find('all',array(
+						'conditions' => $conditionsM,
+						'fields' => array('Producto.id')
+					));
+
+					$idsM = array();
+
+					// Busca id productos de marca
+					foreach ($arrayM as $index => $marca){
+						array_push($idsM,$marca['Producto']['id']);
+					}
+
+					$conditionsM2 = array("SubcategoriaProducto.id" => $idsM);
+
+					array_push($conditionFinal, $conditionsN);
+					array_push($conditionFinal, $conditionsSub);
+					array_push($conditionFinal, $conditionsM2);
 				}
-				else	
+				
+
+				$buscadoN = $this->Producto->find('all',array(
+					'conditions'=> array(
+						'OR' => $conditionFinal
+					)
+				));
+
+				$buscadosMezcla = $buscadoN;
+
+				if(!empty($buscadosMezcla)){
+					$this->set('buscadoN',$buscadosMezcla);
+				}
+				else{
 					$this->Session->setFlash('El producto buscado no fue encontrado','default', array("class" => "alert alert-error"));
+				}	
+			}
 		}
 
 		public function informes(){

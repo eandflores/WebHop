@@ -7,7 +7,6 @@
     display:none;
   }
 </style>
-
 <div style="margin-right:50px">
   <h3 style="margin-left:50px">Reportes de Gestión</h3>
   <form class="form-horizontal well" enctype="multipart/form-data" method="post" accept-charset="utf-8" action="/Hop/Solicituds/informe">
@@ -22,6 +21,9 @@
           <div class="controls">
             <input type="date" id="inputFechaFin1" name="fechaFin1" value="<?php echo date("Y-m-d"); ?>" required>
           </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label">Tipo:</label>
           <div class="controls">
             <select name="estado">
               <option value="Creadas">Creadas</option>
@@ -36,7 +38,6 @@
       </div>
     </fieldset>
   </form>
-
   <form class="form-horizontal well" enctype="multipart/form-data" method="post" accept-charset="utf-8" action="/Hop/Locals/informe">
     <fieldset>
       <legend>Informe de locales agregados por rango de fechas</legend>
@@ -49,6 +50,9 @@
           <div class="controls">
             <input type="date" id="inputFechaFin2" name="fechaFin2" value="<?php echo date("Y-m-d"); ?>" required>
           </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label">Tipo:</label>
           <div class="controls">
             <select name="tipoLocal">
               <option value="Todos">Todos</option>
@@ -59,11 +63,9 @@
           <div class="controls">
             <input type="submit" class="btn btn-primary" name="btn2" value="Generar" required>
           </div>
-
       </div>
     </fieldset>
   </form>
-
   <form class="form-horizontal well" enctype="multipart/form-data" method="post" accept-charset="utf-8" action="/Hop/Users/informe">
     <fieldset>
       <legend>Informe de usuarios agregados por rango de fechas</legend>
@@ -76,6 +78,9 @@
           <div class="controls">
             <input type="date" id="inputFechaFin3" name="fechaFin3" value="<?php echo date("Y-m-d"); ?>" required>
           </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label">Rol:</label>
           <div class="controls">
             <select name="rolUsuario">
               <option value="Todos">Todos</option>
@@ -87,13 +92,12 @@
           <div class="controls">
             <input type="submit" class="btn btn-primary" name="btn3" value="Generar" required>
           </div>
-
       </div>
     </fieldset>
   </form>
   <form class="form-horizontal well" enctype="multipart/form-data" method="post" accept-charset="utf-8" action="/Hop/Productos/informe">
     <fieldset>
-      <legend>Informe de productos agregadas por rango de fechas</legend>
+      <legend>Informe de productos agregados por rango de fechas</legend>
       <div class="control-group">
           <label class="control-label" for="inputFechaIni4">Fecha Inicio:</label>
           <div class="controls">
@@ -165,6 +169,8 @@
         <?php } ?>
             </select>
           </div>
+      </div>
+      <div class="control-group">
           <label class="control-label" for="selectMarca">Marca:</label>
           <div class="controls">
             <select id="selectMarca" name="marca">
@@ -193,6 +199,9 @@
           <div class="controls">
             <input type="date" id="inputFechaFin5" name="fechaFin5" value="<?php echo date("Y-m-d"); ?>" required>
           </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label">Tipo:</label>
           <div class="controls">
             <select name="tipoLocalAnulado">
               <option value="Todos">Todos</option>
@@ -203,7 +212,6 @@
           <div class="controls">
             <input type="submit" class="btn btn-primary" name="btn5" value="Generar" required>
           </div>
-
       </div>
     </fieldset>
   </form>
@@ -219,6 +227,9 @@
           <div class="controls">
             <input type="date" id="inputFechaFin6" name="fechaFin6" value="<?php echo date("Y-m-d"); ?>" required>
           </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label">Rol:</label>
           <div class="controls">
             <select name="rolUsuarioAnulado">
               <option value="Todos">Todos</option>
@@ -230,7 +241,6 @@
           <div class="controls">
             <input type="submit" class="btn btn-primary" name="btn6" value="Generar" required>
           </div>
-
       </div>
     </fieldset>
   </form>
@@ -242,7 +252,6 @@
     $('#selectLocal').val('Todos');
     $('#selectProducto').val('Todos');
     $('#selectMarca').val('Todas');
-
     $('#selectCategoria').change(function(){
       var valor = $(this).val();
       

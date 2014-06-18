@@ -59,9 +59,7 @@ Create Table Users
    fecha_anulacion      Timestamp not null,
 
    Constraint PK_USERS Primary Key (id),
-
    Constraint FK_USERS_REFERENCE_ROLS Foreign Key (rol_id) references Rols (id),
-   Constraint FK_USERS_REFERENCE_REGIONS Foreign Key (region_id) references Regions (id),
    Constraint FK_USERS_REFERENCE_COMUNAS Foreign Key (comuna_id) references Comunas (id)
 );
 
@@ -139,7 +137,7 @@ Create Table Locals
    sitio_web               Varchar(50),
    estado                  Boolean not null default true,
    img                     Varchar(200),
-   subcategoria_local_id   Integer not null,
+   categoria_local_id   Integer not null,
    user_id                 Integer not null,
    admin_id                Integer,
    comuna_id               Integer not null,
@@ -150,9 +148,8 @@ Create Table Locals
 
    Constraint PK_LOCALS Primary Key (id),
 
-   Constraint FK_LOCALS_REFERENCE_SUBCATEGORIA_LOCALS Foreign Key (subcategoria_local_id) references Subcategoria_Locals (id),
+   Constraint FK_LOCALS_REFERENCE_CATEGORIA_LOCALS Foreign Key (categoria_local_id) references Categoria_Locals (id),
    Constraint FK_LOCALS_REFERENCE_USERS Foreign Key (user_id) references Users (id),
-   Constraint FK_LOCALS_REFERENCE_REGIONS Foreign Key (region_id) references Regions (id),
    Constraint FK_LOCALS_REFERENCE_COMUNAS Foreign Key (comuna_id) references Comunas (id)
 );
 
@@ -192,7 +189,7 @@ Create Table Ofertas
 (
    id          Serial Unique not null,
    precio      Integer,
-   descripcion Varchar(25) not null,
+   marca       Varchar(25) not null,
    descripcion Varchar(500) not null,
    user_id     Integer not null,
    producto_id Integer not null,
