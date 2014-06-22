@@ -144,7 +144,8 @@
 	 											'Producto.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Producto.created <=' => $fecha_fin.' 23:59:59',
 	 											"Producto.subcategoria_producto_id" => $subcategoria
-	 										)
+	 										),
+		 					'order' => array('Producto.visitas' => 'desc')
 	 					));
 			} else {
 				
@@ -155,7 +156,8 @@
 		 						'conditions' => array(
 		 											'Producto.created >=' => $fecha_inicio.' 00:00:00',
 		 											'Producto.created <=' => $fecha_fin.' 23:59:59',
-		 										)
+		 										),
+		 						'order' => array('Producto.visitas' => 'desc')
 		 					));
 				}
 				else{
@@ -168,7 +170,8 @@
 		 											'Producto.created >=' => $fecha_inicio.' 00:00:00',
 		 											'Producto.created <=' => $fecha_fin.' 23:59:59',
 		 											"SubcategoriaProducto.categoria_producto_id" => $categoria
-		 										)
+		 										),
+		 						'order' => array('Producto.visitas' => 'desc')
 		 					));
 				}
 			}

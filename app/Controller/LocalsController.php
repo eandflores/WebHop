@@ -335,7 +335,8 @@
 		 						'conditions' => array(
 		 											'Local.created >=' => $fecha_inicio.' 00:00:00',
 		 											'Local.created <=' => $fecha_fin.' 23:59:59',
-		 										)
+		 										),
+		 						'order' => array('Local.visitas' => 'desc')
 		 					));
 
 			} else if($tipoLocal == "Administrados"){
@@ -345,7 +346,8 @@
 		 											'Local.created >=' => $fecha_inicio.' 00:00:00',
 		 											'Local.created <=' => $fecha_fin.' 23:59:59',
 		 											"not" => array("Local.admin_id" => null)
-		 										)
+		 										),
+		 						'order' => array('Local.visitas' => 'desc')
 		 					));
 			} else {
 				$locales = $this->Local->find('all',array(
@@ -354,7 +356,8 @@
 		 											'Local.created >=' => $fecha_inicio.' 00:00:00',
 		 											'Local.created <=' => $fecha_fin.' 23:59:59',
 		 											"Local.admin_id" => null
-		 										)
+		 										),
+		 						'order' => array('Local.visitas' => 'desc')
 		 					));
 			}
 			

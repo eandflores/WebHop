@@ -149,6 +149,8 @@
   echo $this->Html->script("bootstrap-tooltip.js");
   echo $this->Html->script("alertify.js");
   echo $this->Html->script("jquery.elastic.source.js");
+  echo $this->Html->script("highcharts.js");
+
 ?>
 
 

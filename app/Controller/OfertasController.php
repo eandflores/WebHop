@@ -288,7 +288,7 @@
 				$this->set('product',$this->Producto->read(null,$producto));
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -304,7 +304,7 @@
 				$this->set('product',$this->Producto->read(null,$producto));
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -318,7 +318,7 @@
 				$this->set('loc',$this->Local->read(null,$local));
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -332,7 +332,7 @@
 				$this->set('product',$this->Producto->read(null,$producto));
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -346,7 +346,7 @@
 				$this->set('loc',$this->Local->read(null,$local));
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -359,7 +359,7 @@
 				$this->set('product',$this->Producto->read(null,$producto));
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -370,7 +370,7 @@
 			else if($marca != "Todas"){ 
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59',
@@ -381,7 +381,7 @@
 			else{ 
 
 				$ofertas = $this->Oferta->find('all',array(
-	 						'order' => 'Oferta.created',
+	 						'order' => array('Oferta.visitas' => 'desc'),
 	 						'conditions' => array(
 	 											'Oferta.created >=' => $fecha_inicio.' 00:00:00',
 	 											'Oferta.created <=' => $fecha_fin.' 23:59:59'
