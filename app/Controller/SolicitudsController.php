@@ -248,11 +248,34 @@
 		//--------------------------ANDROID-------------------------//
 		
 		public function solicitudes(){
+
 			$this->autoRender = false;
-			$solicitudes = $this->Solicitud->find('all',array(
-						 						'conditions' => array('Solicitud.estado' => "Pendiente")
-						 					));
+
+			if($this->request->data['rol'] == 3) {
+				$conditionsl = array("Local.admin_id" => $this->request->data['id']);
+				$locales = $this->Local->find('all',array('conditions' => $conditionsl, 'order' => array('Local.nombre')));
+				
+				$conditions1 = array();
+				foreach ($locales as $index => $local) {
+					array_push($conditions1, $local['Local']['id']);					
+				}
+
+				$conditions2 = array("Solicitud.estado" => "Pendiente", "Solicitud.local_id" => $conditions1);
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions2));
+				$this->set('solicitudes', $solicitudes);
+			}
+			elseif( $this->request->data['rol'] == 1) { 
+				$conditions = array("Solicitud.estado" => "Pendiente");
+				
+				$solicitudes = $this->Solicitud->find('all', array('conditions' => $conditions));
+
+				$this->set('solicitudes', $solicitudes);
+			}
+
+			//ANTERIOR
+
 			$solicitudes_ = array();
+
 			foreach ($solicitudes as $index => $solicitud) {
 				$solicitudes_[$index] = $solicitud['Solicitud'];
 			}
