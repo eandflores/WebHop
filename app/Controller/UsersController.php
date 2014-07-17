@@ -766,7 +766,6 @@
 				$usuario['User']['poblacion'] = $this->request->data['poblacion'];
 				$usuario['User']['calle'] = $this->request->data['calle'];
 				$usuario['User']['numero'] = $this->request->data['numero'];
-				$usuario['User']['region_id'] = $this->request->data['region_id'];
 				$usuario['User']['comuna_id'] = $this->request->data['comuna_id'];
 
 				if ($this->User->save($usuario)) 
