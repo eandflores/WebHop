@@ -657,6 +657,7 @@
 
 			$mensaje = '';
 			$usuario = '';
+			$usuario['User'] = '';
 
 			if ($this->request->is('post')){
 				if($this->User->findByusername($this->request->data['username']))
