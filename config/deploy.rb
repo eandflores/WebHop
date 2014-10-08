@@ -7,12 +7,12 @@ set :scm, :git
 set :branch, 'master'
 set :use_sudo, true
 set :user, 'root'
-set :password, '12qwaszx'
+set :password, ''
 
-role :app, 'root@192.168.1.126'
-role :web, 'root@192.168.1.126'
+role :app, 'root@localhost'
+role :web, 'root@localhost'
 
-server '192.168.1.126', roles: [:web, :app], user: 'root'
+server 'localhost', roles: [:web, :app], user: 'root'
 
 set :stage, 'production'
 
